@@ -1,3 +1,9 @@
+<?php
+
+session_name("proyecto");
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -26,15 +32,51 @@
 
     <p id="titulo_2"><a href="index.php">Farzone</a></p>
     <input type="search" name="busqueda" value="" id="busq_2">
-    <p id="iniciar_sesion_header"><a href="vistas/inicio_sesion.php"><i class="fas fa-user-circle"></i>iniciar sesion</a></p>
+    <p id="iniciar_sesion_header"><a><i class="fas fa-user-circle"></i><?php if (isset($_SESSION["usuario"])) {
+
+                                                                          echo $_SESSION["usuario"];
+                                                                        } else {
+                                                                          echo "Login";
+                                                                        }
+                                                                        ?></a></p>
 
   </header>
+
+  <form method="$_POST" action="index.php">
+
+  <div class="opc_session">
+
+    <span><button id="cerrar_session"><i class="fas fa-times"></i></button></span>
+
+    <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
+    <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
+
+
+  </div>
+
+  <div class="opc_login">
+
+    <span><button id="cerrar_session2"><i class="fas fa-times"></i></button></span>
+
+    <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
+    <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
+
+
+  </div>
+
+  </form>
 
   <!--<input type="checkbox" name="" value="" id="menu">-->
 
   <nav id="menu_desplegable">
     <span>
-      <li><a href="vistas/inicio_sesion.php"><i class="fas fa-user-circle"></i>Iniciar sesión</a></li>
+      <li id="login"><a><i class="fas fa-user-circle"></i><?php if (isset($_SESSION["usuario"])) {
+
+                                                            echo $_SESSION["usuario"];
+                                                          } else {
+                                                            echo "Login";
+                                                          }
+                                                          ?></a></li>
       <li><a href="index.php"><i class="fas fa-home"></i>Inicio</a></li>
       <li><a href="#"><i class="fas fa-newspaper"></i>Noticias</a></li>
       <li><a href="#comunidad"><i class="fas fa-users"></i>Comunidades</a></li>
@@ -322,10 +364,9 @@
 </body>
 
 <script>
-
   var estadoMenu = false;
-  $(document).ready(function () {
-    $('header').children('label:first-child').click(function () {
+  $(document).ready(function() {
+    $('header').children('label:first-child').click(function() {
 
       if (estadoMenu == false) {
 
@@ -340,7 +381,7 @@
     });
 
     //Efecto rotatorio con pluggin externo
-    $('#arrow').mouseover(function () {
+    $('#arrow').mouseover(function() {
       $(this).rotate({
 
         angle: 0,
@@ -356,13 +397,12 @@
 
   // el scroll top
   //La cabecera debe mantenerse fija cuando se visualice el botón de ir hacia arriba y cierta transparencia
-  $(document).scroll(function () {
+  $(document).scroll(function() {
     var scroll = $(this).scrollTop();
-    if (scroll >= 1000 && estadoMenu3==false) {
+    if (scroll >= 1000 && estadoMenu3 == false) {
       // cuando el scroll llegue a ese punto cambiará la opacidad de la cabecera creando el efecto tranparente
       $('header').css("opacity", "0.7");
       if (window.matchMedia('(min-width: 1250px)').matches) {
-        console.log("hola");
         $('#up').fadeIn();
       }
 
@@ -372,68 +412,159 @@
       $('#up').fadeOut();
     }
     //Cuando se haga el click sobre el div(el boton de ir hacia arriba) 
-    $('#up').click(function () {
+    $('#up').click(function() {
 
       $('html').animate({
         scrollTop: 0
-      }, function () {
+      }, function() {
         $('html').stop(true);
       });
 
     });
 
-  });
+    if (window.matchMedia('(min-width: 1250px)').matches) {
+      $('.opc_login').css({
 
+        "visibility": "visible",
+
+      });
+    } else {
+      $('.opc_login').fadeOut();
+    }
+
+  });
 </script>
 
 
 <script>
-
   //Slider con jquery
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('.slider').bxSlider();
   });
 </script>
 
 <script>
-  var estadoMenu3=false;
-  $(document).ready(function () {
-    $("#icono_menu").click(function () {
-
-      console.log("hollaaaaaaaa");
-      
-
+  var control_bloqueo = false;
+  var estadoMenu3 = false;
+  $(document).ready(function() {
+    $("#icono_menu").click(function() {
       if (estadoMenu3 == false) {
-        console.log("hollaaaaaaaa_2");
         $("#menu_desplegable").css({
-          "transform" : "translate(-12px)",
+          "transform": "translate(-12px)",
           "z-index": "10001",
-          "opacity":"1",
+          "opacity": "1",
         });
 
         $('.bloqueo').css({
-          "display":"block",
+          "display": "block",
         });
 
-        estadoMenu3=true;
-  }
-
-  else {
-        console.log("hollaaaaaaaa_2");
+        estadoMenu3 = true;
+      } else {
         $("#menu_desplegable").css({
           "transform": "translate(-80vw,-40px)"
         });
 
-        $('.bloqueo').css({
-          "display":"none",
-        });
+        if (control_bloqueo == false) {
+          $('.bloqueo').css({
+            "display": "none",
+          });
+        }
 
-        estadoMenu3=false;
-  }
+        estadoMenu3 = false;
+      }
 
     });
-  });
 
+
+    /*Opciones login*/
+
+    $('#login').click(function() {
+      $(".opc_session").fadeIn();
+      $(".opc_session").css({
+        "transform": "translate(0vw,1vh)",
+      });
+
+      $('.bloqueo').css({
+        "display": "block",
+      });
+
+      $('#menu_desplegable').fadeOut();
+
+      control_bloqueo = true;
+
+    });
+
+    $('#cerrar_session').click(function() {
+
+      control_bloqueo = false;
+
+      $(".opc_session").fadeOut();
+      $(".opc_session").css({
+        "transform": "translate(0vw,-100vh)",
+      });
+
+
+
+      $('#menu_desplegable').fadeIn();
+    });
+
+    if (control_bloqueo == false) {
+      $('.bloqueo').css({
+        "display": "none",
+      });
+    } else {
+      $('.bloqueo').css({
+        "display": "block",
+      });
+    }
+
+
+
+
+  });
+</script>
+
+<script>
+  /*Opciones login*/
+  /*iniciar_sesion_header*/
+
+  $(document).ready(function() {
+
+    /*Opciones login*/
+
+    $('#iniciar_sesion_header').click(function() {
+      $(".opc_login").fadeIn();
+      $(".opc_login").css({
+        "transform": "translate(0vw,1vh)",
+      });
+
+      $('.bloqueo').css({
+        "display": "block",
+      });
+
+      $('#menu_desplegable').fadeOut();
+
+      control_bloqueo = true;
+
+    });
+
+    $('#cerrar_session2').click(function() {
+
+      $(".opc_login").fadeOut();
+      $(".opc_login").css({
+        "transform": "translate(0vw,-100vh)",
+      });
+
+      $('.bloqueo').css({
+        "display": "none",
+      });
+
+    });
+
+
+
+  });
 </script>
 
 

@@ -1,29 +1,3 @@
-<?php 
-
-    session_name("proyecto");
-    session_start();
-
-    if(isset($_POST["Iniciar"])){
-
-        $_SESSION["usuario"]=$_POST["usuario"];
-        $_SESSION["contra"]=$_POST["clave"];
-        
-
-        header("Location: ../index.php");
-        exit;
-
-    }
-
-    if(isset($_POST["Registrarte"])){
-
-      header("Location: ../registrarse.php");
-      exit;
-
-    }
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -54,7 +28,7 @@
     <label for="menu_busqueda"></i></label>
   </header>
 
-  <form action="inicio_sesion.php" method="POST">
+  <form action="registrarse.php" method="POST">
 
     <input type="checkbox" name="" value="" id="menu">
     <section>
@@ -62,14 +36,11 @@
       <span><i class="fas fa-user-circle"></i></span>
 
       <article class="">
-        <!--    <p><input type="email" name="email" value="ejemplo@gmail.com" class="required"
+      <p><input type="email" name="email" value="ejemplo@gmail.com" class="required"
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ejemplo@gmail.com"  required/></p>
-  -->
-        <p><input type="text" name="usuario" value="" class="required"
-            title="camila28" placeholder="Camila28"  required/></p>
-        <p><input type="password" name="clave" value="" 
-            title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
-NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
+  
+        <p><input type="password" name="clave" value="Contraseña" required
+            title="minimo 8 caracteres,una letra y un número" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$">
         </p>
         <p><a href="#">¿Olvidaste tu contraseña?</a></p>
       </article>
@@ -110,12 +81,10 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
       delay: 200,
       theme: 'tooltipster-punk',
     });
-
-    $(function () { $("input").not("[type=submit]").jqBootstrapValidation(); } );
   });
 
 
-
+  $(function () { $("input").not("[type=submit]").jqBootstrapValidation(); } );
 </script>
 
 </html>

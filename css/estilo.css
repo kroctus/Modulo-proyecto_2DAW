@@ -54,6 +54,168 @@ header p:hover{
   color:#BFA36F;
 }
 
+.opc_session{
+
+  transition-duration: 1s;
+
+  display: flex;
+  flex: 90vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 90vw;
+  height: 85vh;
+
+  position: fixed;
+  top: 11vh;
+  right: 2vw;
+
+  background-color: #191919;
+
+  border-radius: 10px;
+
+  transform: translate(0vw,-100vh);
+
+  z-index: 10004;
+
+/*  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;*/
+
+}
+
+.opc_session span{
+  display: flex;
+  flex: 100%;
+  max-width: 100%;
+}
+
+.opc_session span button{
+  margin-left: auto;
+  background-color: inherit;
+  border: none;
+  font-size: 2em;
+  color: white;
+
+  margin-right: 5%;
+  transition-duration: 1s;
+}
+
+.opc_session span button:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
+  color: red;
+}
+
+.opc_session .btn{
+
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 20em;
+  height: 8em;
+
+  transition-duration: 1s;
+
+}
+
+/*Opciones login 2*/
+
+.opc_login{
+
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  transition-duration: 1s;
+
+  width: 20vw;
+  height: 20vh;
+
+  position: fixed;
+  top: 13vh;
+  right: 2vw;
+
+  background-color: #191919;
+  padding-bottom: 50px;
+
+  border-radius: 5px;
+
+  transform: translate(0vw,-100vh);
+
+  z-index: 10004;
+
+/*  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;*/
+
+}
+
+.opc_login span{
+  display: flex;
+  flex: 100vw;
+  max-width: 100vw;
+}
+
+.opc_login span button{
+
+  margin-left: auto;
+  background-color: inherit;
+  border: none;
+  font-size: 2em;
+  color: white;
+
+  margin-right: 5%;
+  transition-duration: 1s;
+}
+
+.opc_login span button:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
+  color: red;
+}
+
+.opc_login .btn{
+
+  display: flex;
+  flex: 8vw;
+  max-width: 8vw;
+
+  text-align: center;
+  padding: 20px;
+  border-radius: 5px;
+  
+  transition-duration: 1s;
+
+  margin: auto;
+  margin-top: 10%;
+}
+
+
+
+/*Botones inicio_session*/
+
+#iniciar{
+  color: white;
+  background-color: #0477BF;
+  border-color: #0477BF;
+}
+
+#registrar{
+  color: white;
+  background-color: green;
+  border-color: green;
+}
+
+#iniciar:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
+}
+
+#registrar:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
+}
+
 /*Section*/
 
 section {
@@ -521,6 +683,21 @@ z-index: 10000;
 
 
 @media (min-width: 800px) {
+
+
+  /*Header*/
+
+  .opc_session{
+
+    width: 95vw;
+    max-width: 95vw;
+    height: 85vh;
+  }
+
+  .opc_session span{
+    margin-bottom: auto;
+    margin-top: 2vh;
+  }
 
   /*Section*/
 
