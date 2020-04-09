@@ -36,7 +36,7 @@ if (isset($_POST["Iniciar"])) {
   <header>
     <label for="menu" id="icono_menu">&#9776;</label>
     <p id="titulo">Farzone</p>
-    <label for="menu_busqueda"><i class="fas fa-search"></i></label>
+    <label id="menu_busqueda_btn"><i class="fas fa-search"></i></label>
 
     <p id="titulo_2"><a href="index.php">Farzone</a></p>
     <input type="search" name="busqueda" value="" id="busq_2">
@@ -471,9 +471,21 @@ if (isset($_POST["Iniciar"])) {
           "display": "none",
         });
 
+        $("#menu_desplegable").css({
+          "transform": "translate(-80vw,-40px)"
+        });
+
+        $("#menu_desplegable_busqueda").css({
+          "transform": "translate(250%,1%)"
+        });
+
+
+
       }
     });
 
+
+    //Menu desplegable izqu
     $("#icono_menu").click(function() {
 
       if (estadoMenu3 == false) {
@@ -501,6 +513,44 @@ if (isset($_POST["Iniciar"])) {
         }
 
         estadoMenu3 = false;
+      }
+
+    });
+
+    //Menu desplegable derc
+
+    var estadoBusqueda= false;
+
+    $("#menu_busqueda_btn").click(function() {
+
+      if (estadoBusqueda == false) {
+        $("#menu_desplegable_busqueda").css({
+          "transform": "translate(35%)",
+          "z-index": "10001",
+          "opacity": "1",
+        });
+        /*
+                $('.bloqueo').css({
+                  "display": "block",
+                });
+        */
+        estadoBusqueda = true;
+
+      } else {
+
+        console.log("FUNCIONO");
+        
+        $("#menu_desplegable_busqueda").css({
+          "transform": "translate(250%,1%)"
+        });
+
+        if (control_bloqueo == false) {
+          $('.bloqueo').css({
+            "display": "none",
+          });
+        }
+
+        estadoBusqueda = false;
       }
 
     });
