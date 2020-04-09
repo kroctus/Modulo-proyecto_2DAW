@@ -54,7 +54,7 @@ if (isset($_POST["Iniciar"])) {
 
     <div class="opc_session">
 
-      <span><button id="cerrar_session"><i class="fas fa-times"></i></button></span>
+      <span><button type="button" id="cerrar_session"><i class="fas fa-times"></i></button></span>
 
       <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
       <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
