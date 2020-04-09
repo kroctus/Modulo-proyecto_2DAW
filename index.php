@@ -3,7 +3,15 @@
 session_name("proyecto");
 session_start();
 
+if (isset($_POST["Iniciar"])) {
+
+  header("Location: vistas/inicio_sesion.php");
+  exit;
+}
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -42,27 +50,27 @@ session_start();
 
   </header>
 
-  <form method="$_POST" action="index.php">
+  <form method="post" action="index.php">
 
-  <div class="opc_session">
+    <div class="opc_session">
 
-    <span><button id="cerrar_session"><i class="fas fa-times"></i></button></span>
+      <span><button id="cerrar_session"><i class="fas fa-times"></i></button></span>
 
-    <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
-    <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
-
-
-  </div>
-
-  <div class="opc_login">
-
-    <span><button id="cerrar_session2"><i class="fas fa-times"></i></button></span>
-
-    <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
-    <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
+      <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
+      <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
 
 
-  </div>
+    </div>
+
+    <div class="opc_login">
+
+      <span><button id="cerrar_session2"><i class="fas fa-times"></i></button></span>
+
+      <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
+      <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
+
+
+    </div>
 
   </form>
 
@@ -370,7 +378,6 @@ session_start();
 
       if (estadoMenu == false) {
 
-
         estadoMenu = true;
       } else {
 
@@ -440,6 +447,9 @@ session_start();
   //Slider con jquery
   $(document).ready(function() {
     $('.slider').bxSlider();
+
+
+
   });
 </script>
 
@@ -447,7 +457,25 @@ session_start();
   var control_bloqueo = false;
   var estadoMenu3 = false;
   $(document).ready(function() {
+
+
+    $(window).resize(function() {
+
+      //Menú desplegable solo en tablet y movil.
+      if (window.matchMedia('(min-width: 1250px)').matches) {
+
+        console.log("eSTRADO DEL MENMU ES ");
+
+
+        $('.bloqueo').css({
+          "display": "none",
+        });
+
+      }
+    });
+
     $("#icono_menu").click(function() {
+
       if (estadoMenu3 == false) {
         $("#menu_desplegable").css({
           "transform": "translate(-12px)",
@@ -460,6 +488,7 @@ session_start();
         });
 
         estadoMenu3 = true;
+
       } else {
         $("#menu_desplegable").css({
           "transform": "translate(-80vw,-40px)"
@@ -518,8 +547,6 @@ session_start();
         "display": "block",
       });
     }
-
-
 
 
   });

@@ -77,7 +77,6 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
       <article class="">
         <button type="submit" name="Iniciar" id="iniciar">Iniciar</button>
-        <button type="submit" name="Registrarte" id="registrar">Registrarte</button>
       </article>
 
     </section>
