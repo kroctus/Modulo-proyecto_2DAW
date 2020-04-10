@@ -62,15 +62,19 @@ if (isset($_POST["Iniciar"])) {
       <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
       <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
 
+      <button type="button" class="mode"><i class="fas fa-moon"></i>/<i class="fas fa-sun"></i></button>
+
 
     </div>
 
     <div class="opc_login">
 
-      <span><button id="cerrar_session2"><i class="fas fa-times"></i></button></span>
+      <span><button type="button" id="cerrar_session2"><i class="fas fa-times"></i></button></span>
 
       <button type="submit" name="Iniciar" id="iniciar" class="btn">Iniciar</button>
       <button type="submit" name="Registrarte" id="registrar" class="btn">Registrarte</button>
+
+      <button type="button" class="mode"><i class="fas fa-moon"></i>/<i class="fas fa-sun"></i></button>
 
 
     </div>
@@ -645,6 +649,54 @@ if (isset($_POST["Iniciar"])) {
 
 
   });
+</script>
+
+<script>
+
+  /**Modo oscuro/dia */
+
+  $(document).ready(function(){
+    $('.mode').click(function(){
+      
+      $('body').css({
+        "background-color":"white",
+        "color":"white",
+      });
+
+      $('section').css({
+        "background-color":"white",
+        "color":"black"
+      });
+
+      $('section').children('p').css({
+        "color":"black",
+      });
+
+      $('.ver_todas').children('a').css({
+        "color":"black",
+      });
+
+      $('section').children('a').css({
+        "color":"black",
+      });
+
+      $('#comunidad').css({
+        "border":"none",
+      });
+
+      $('#up').css({
+        "color":"black",
+      });
+
+      $('#arrow').css({
+        "color":"black",
+      });
+
+
+
+    });
+  });
+
 </script>
 
 

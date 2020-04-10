@@ -6,6 +6,7 @@
 /*Cuerpo de la página*/
 body{
 background-color: #191919;
+transition-duration: 5s;
 }
 
 /*Cabecera*/
@@ -16,7 +17,6 @@ header {
   padding-bottom: 5px;
   color: white;
   background-color: #191919;
-  border-radius: 5px;
   margin-bottom: 0%;
   display: flex;
   flex-flow: row;
@@ -130,7 +130,7 @@ header p:hover{
   transition-duration: 1s;
 
   width: 20vw;
-  height: 20vh;
+  height: 30vh;
 
   position: fixed;
   top: 13vh;
@@ -225,6 +225,7 @@ section {
   flex-direction: row;
   flex-wrap: wrap;
   padding-top: 60px; /* Relleno superior igual a la altura de la cabecera*/
+  
 }
 
 
@@ -306,6 +307,10 @@ article p{
 #ilustracion{
   background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/ilustracion.jpg");
 
+}
+
+#comunidad{
+  background-image: url('../img/3159557.jpg');
 }
 
 #ilustracion p{
@@ -680,6 +685,26 @@ z-index: 10000;
   display: none;
 }
 
+.mode{
+  margin-top: 1vh;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 15em;
+  height: 4em;
+
+  transition-duration: 1s;
+
+  font-size: 2.5vh;
+}
+
+.mode:hover{
+  cursor: pointer;
+  color: rgb(255, 217, 0);
+  background-color: #191919;
+  border-radius: 5px;
+}
+
 
 
 @media (min-width: 800px) {
@@ -716,7 +741,7 @@ z-index: 10000;
     flex-direction: row;
     flex-wrap: wrap;
     border: solid 2px;
-    border-color: #59CC86;
+   /* border-color: #59CC86;*/
     border-radius: 20px;
     height: 80%;
   }
@@ -732,7 +757,7 @@ z-index: 10000;
     margin-left: auto;
     margin-right: auto;
     background-color: #59CC86;
-    border-radius: 5px;
+    border-radius: 50px;
     padding: 20px;
     color:white;
 
@@ -751,7 +776,7 @@ z-index: 10000;
   }
 
   #comunidad p a{
-    color: white;
+    color: black;
     display: flex;
       font-size: 1.2em;
 
@@ -770,7 +795,7 @@ z-index: 10000;
     flex: 100%;
     max-width: 80%;
     background-color: inherit;
-    color: white;
+    color: black;
     margin-left: 2%;
   }
 

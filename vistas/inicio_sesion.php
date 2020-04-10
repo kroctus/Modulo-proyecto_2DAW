@@ -53,6 +53,8 @@ if (isset($_POST["Registrarte"])) {
 
   <section>
 
+  <h1 id="saludo">¡Hola! Es un placer verte de nuevo</h1>
+
 
 
     <form action="inicio_sesion.php" method="POST" id="form_movil">
@@ -134,6 +136,22 @@ NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\
       $("input").not("[type=submit]").jqBootstrapValidation();
     });
   });
+</script>
+
+<script>
+
+$(document).ready(function() {
+
+
+  $('#form_escritorio').each('input').tooltipster({
+      animation: 'fall',
+      delay: 200,
+      theme: 'tooltipster-punk',
+    });
+
+});
+    
+
 </script>
 
 </html>
