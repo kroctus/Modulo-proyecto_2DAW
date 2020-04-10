@@ -57,6 +57,7 @@
   <form action="inicio_sesion.php" method="POST">
 
     <input type="checkbox" name="" value="" id="menu">
+    
     <section>
 
       <span><i class="fas fa-user-circle"></i></span>
@@ -65,11 +66,13 @@
         <!--    <p><input type="email" name="email" value="ejemplo@gmail.com" class="required"
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ejemplo@gmail.com"  required/></p>
   -->
+        <p><label for="usuario">Usuario:</label></p>
         <p><input type="text" name="usuario" value="" class="required"
-            title="camila28" placeholder="Camila28"  required/></p>
+            title="camila28" placeholder="Camila28" id="usuario"  required/></p>
+
         <p><input type="password" name="clave" value="" 
             title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
-NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
+NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
         </p>
         <p><a href="#">¿Olvidaste tu contraseña?</a></p>
       </article>

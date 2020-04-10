@@ -7,6 +7,9 @@ if (isset($_POST["Iniciar"])) {
 
   header("Location: vistas/inicio_sesion.php");
   exit;
+}elseif(isset($_POST["Registrarte"])){
+  header("Location: vistas/registrarse.php");
+  exit;
 }
 
 ?>
