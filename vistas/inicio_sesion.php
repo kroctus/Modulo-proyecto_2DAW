@@ -1,25 +1,23 @@
-<?php 
+<?php
 
-    session_name("proyecto");
-    session_start();
+session_name("proyecto");
+session_start();
 
-    if(isset($_POST["Iniciar"])){
+if (isset($_POST["Iniciar"])) {
 
-        $_SESSION["usuario"]=$_POST["usuario"];
-        $_SESSION["contra"]=$_POST["clave"];
-        
+  $_SESSION["usuario"] = $_POST["usuario"];
+  $_SESSION["contra"] = $_POST["clave"];
 
-        header("Location: ../index.php");
-        exit;
 
-    }
+  header("Location: ../index.php");
+  exit;
+}
 
-    if(isset($_POST["Registrarte"])){
+if (isset($_POST["Registrarte"])) {
 
-      header("Location: ../registrarse.php");
-      exit;
-
-    }
+  header("Location: ../registrarse.php");
+  exit;
+}
 
 
 ?>
@@ -36,13 +34,12 @@
   <link rel="stylesheet" href="../css/estilo_sesion.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../tooltipster/dist/css/tooltipster.bundle.min.css" />
-  <link rel="stylesheet" type="text/css"
-    href="../tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-    <script src="../js/jqBootstrapValidation.js"></script>
+  <link rel="stylesheet" type="text/css" href="../tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+  <script src="../js/jqBootstrapValidation.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
- 
+
   <script type="text/javascript" src="../tooltipster/dist/js/tooltipster.bundle.min.js"></script>
 </head>
 
@@ -54,27 +51,27 @@
     <label for="menu_busqueda"></i></label>
   </header>
 
-  <form action="inicio_sesion.php" method="POST">
+  <section>
 
-    <input type="checkbox" name="" value="" id="menu">
-    
-    <section>
 
-      <span><i class="fas fa-user-circle"></i></span>
+
+    <form action="inicio_sesion.php" method="POST" id="form_movil">
+
+    <span><i class="fas fa-user-circle"></i></span>
 
       <article class="">
         <!--    <p><input type="email" name="email" value="ejemplo@gmail.com" class="required"
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="ejemplo@gmail.com"  required/></p>
   -->
-        <p><label for="usuario">Usuario:</label></p>
-        <p><input type="text" name="usuario" value="" class="required"
-            title="camila28" placeholder="Camila28" id="usuario"  required/></p>
+        <label for="usuario">Usuario:</label>
+        <p><input type="text" name="usuario" value="" class="required" title="camila28" placeholder="Camila28" id="usuario" required /></p>
 
-        <p><input type="password" name="clave" value="" 
-            title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+        <label for="contra">Contraseña:</label>
+        <p><input type="password" name="clave" value="" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
 NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
         </p>
         <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+
       </article>
 
 
@@ -82,9 +79,29 @@ NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\
         <button type="submit" name="Iniciar" id="iniciar">Iniciar</button>
       </article>
 
-    </section>
+    </form>
 
-  </form>
+    <form action="inicio_sesion.php" method="POST" id="form_escritorio">
+
+    <span><i class="fas fa-user-circle"></i></span>
+
+    <label for="usuario">Usuario:</label>
+        <p><input type="text" name="usuario" value="" class="required" title="camila28" placeholder="Camila28" id="usuario" required /></p>
+
+        <label for="contra">Contraseña:</label>
+        <p><input type="password" name="clave" value="" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
+        </p>
+        <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+
+        <button type="submit" name="Iniciar" id="iniciar">Iniciar</button>
+
+
+    </form>
+
+  </section>
+
+
 
 
 
@@ -106,18 +123,17 @@ NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\
 
 
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('input').tooltipster({
       animation: 'fall',
       delay: 200,
       theme: 'tooltipster-punk',
     });
 
-    $(function () { $("input").not("[type=submit]").jqBootstrapValidation(); } );
+    $(function() {
+      $("input").not("[type=submit]").jqBootstrapValidation();
+    });
   });
-
-
-
 </script>
 
 </html>
