@@ -41,6 +41,9 @@ if (isset($_POST["Registrarte"])) {
 
 
   <script type="text/javascript" src="../tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+
+  <!--fuentes-->
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
 </head>
 
 <body>

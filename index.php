@@ -7,7 +7,7 @@ if (isset($_POST["Iniciar"])) {
 
   header("Location: vistas/inicio_sesion.php");
   exit;
-}elseif(isset($_POST["Registrarte"])){
+} elseif (isset($_POST["Registrarte"])) {
   header("Location: vistas/registrarse.php");
   exit;
 }
@@ -32,6 +32,9 @@ if (isset($_POST["Iniciar"])) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+  <!--fuentes-->
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
 </head>
 
 <body>
@@ -115,7 +118,11 @@ if (isset($_POST["Iniciar"])) {
 
     <article id="intro">
 
-      <h2>Bienvenido al mundo de contenidos</h2>
+      <video id="video" loop autoplay preload muted>
+        <source src="videos/4K_8.webm" type='video/webm; codecs="vp8,vorbis"' />
+      </video>
+
+      <h2>Bienvenido al mundo de los contenidos</h2>
       <button type="button" name="button">Empezar</button>
 
     </article>
@@ -526,7 +533,7 @@ if (isset($_POST["Iniciar"])) {
 
     //Menu desplegable derc
 
-    var estadoBusqueda= false;
+    var estadoBusqueda = false;
 
     $("#menu_busqueda_btn").click(function() {
 
@@ -546,7 +553,7 @@ if (isset($_POST["Iniciar"])) {
       } else {
 
         console.log("FUNCIONO");
-        
+
         $("#menu_desplegable_busqueda").css({
           "transform": "translate(250%,1%)"
         });
@@ -652,51 +659,49 @@ if (isset($_POST["Iniciar"])) {
 </script>
 
 <script>
-
   /**Modo oscuro/dia */
 
-  $(document).ready(function(){
-    $('.mode').click(function(){
-      
+  $(document).ready(function() {
+    $('.mode').click(function() {
+
       $('body').css({
-        "background-color":"white",
-        "color":"white",
+        "background-color": "white",
+        "color": "white",
       });
 
       $('section').css({
-        "background-color":"white",
-        "color":"black"
+        "background-color": "white",
+        "color": "black"
       });
 
       $('section').children('p').css({
-        "color":"black",
+        "color": "black",
       });
 
       $('.ver_todas').children('a').css({
-        "color":"black",
+        "color": "black",
       });
 
       $('section').children('a').css({
-        "color":"black",
+        "color": "black",
       });
 
       $('#comunidad').css({
-        "border":"none",
+        "border": "none",
       });
 
       $('#up').css({
-        "color":"black",
+        "color": "black",
       });
 
       $('#arrow').css({
-        "color":"black",
+        "color": "black",
       });
 
 
 
     });
   });
-
 </script>
 
 

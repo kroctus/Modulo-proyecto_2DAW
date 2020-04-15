@@ -1,5 +1,6 @@
 *{
-  font-family: 'Roboto', sans-serif;
+  /*font-family: 'Roboto', sans-serif;*/
+  font-family: 'Righteous', cursive;
   box-sizing: border-box;
 }
 
@@ -289,23 +290,49 @@ article p{
 /*Ya que no hay otra forma de ponerlas en el fondo*/
 
 #intro{
-  background-color: #191919;
+
+  display: flex;
+  flex: 100vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 100vw;
+  border-radius: 10px;
+}
+
+#intro video{
+  
+  display: flex;
+  flex: 70vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 98vw;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 0px;
+}
+
+#intro button{
+  position: absolute;
+  top: 28vh;
+  left: 10vw;
+
 }
 
 #musica{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/musica.jpeg");
+  background-image: url("../img_comprimidas/musica.webp");
 }
 
 #diseño{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/diseño.jpg");
+  background-image: url("../img_comprimidas/diseño.webp");
 }
 
 #fotografia{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/foto.jpg");
+  background-image: url("../img_comprimidas/foto.webp");
 }
 
 #ilustracion{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/ilustracion.jpg");
+  background-image: url("../img_comprimidas/ilustracion.webp");
 
 }
 
@@ -322,20 +349,13 @@ article p{
   display: none;
 }
 
-#intro{
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100vw;
-}
-
-
 
 #noticias{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100vw;
-  max-width: 95vw;
+  max-width: 100vw;
 }
 
 #noticias h1{
@@ -345,6 +365,11 @@ article p{
 }
 
 #intro h2{
+
+position: absolute;
+top: 20vh;
+left: 18vw;
+
 margin-top: auto;
 display: flex;
 flex: 100vw;
@@ -352,10 +377,11 @@ max-width: 60vw;
 margin-left: auto;
 margin-right: auto;
 text-align: center;
-color: #0477BF;
+color: white;
 font-weight: bold;
 
 font-size: 2.5;
+font-family: 'Righteous', cursive;
 
 }
 
@@ -376,9 +402,11 @@ font-size: 2.5;
 }
 
 #intro button:hover{
-  background-color: #0477BF;
+  background-color: rgb(191, 12, 236);
   border-color: #0477BF;
+  border: none;
   cursor: pointer;
+  border-radius: 50px;
 }
 
 
@@ -828,11 +856,15 @@ z-index: 10000;
   }
 
   #intro{
-    border: solid 2px #0477BF;
-    background-color: #0477BF;
+    max-width: 97vw;
+    height: 70vh;
   }
 
+
   #intro button{
+
+    top: 60vh;
+
     background-color: #0477BF;
     color: white;
   }
@@ -840,6 +872,10 @@ z-index: 10000;
 
 
   #intro h2{
+
+
+    font-size: 5vw;
+    top: 40vh;
     color: white;
   }
 
@@ -861,7 +897,7 @@ z-index: 10000;
   }
 
   #noticias{
-    max-width: 95vw;
+    max-width: 97vw;
   }
 
 
@@ -990,7 +1026,7 @@ z-index: 10000;
   su contenido inicial
 */
   .contenido{
-    background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/foto.jpg");
+    background-image: url("../img_comprimidas/foto.webp");
 
     display: flex;
     flex: 20%;
@@ -1063,8 +1099,23 @@ z-index: 10000;
 }
 
 #noticias{
-  max-width: 100vw;
+  max-width: 98vw;
 }
 
+#intro video{
+  border-radius: 10px;
+}
+
+#intro h2{
+  top: 15vw;
+  font-size: 5vw;
+}
+
+#intro button{
+
+  top: 30vw;
+  left:15vw ;
+  max-width: 70vw;
+}
 
 }

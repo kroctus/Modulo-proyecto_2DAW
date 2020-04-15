@@ -44,6 +44,9 @@ $url = "http://localhost/Proyectos/PROYECTO/servicio_rest/";
   <script type="text/javascript" src="../tooltipster/dist/js/tooltipster.bundle.min.js"></script>
 
   <script type="text/javascript" src="../js/funciones.js"></script>
+
+  <!--fuentes-->
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
   
 </head>
 
