@@ -63,33 +63,37 @@ $url = "http://localhost/Proyectos/PROYECTO/servicio_rest/";
 
 if(isset($_POST["enviar"])){
 
+  $repetido=repetido($_POST["usuario"]);
+
+
+  if($repetido==false){
+
+
   $datos_usuario=array();
 
-      $contra=md5($_POST["clave"]);
+  $contra=md5($_POST["clave"]);
 
-  $datos_usuario["usuario"]=$_POST["usuario"];
-  $datos_usuario["password"]=$contra;
-  $datos_usuario["nombre"]=$_POST["nombre"];
-  $datos_usuario["apellido"]=$_POST["apellido"];
-  $datos_usuario["sexo"]=$_POST["sexo"];
-  $datos_usuario["fec_nac"]=$_POST["fec_nac"];
+$datos_usuario["usuario"]=$_POST["usuario"];
+$datos_usuario["password"]=$contra;
+$datos_usuario["nombre"]=$_POST["nombre"];
+$datos_usuario["apellido"]=$_POST["apellido"];
+$datos_usuario["sexo"]=$_POST["sexo"];
+$datos_usuario["fec_nac"]=$_POST["fec_nac"];
 
-  $obj=consumir_servicio_REST($url.'usuario/registrar','POST',$datos_usuario);
+$obj=consumir_servicio_REST($url.'usuario/registrar','POST',$datos_usuario);
 
-  if(isset($obj->mensaje_error)){
-    die($obj->mensaje_error);
-  }else{
+if(isset($obj->mensaje_error)){
+die($obj->mensaje_error);
+}else{
 
-    echo "<div class='notificacion' >";
-    echo "<p>El registro se ha completado exitosamente , bienvenido a nuestra familia</p>";
-  echo "</div>";
+echo "<div class='notificacion' >";
+echo "<p>El registro se ha completado exitosamente , bienvenido <span class='nombre'>".$_POST["nombre"]."</span></p>";
+echo "</div>";
 
-  $cambio=true;
-
-  }
-
+$cambio=true;
   
-
+}
+  }
 
 }elseif(isset($_POST["enviar2"])){
 
@@ -120,8 +124,6 @@ if(isset($obj->mensaje_error)){
   echo "<p>El registro se ha completado exitosamente , bienvenido <span class='nombre'>".$_POST["nombre2"]."</span></p>";
 echo "</div>";
 
-$cambio=true;
-
 }
     }
 
@@ -137,19 +139,19 @@ $cambio=true;
 
     <form action="registrarse.php" method="POST" id="form_movil">
 
-      <p><label for="usuario">Usuario:</label>
-        <input  type="text" name="usuario" value="" id="usuario"  title="camila28" placeholder="Camila28" required /></p>
+      <p>  <label for="usuario">Usuario:<?php if(isset($_POST["enviar"]) && $repetido==true) echo "<span class='error'>Este usuario ya existe</span>";?></label>
+        <input  type="text" name="usuario" value="<?php if(isset($_POST['enviar']) && isset($_POST['usuario'])) echo $_POST['usuario']?>" id="usuario"  title="camila28" placeholder="Camila28" required /></p>
 
       <p><label for="contra">Contraseña:</label>
-        <input  type="password" name="clave" value="" id="contra" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+        <input  type="password" name="clave" value="<?php if(isset($_POST['enviar']) && isset($_POST['clave'])) echo $_POST['clave']?>" id="contra" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
 NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
       </p>
 
       <p><label for="nombre">Nombre:</label>
-        <input  type="text" name="nombre" id="nombre" value="" required></p>
+        <input  type="text" name="nombre" id="nombre" value="<?php if(isset($_POST['enviar']) && isset($_POST['nombre'])) echo $_POST['nombre']?>" required></p>
 
       <p><label for="apellido">Apellido:</label>
-        <input  type="text" name="apellido" id="apellido" value="" required></p>
+        <input  type="text" name="apellido" id="apellido" value="<?php if(isset($_POST['enviar']) && isset($_POST['apellido'])) echo $_POST['apellido']?>" required></p>
 
       <p><label>Sexo:</label>
         <ul>
@@ -161,7 +163,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
       </p>
 
       <p><label for="fec_nac">Fecha de nacimiento: </label>
-        <input type="date" name="fec_nac" id="fec_nac" required></p>
+        <input type="date" name="fec_nac" id="fec_nac" value="<?php if(isset($_POST['enviar']) && isset($_POST['fec_nac'])) echo $_POST['fec_nac']?>" required></p>
 
       <p id="iniciar_btn"><button type="submit" name="enviar" id="iniciar">Enviar</button></p>
 
@@ -182,7 +184,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-            <input type="text" name="usuario2" value="" id="usuario2" class="required" title="camila28" placeholder="Camila28" required />
+            <input type="text" name="usuario2" value="<?php if(isset($_POST['enviar2']) && isset($_POST['usuario2'])) echo $_POST['usuario2']?>" id="usuario2" class="required" title="camila28" placeholder="Camila28" required />
           </td>
         </tr>
 
@@ -194,7 +196,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-            <input type="password" name="clave2" value="" id="contra2" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+            <input type="password" name="clave2" value="<?php if(isset($_POST['enviar2']) && isset($_POST['clave2'])) echo $_POST['clave2']?>" id="contra2" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
 NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
           </td>
         </tr>
@@ -207,7 +209,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-            <input type="text" name="nombre2" id="nombre2" value="" required>
+            <input type="text" name="nombre2" id="nombre2" value="<?php if(isset($_POST['enviar2']) && isset($_POST['nombre2'])) echo $_POST['nombre2']?>" required>
           </td>
         </tr>
 
@@ -219,7 +221,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-            <input type="text" name="apellido2" id="apellido2" value="" required>
+            <input type="text" name="apellido2" id="apellido2" value="<?php if(isset($_POST['enviar2']) && isset($_POST['apellido2'])) echo $_POST['apellido2']?>" required>
           </td>
         </tr>
 
@@ -248,7 +250,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-          <input type="date" name="fec_nac2" id="fec_nac2" required></p>
+          <input type="date" name="fec_nac2" id="fec_nac2" value="<?php if(isset($_POST['enviar2']) && isset($_POST['fec_nac2'])) echo $_POST['fec_nac2']?>" required></p>
           </td>
         </tr>
 
