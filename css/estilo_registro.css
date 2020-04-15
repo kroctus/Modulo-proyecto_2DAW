@@ -148,7 +148,7 @@ border-color: #0477BF;
 /*--footer--*/
 
 footer{
-  margin-top: 9vh;
+  margin-top: 30vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -226,6 +226,44 @@ footer a:hover{
   text-align: center;
 }
 
+.notificacion{
+/*
+  position: fixed;
+  left: auto;
+  right: auto;
+  top: 15vw;
+*/
+  display: flex;
+  flex: 95vw;
+  max-width: 95vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1vw;
+
+  opacity: 1;
+  background-color: rgb(54, 57, 63);
+  padding: 50px;
+  border-radius: 10px;
+  height: 20vh;
+  color: white;
+
+}
+
+.notificacion p{
+  margin: auto;
+  font-size: 2.5vh;
+}
+
+.nombre{
+  color:  rgb(5, 187, 187);
+}
+
+.error{
+  color: crimson;
+}
+
 
 /*Tablet*/
 @media (min-width: 800px){
@@ -280,7 +318,7 @@ section article button{
   }
 
   footer{
-    margin-top: 40vh;
+    margin-top: 65vh;
     border: none;
   }
 
@@ -289,6 +327,7 @@ section article button{
     color: rgb(5, 187, 187);
     font-size: 8vh;
   }
+  
 
 }
 
@@ -353,7 +392,7 @@ section article button{
   #saludo{
 
       position: absolute;
-      top: 18vw;
+      top: 20vw;
       right: 9vw;
 
       font-size: 8vh;
@@ -361,6 +400,11 @@ section article button{
       color: rgb(5, 187, 187);
 
   }
+
+  .error{
+    color: rgb(5, 187, 187);
+  }
+  
  
   }
 

@@ -1,3 +1,26 @@
+<?php
+
+$cambio=false;
+
+$url = "http://localhost/Proyectos/PROYECTO/servicio_rest/";
+require "../servicio_rest/funciones.php";
+
+function repetido($usuario){
+
+$url = "http://localhost/Proyectos/PROYECTO/servicio_rest/";
+  $obj2=consumir_servicio_REST($url.'get_usuario/'.urlencode($usuario),'GET');
+  if($obj2==false){
+  
+    return false;//esta repetido
+  }else{
+    return true;//esta repetido
+  }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -19,6 +42,9 @@
 
 
   <script type="text/javascript" src="../tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+
+  <script type="text/javascript" src="../js/funciones.js"></script>
+  
 </head>
 
 <body>
@@ -31,7 +57,80 @@
 
   <section>
 
-    <h1 id="saludo">Estas a un paso de unirte a nuestra gran Familia</h1>
+    <h1 id="saludo"><?php if($cambio==false) echo "Estas a un paso de unirte a nuestra gran Familia";  else echo "BIENVENIDO";?></h1>
+
+    <?php
+
+if(isset($_POST["enviar"])){
+
+  $datos_usuario=array();
+
+      $contra=md5($_POST["clave"]);
+
+  $datos_usuario["usuario"]=$_POST["usuario"];
+  $datos_usuario["password"]=$contra;
+  $datos_usuario["nombre"]=$_POST["nombre"];
+  $datos_usuario["apellido"]=$_POST["apellido"];
+  $datos_usuario["sexo"]=$_POST["sexo"];
+  $datos_usuario["fec_nac"]=$_POST["fec_nac"];
+
+  $obj=consumir_servicio_REST($url.'usuario/registrar','POST',$datos_usuario);
+
+  if(isset($obj->mensaje_error)){
+    die($obj->mensaje_error);
+  }else{
+
+    echo "<div class='notificacion' >";
+    echo "<p>El registro se ha completado exitosamente , bienvenido a nuestra familia</p>";
+  echo "</div>";
+
+  $cambio=true;
+
+  }
+
+  
+
+
+}elseif(isset($_POST["enviar2"])){
+
+  $repetido=repetido($_POST["usuario2"]);
+
+
+    if($repetido==false){
+
+
+    $datos_usuario=array();
+  
+    $contra=md5($_POST["clave2"]);
+
+$datos_usuario["usuario"]=$_POST["usuario2"];
+$datos_usuario["password"]=$contra;
+$datos_usuario["nombre"]=$_POST["nombre2"];
+$datos_usuario["apellido"]=$_POST["apellido2"];
+$datos_usuario["sexo"]=$_POST["sexo2"];
+$datos_usuario["fec_nac"]=$_POST["fec_nac2"];
+
+$obj=consumir_servicio_REST($url.'usuario/registrar','POST',$datos_usuario);
+
+if(isset($obj->mensaje_error)){
+  die($obj->mensaje_error);
+}else{
+
+  echo "<div class='notificacion' >";
+  echo "<p>El registro se ha completado exitosamente , bienvenido <span class='nombre'>".$_POST["nombre2"]."</span></p>";
+echo "</div>";
+
+$cambio=true;
+
+}
+    }
+
+  
+  }
+
+
+    
+    ?>
 
     <span class="linea"></span>
 
@@ -54,9 +153,9 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
       <p><label>Sexo:</label>
         <ul>
-          <li><input type="radio" name="sexo" value="mujer" />Mujer</li>
-          <li><input type="radio" name="sexo" value="hombre" />Hombre</li>
-          <li><input type="radio" name="sexo" value="otro" checked />Otro</li>
+          <li><input type="radio" name="sexo" value="mujer" class="sexo" />Mujer</li>
+          <li><input type="radio" name="sexo" value="hombre" class="sexo" />Hombre</li>
+          <li><input type="radio" name="sexo" value="otro" class="sexo" checked />Otro</li>
 
         </ul>
       </p>
@@ -77,13 +176,13 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-            <label for="usuario">Usuario:</label>
+            <label for="usuario">Usuario:<?php if(isset($_POST["enviar2"]) && $repetido==true) echo "<span class='error'>Este usuario ya existe</span>";?></label>
           </td>
         </tr>
 
         <tr>
           <td>
-            <input type="text" name="usuario" value="" id="usuario" class="required" title="camila28" placeholder="Camila28" required />
+            <input type="text" name="usuario2" value="" id="usuario2" class="required" title="camila28" placeholder="Camila28" required />
           </td>
         </tr>
 
@@ -95,7 +194,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-            <input type="password" name="clave" value="" id="contra" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+            <input type="password" name="clave2" value="" id="contra2" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
 NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
           </td>
         </tr>
@@ -108,7 +207,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-            <input type="text" name="nombre" id="nombre" value="" required>
+            <input type="text" name="nombre2" id="nombre2" value="" required>
           </td>
         </tr>
 
@@ -120,7 +219,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-            <input type="text" name="apellido" id="apellido" value="" required>
+            <input type="text" name="apellido2" id="apellido2" value="" required>
           </td>
         </tr>
 
@@ -133,9 +232,9 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
         <tr>
           <td>
             <ul>
-              <li><input type="radio" name="sexo" value="mujer" />Mujer</li>
-              <li><input type="radio" name="sexo" value="hombre" />Hombre</li>
-              <li><input type="radio" name="sexo" value="otro" checked />Otro</li>
+              <li><input type="radio" name="sexo2" value="mujer" class="sexo2" />Mujer</li>
+              <li><input type="radio" name="sexo2" value="hombre" class="sexo2" />Hombre</li>
+              <li><input type="radio" name="sexo2" value="otro" checked  class="sexo2"/>Otro</li>
 
             </ul>
           </td>
@@ -149,13 +248,13 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <tr>
           <td>
-          <input type="date" name="fec_nac" id="fec_nac" required></p>
+          <input type="date" name="fec_nac2" id="fec_nac2" required></p>
           </td>
         </tr>
 
       </table>
 
-      <button type="submit" name="enviar" id="iniciar">Enviar</button>
+      <button type="submit" name="enviar2" id="iniciar" >Enviar</button>
 
     </form>
 

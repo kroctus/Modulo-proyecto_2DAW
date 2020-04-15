@@ -1,9 +1,8 @@
+
 <?php
-    define("HOST_DB","localhost");
-    define("USER_DB","jose");
-    define("PASS_DB","josefa");
-    define("NAME_DB","bd_libreria");
 
-    define("MINUTOS",1);
-
+define("SERVIDOR_BD", "localhost");
+define("USUARIO_BD", "jose");
+define("CLAVE_BD", "josefa");
+define("NOMBRE_BD", "farzone");
 ?>

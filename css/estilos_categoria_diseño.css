@@ -537,6 +537,7 @@ display: none;
   background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/ilustracion.jpg");
 }
 
+
 /*Seccion de la comunidad donde se muestran las diferentes comunidades*/
 
 #comunidad{
@@ -551,6 +552,7 @@ display: none;
   height: 80%;
   margin-left: auto;
   margin-right: auto;
+  background-image: url('../img/3159557.jpg');
 
   transition-duration: 1s;
 
