@@ -23,6 +23,36 @@ function consumir_servicio_REST($url,$metodo,$datos=null)
         return json_decode($response);
 }
 
+/**---Login---*/
+
+function login($usuario, $contra)
+{
+	$con = conectar();
+	if (!$con) {
+		$devolver = array("mensaje_error" => "Imposible conectar. Error n&uacute;mero " . mysqli_connect_errno() . ": " . mysqli_connect_error());
+	} else {
+		mysqli_set_charset($con, 'utf8');
+		$consulta = "SELECT * FROM usuarios WHERE usuario='" . $usuario . "' AND password=md5('" . $contra . "')";
+		$resultado = mysqli_query($con, $consulta);
+		if (!$resultado) {
+			return array("mensaje_error" => "Imposible realizar la consulta:" . $consulta);
+		}
+		if (mysqli_num_rows($resultado) <= 0)
+			$user["no_user"] = $usuario;
+		else {
+			$user["exito"][] = mysqli_fetch_assoc($resultado);
+			@session_name("farzone");
+			@session_start();
+			$_SESSION['usuario'] = $usuario;
+			$_SESSION['clave'] = md5($contra);
+		}
+
+		mysqli_free_result($resultado);
+		mysqli_close($con);
+		return $user;
+	}
+}
+
 function insertar_usuario($usuario, $password, $nombre, $apellido, $sexo,$fec_nac)
 {
 	$con=conectar();

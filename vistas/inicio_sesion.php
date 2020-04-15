@@ -1,6 +1,6 @@
 <?php
 
-session_name("proyecto");
+session_name("farzone");
 session_start();
 
 if (isset($_POST["Iniciar"])) {
@@ -44,6 +44,9 @@ if (isset($_POST["Registrarte"])) {
 
   <!--fuentes-->
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
+
+  <!--Mi script-->
+  <script src="../js/funciones.js"></script>
 </head>
 
 <body>
@@ -91,15 +94,15 @@ NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\
     <span><i class="fas fa-user-circle"></i></span>
 
     <label for="usuario">Usuario:</label>
-        <p><input type="text" name="usuario" value="" class="required" title="camila28" placeholder="Camila28" id="usuario" required /></p>
+        <p><input type="text" name="usuario2" value="" class="required" title="camila28" placeholder="Camila28" id="usuario2" required /></p>
 
         <label for="contra">Contraseña:</label>
-        <p><input type="password" name="clave" value="" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
-NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
+        <p><input type="password" name="clave2" value="" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+NO puede tener otros símbolos." id="contra2" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
         </p>
         <p><a href="#">¿Olvidaste tu contraseña?</a></p>
 
-        <button type="submit" name="Iniciar" id="iniciar">Iniciar</button>
+        <button type="button" name="Iniciar" id="iniciar" onclick="hacer_login()">Iniciar</button>
 
 
     </form>

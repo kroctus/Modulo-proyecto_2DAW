@@ -1,6 +1,6 @@
 <?php
 
-session_name("proyecto");
+session_name("farzone");
 session_start();
 
 if (isset($_POST["Iniciar"])) {

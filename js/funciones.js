@@ -1,48 +1,48 @@
 var url = "http://localhost/Proyectos/PROYECTO/servicio_rest/";
+var id_usuario;
 
+const usuario="";
+const contra="";
 
 
 function hacer_login() {
 
+    console.log("----HACER LOGIN----");
+    
 
+    var usu = document.getElementById("usuario2").value;
+    var pass = document.getElementById("contra2").value;
 
-    var usu = document.getElementById("usuario").value;
-    var pass = document.getElementById("clave").value;
-    var parametros = { "usuario": usu, "clave": pass };
+    console.log("Usuario: " + usu);
+    console.log("contra: " + pass);
+    
+    var parametros = { "usuario": usu, "password": pass };
 
     $.post(url + "login", parametros, null, "json")
         .done(function (data) {
 
+            console.log("ME METO EN PUNTO DONE");
+            
+
 
             if (data.no_user) {
-                document.getElementById("usuario").value = data.no_user;
+                document.getElementById("usuario2").value = data.no_user;
                 $("#error_login").html("Usuario no registrado. Vuelva a intentarlo");
-                document.getElementById("clave").value = "";
-                document.getElementById("clave").focus();
+                document.getElementById("contra2").value = "";
+                document.getElementById("contra2").focus();
 
             } else if (data.exito) {
-                $("#error_login").html("");
-                document.getElementById("clave").value = "";
-                $('#divLogin').fadeOut();
-                var saludo = "Bienvenido <strong>" + data.exito[0].lector + "</strong> - <a href='index.html' onclick='return salir_sesion();'>Salir</a>";
+                document.getElementById("contra2").value = "";
+                var saludo = "Bienvenido <strong>" + data.exito[0].usuario + "</strong> - <a href='index.html' onclick='return salir_sesion();'>Salir</a>";
                 idUsuario = data.exito[0].id_usuario;
 
-                if (data.exito[0].tipo == "normal") {
-                    $('#vista_normal').fadeIn();
-                    $('#vista_admin').fadeOut();
-
-                    $('#libros').fadeOut();
-                    $('#libros_normal').fadeIn();
-                    $('#saludo_normal').html(saludo);
-
-                }
-                else {
-                    $('#saludo_admin').html(saludo);
-                }
+                console.log(saludo);  
+                window.location.replace("../index.php");
 
 
             } else {
-                $("#error_login").html('Error: ' + data.mensaje_error);
+                console.log('Error: ' + data.mensaje_error);    
+                //$("#error_login").html('Error: ' + data.mensaje_error);
             }
         })
         .fail(function (jqXHR, textStatus, errorThrown) {

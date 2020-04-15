@@ -16,11 +16,15 @@ $app->get('/prueba',function(){
 
 $app->post('/usuario/registrar', function () {
 	echo json_encode(insertar_usuario($_POST["usuario"],$_POST["password"],$_POST["nombre"],$_POST["apellido"],$_POST["sexo"],$_POST["fec_nac"]),JSON_FORCE_OBJECT);
-
 });
 
 $app->get('/get_usuario/:usuario', function($usuario){
 	echo json_encode(get_usuario($usuario),JSON_FORCE_OBJECT);
+});
+
+$app->post('/login', function ()  {
+	echo json_encode(login($_POST["usuario"],$_POST["password"]),JSON_FORCE_OBJECT);
+
 });
 
 $app->run();
