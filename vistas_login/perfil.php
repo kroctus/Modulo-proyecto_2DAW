@@ -3,14 +3,32 @@
 session_name("farzone");
 session_start();
 
+require "../servicio_rest/funciones.php";
+
 if (!isset($_SESSION["usuario"])) {
   $_SESSION["restringido"] = "";
   header("Location: ../vistas/inicio_sesion.php");
 }
 
+
 ?>
 
+<?php
 
+
+  $obj=consumir_servicio_REST($url.'get_usuario/'.urlencode($_SESSION["usuario"]),'GET');
+  if(isset($obj->mensaje_error)){
+    die($obj->mensaje_error);
+  }else{
+
+    foreach ($obj->usuario as $key) {
+      $nombre=$key->usuario;
+      $apellido=$key->apellido;
+      $contra=$key->password;
+      $fec=$key->fec_nacimiento;
+    }
+
+    ?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -56,25 +74,25 @@ if (!isset($_SESSION["usuario"])) {
         <button><img src="../img/image.png" alt="no_imagen"></button>
       </picture>
 
-      <p id="name">Nombre</p>
+      <p id="name"><?php echo $_SESSION["usuario"]?></p>
 
     </article>
 
     <article>
 
 
-      <form action="registrarse.php" method="POST" id="form_movil">
+      <form action="registrarse.php" method="POST">
 
         <label for="contra">Contraseña:</label>
-        <input type="password" name="clave" value="<?php if (isset($_POST['enviar']) && isset($_POST['clave'])) echo $_POST['clave'] ?>" id="contra" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+        <input type="password" name="clave" value="<?php echo $obj->usuario->password?>" id="contra" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
 NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
 
 
         <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre" value="<?php if (isset($_POST['enviar']) && isset($_POST['nombre'])) echo $_POST['nombre'] ?>" required>
+        <input type="text" name="nombre" id="nombre" value="<?php echo $nombre?>" required>
 
         <label for="apellido">Apellido:</label>
-        <input type="text" name="apellido" id="apellido" value="<?php if (isset($_POST['enviar']) && isset($_POST['apellido'])) echo $_POST['apellido'] ?>" required>
+        <input type="text" name="apellido" id="apellido" value="<?php echo $apellido?>" required>
 
         <p><label>Sexo:</label>
           <ul>
@@ -86,7 +104,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
         </p>
 
         <label for="fec_nac">Fecha de nacimiento: </label>
-        <input type="date" name="fec_nac" id="fec_nac" value="<?php if (isset($_POST['enviar']) && isset($_POST['fec_nac'])) echo $_POST['fec_nac'] ?>" required>
+        <input type="date" name="fec_nac" id="fec_nac" value="<?php echo $fec?>" required>
 
       </form>
 
@@ -133,3 +151,8 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 </script>
 
 </html>
+
+{
+<?php
+
+}

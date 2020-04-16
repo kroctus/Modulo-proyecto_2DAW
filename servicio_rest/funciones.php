@@ -1,6 +1,8 @@
 <?php
 require "conexion.php";
 
+$url = "http://localhost/Proyectos/PROYECTO/servicio_rest/";
+
 function prueba(){
 return array("hola"=>"hola");
 }
@@ -93,7 +95,7 @@ function get_usuario($usuario){
 		}else{
 
 				if(mysqli_num_rows($resultado)>0){
-					$usuario=array();
+					$usuario=Array();
 					while($fila=mysqli_fetch_assoc($resultado)){
 						$usuario[]=$fila;
 					}
