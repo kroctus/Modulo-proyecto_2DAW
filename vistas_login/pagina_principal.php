@@ -3,12 +3,13 @@
 session_name("farzone");
 session_start();
 
-if (isset($_POST["Iniciar"])) {
+if (isset($_POST["logout"])) {
 
-  header("Location: vistas/inicio_sesion.php");
+  session_unset();
+  header("Location: ../index.php");
   exit;
-} elseif (isset($_POST["Registrarte"])) {
-  header("Location: vistas/registrarse.php");
+}elseif (isset($_POST["ajustes"])){
+  header("Location: perfil.php");
   exit;
 }
 
@@ -25,8 +26,8 @@ if (isset($_POST["Iniciar"])) {
   <script src="https://kit.fontawesome.com/68921df666.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" href="img/logo_cuadrado2.png">
   <link rel="stylesheet" href="../css/estilo.css">
-  <script src="jq/jquery-3.1.1.min.js" type="text/javascript"></script>
-  <script src="jq/JQueryRotate.js" type="text/javascript"></script>
+  <script src="../jq/jquery-3.1.1.min.js" type="text/javascript"></script>
+  <script src="../jq/JQueryRotate.js" type="text/javascript"></script>
 
   <!--carrusel jquery-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -37,7 +38,7 @@ if (isset($_POST["Iniciar"])) {
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
 
    <!--Mi script-->
-   <script src="js/funciones.js"></script>
+   <script src="../js/funciones.js"></script>
 </head>
 
 <body>
@@ -59,14 +60,14 @@ if (isset($_POST["Iniciar"])) {
 
   </header>
 
-  <form method="post" action="index.php" id="form_index">
+  <form method="post" action="pagina_principal.php" id="form_index">
 
     <div class="opc_session">
 
       <span><button type="button" id="cerrar_session"><i class="fas fa-times"></i></button></span>
 
-      <button type="submit" name="cerrar_session" id="cerrar_session" class="btn">Cerrar session</button>
-      <button type="submit" name="ajustes" id="ahustes" class="btn">Ajustes</button>
+      <button type="submit" name="logout" id="logout" class="btn_2"><i class="fas fa-sign-out-alt"></i>Cerrar session</button>
+      <button type="submit" name="ajustes" id="ajustes" class="btn_2"><i class="fas fa-cog"></i>Ajustes</button>
 
       <button type="button" class="mode"><i class="fas fa-moon"></i>/<i class="fas fa-sun"></i></button>
 
@@ -77,8 +78,8 @@ if (isset($_POST["Iniciar"])) {
 
       <span><button type="button" id="cerrar_session2"><i class="fas fa-times"></i></button></span>
 
-      <button type="submit" name="cerrar_session" id="cerrar_session" class="btn">Cerrar session</button>
-      <button type="submit" name="ajustes" id="ahustes" class="btn">Ajustes</button>
+      <button type="submit" name="logout" id="logout" class="mode"><i class="fas fa-sign-out-alt"></i>Cerrar session</button>
+      <button type="submit" name="ajustes" id="ajustes" class="mode"><i class="fas fa-cog"></i>Ajustes</button>
 
       <button type="button" class="mode"><i class="fas fa-moon"></i>/<i class="fas fa-sun"></i></button>
 
@@ -709,57 +710,5 @@ if (isset($_POST["Iniciar"])) {
     });
   });
 </script>
-
-<script>
-
-
-  $(document).ready(function(){
-
-    if(cambio==1){
-     
-      $('.opc_session').fadeOut();
-      $('.opc_login').fadeOut();
-
-      $('#form_index').html('<div class="opc_iniciado"><span><button type="button" id="close_tab"><i class="fas fa-times"></i></button></span><button type="button" name="cerrar_session" id="cerrar_session" class="btn" onclick="cerrar_session()">cerrar session</button><button type="button" class="mode"><i class="fas fa-moon"></i>/<i class="fas fa-sun"></i></button></div>');
-
-
-      /*Opciones login*/
-
-    $('#iniciar_sesion_header').click(function() {
-      $(".opc_iniciado").fadeIn();
-      $(".opc_iniciado").css({
-        "transform": "translate(0vw,1vh)",
-      });
-
-      $('.bloqueo').css({
-        "display": "block",
-      });
-
-      $('#menu_desplegable').fadeOut();
-
-      control_bloqueo = true;
-
-    });
-
-    $('#cerrar_session2').click(function() {
-
-      $(".opc_iniciado").fadeOut();
-      $(".opc_iniciado").css({
-        "transform": "translate(0vw,-100vh)",
-      });
-
-      $('.bloqueo').css({
-        "display": "none",
-      });
-
-    });
-
-
-    }
-
-  });
-
-</script>
-
 
 </html>

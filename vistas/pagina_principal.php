@@ -25,8 +25,8 @@ if (isset($_POST["Iniciar"])) {
   <script src="https://kit.fontawesome.com/68921df666.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" href="img/logo_cuadrado2.png">
   <link rel="stylesheet" href="../css/estilo.css">
-  <script src="jq/jquery-3.1.1.min.js" type="text/javascript"></script>
-  <script src="jq/JQueryRotate.js" type="text/javascript"></script>
+  <script src="../jq/jquery-3.1.1.min.js" type="text/javascript"></script>
+  <script src="../jq/JQueryRotate.js" type="text/javascript"></script>
 
   <!--carrusel jquery-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -37,7 +37,7 @@ if (isset($_POST["Iniciar"])) {
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
 
    <!--Mi script-->
-   <script src="js/funciones.js"></script>
+   <script src="../js/funciones.js"></script>
 </head>
 
 <body>

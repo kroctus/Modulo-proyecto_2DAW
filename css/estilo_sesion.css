@@ -269,6 +269,41 @@ display: none;
   margin-right: auto;
 }
 
+.notificacion{
+  /*
+    position: fixed;
+    left: auto;
+    right: auto;
+    top: 15vw;
+  */
+    display: flex;
+    flex: 60vw;
+    max-width: 65vw;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1vw;
+  
+    opacity: 1;
+    background-color: crimson;
+    padding: 50px;
+    border-radius: 10px;
+    height: 10vh;
+    color: white;
+  
+  }
+  
+  .notificacion p{
+    margin: auto;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex: 90vw;
+    max-width: 90vw;
+    font-size: 3vh;
+  }
+
 /*Tablet*/
 @media (min-width: 800px){
 

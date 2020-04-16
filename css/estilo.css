@@ -55,6 +55,8 @@ header p:hover{
   color:#BFA36F;
 }
 
+/* PAQUETE DE INICIO DE SESSION*/
+
 .opc_session, .opc_login{
 
   transition-duration: 1s;
@@ -119,41 +121,6 @@ header p:hover{
 
 }
 
-.opc_iniciado span{
-  display: flex;
-  flex: 100%;
-  max-width: 100%;
-}
-
-.opc_iniciado span button{
-  margin-left: auto;
-  background-color: inherit;
-  border: none;
-  font-size: 2em;
-  color: white;
-
-  margin-right: 5%;
-  transition-duration: 1s;
-}
-
-.opc_iniciado span button:hover{
-  transform: scale(1.1,1.1);
-  cursor: pointer;
-  color: red;
-}
-
-.opc_iniciado .btn{
-
-  border-radius: 5px;
-  margin-left: auto;
-  margin-right: auto;
-
-  width: 20em;
-  height: 8em;
-
-  transition-duration: 1s;
-
-}
 
 /*Opciones login 2*/
 
@@ -163,11 +130,12 @@ header p:hover{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  flex: 20vw;
 
   transition-duration: 1s;
 
-  width: 20vw;
-  height: 30vh;
+  max-width: 20vw;
+  height: 40vh;
 
   position: fixed;
   top: 13vh;
@@ -231,6 +199,36 @@ header p:hover{
 
 /*Botones inicio_session*/
 
+.opc_session .btn_2{
+
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 20em;
+  height: 8em;
+
+  transition-duration: 1s;
+
+}
+
+
+.opc_login .btn_2{
+
+  display: flex;
+  flex: 8vw;
+  max-width: 15vw;
+
+  text-align: center;
+  padding: 20px;
+  border-radius: 5px;
+  
+  transition-duration: 1s;
+
+  margin: auto;
+  margin-top: 10%;
+}
+
 #iniciar{
   color: white;
   background-color: #0477BF;
@@ -252,6 +250,59 @@ header p:hover{
   transform: scale(1.1,1.1);
   cursor: pointer;
 }
+
+#logout{
+  background-color: crimson;
+  color: white;
+}
+
+#logout:hover{
+  cursor: pointer;
+  border: none;
+  transform: scale(1.1,1.1);
+}
+
+#ajustes{
+  background-color: black;
+  color: white;
+}
+
+#ajustes:hover{
+  cursor: pointer;
+  border: none;
+  transform: scale(1.1,1.1);
+  background-color: white;
+  color: black;
+}
+
+
+.mode{
+
+  border-radius: 10px;
+  margin-top: 0.8vh;
+  margin-left: auto;
+  margin-right: auto;
+
+
+  background-color: lightgray;
+  width: 12em;
+  height: 4em;
+
+  transition-duration: 1s;
+
+  font-size: 2.5vh;
+}
+
+.mode:hover{
+  cursor: pointer;
+  color: rgb(255, 217, 0);
+  background-color: #191919;
+  border-radius: 50px;
+}
+
+
+
+/*FIN DE PQUETE DE INICIO SESSION*/
 
 /*Section*/
 
@@ -748,27 +799,6 @@ z-index: 10000;
 
   display: none;
 }
-
-.mode{
-  margin-top: 1vh;
-  margin-left: auto;
-  margin-right: auto;
-
-  width: 15em;
-  height: 4em;
-
-  transition-duration: 1s;
-
-  font-size: 2.5vh;
-}
-
-.mode:hover{
-  cursor: pointer;
-  color: rgb(255, 217, 0);
-  background-color: #191919;
-  border-radius: 5px;
-}
-
 
 
 @media (min-width: 800px) {

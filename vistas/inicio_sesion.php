@@ -61,7 +61,14 @@ if (isset($_POST["Registrarte"])) {
 
   <h1 id="saludo">¡Hola! Es un placer verte de nuevo</h1>
 
-
+  <?php 
+  
+    if(isset($_SESSION["restringido"])){
+      echo "<div class='notificacion'><p>Esta intentando acceder a un espacio restringido por favor inicie session</p></div>";
+      session_unset();
+    }
+  
+  ?>
 
     <form action="inicio_sesion.php" method="POST" id="form_movil">
 
