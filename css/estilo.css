@@ -55,7 +55,7 @@ header p:hover{
   color:#BFA36F;
 }
 
-.opc_session{
+.opc_session, .opc_login{
 
   transition-duration: 1s;
 
@@ -107,6 +107,42 @@ header p:hover{
 }
 
 .opc_session .btn{
+
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 20em;
+  height: 8em;
+
+  transition-duration: 1s;
+
+}
+
+.opc_iniciado span{
+  display: flex;
+  flex: 100%;
+  max-width: 100%;
+}
+
+.opc_iniciado span button{
+  margin-left: auto;
+  background-color: inherit;
+  border: none;
+  font-size: 2em;
+  color: white;
+
+  margin-right: 5%;
+  transition-duration: 1s;
+}
+
+.opc_iniciado span button:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
+  color: red;
+}
+
+.opc_iniciado .btn{
 
   border-radius: 5px;
   margin-left: auto;
@@ -751,6 +787,19 @@ z-index: 10000;
     margin-bottom: auto;
     margin-top: 2vh;
   }
+
+  .opc_iniciado{
+
+    width: 95vw;
+    max-width: 95vw;
+    height: 85vh;
+  }
+
+  .opc_iniciado span{
+    margin-bottom: auto;
+    margin-top: 2vh;
+  }
+
 
   /*Section*/
 
