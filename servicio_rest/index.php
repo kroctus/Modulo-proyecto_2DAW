@@ -26,6 +26,10 @@ $app->get('/noticias', function(){
 	echo json_encode(get_noticias(),JSON_FORCE_OBJECT);
 });
 
+$app->get('/get_noticia/:id', function($id){
+	echo json_encode(get_noticia($id),JSON_FORCE_OBJECT);
+});
+
 $app->post('/login', function ()  {
 	echo json_encode(login($_POST["usuario"],$_POST["password"]),JSON_FORCE_OBJECT);
 

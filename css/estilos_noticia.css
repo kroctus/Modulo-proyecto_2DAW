@@ -1,0 +1,277 @@
+*{
+  /*font-family: 'Roboto', sans-serif;*/
+  font-family: 'Righteous', cursive;
+  box-sizing: border-box;
+}
+
+
+header {
+  width: 95vw;
+  height: 10vh;
+  padding-bottom: 5px;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 0%;
+  display: flex;
+  flex-flow: row;
+/*
+/*Para hacer que la cabecera florte sobre el contenido
+  left: 0; /* Posicionamos la cabecera al lado izquierdo 
+	top: 0; /* Posicionamos la cabecera pegada arriba 
+	position: fixed; /* Hacemos que la cabecera tenga una posición fija 
+  z-index: 5;
+  */
+}
+header p{
+  font-size: 2.5vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+}
+
+header label{
+  font-size: 2.5vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+header a{
+  text-decoration: none;
+  color: white;
+}
+
+header a:hover{
+ color: #BFA36F;
+}
+
+
+header p:nth-child(2) {
+font-weight: bold;
+}
+
+  body{
+   background-color: #191919;
+  }
+
+section{
+
+  display: flex;
+  flex: 100vw;
+  max-width: 100vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  border-radius: 5px;
+  color: white;
+
+}
+
+section .linea{
+  display: flex;
+  flex: 100vw;
+  max-width: 100vw;
+  height: 0.5vh;
+  flex-direction: row;
+  background-color: aliceblue;
+  border-radius: 10px;
+  margin-bottom: 2vh;
+}
+
+
+section article{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 100vw;
+  max-width: 100vw;
+}
+
+section article img{
+  display: flex;
+  flex: 90vw;
+  max-width: 90vw;
+  height: 35vh;
+  margin-left: auto;
+  margin-right: auto;
+  
+  border-radius: 10px;
+}
+
+section #noticia{
+  padding-bottom: 30px;
+  border-bottom: 2px white solid;
+}
+
+
+section #noticia h1{
+  display: flex;
+  flex: 90vw;
+  max-width: 90vw;
+  flex-direction: row;
+  text-align: center;
+
+  margin-left: auto;
+  margin-right: auto;
+  color: rgb(12, 149, 235);
+  font-size: 3vh;
+}
+
+section #noticia h3{
+  display: flex;
+  flex: 90vw;
+  max-width: 90vw;
+  flex-direction: row;
+
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.8vh;
+}
+
+section #noticia p{
+  display: flex;
+  flex: 90vw;
+  max-width: 90vw;
+  flex-direction: row;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section #comentarios{
+  flex: 90vw;
+  max-width: 90vw;
+
+
+  background-color: rgb(54, 57, 63);
+  border-radius: 10px;
+  padding: 30px;
+  margin-top: 6vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section .comentario{
+
+  display: flex;
+  flex: 80vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 80vw;
+
+  padding-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: solid 2px white;
+
+}
+
+section .comentario p{
+  display: flex;
+  flex: 80vw;
+  max-width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section .comentario p .user{
+  display: flex;
+  flex: 10vw;
+  max-width: 10vw;
+  color: rgb(12, 149, 235);
+}
+
+section #comentarios .comentario .desc_comen{
+display: flex;
+flex: 75vw;
+max-width: 75vw;
+
+}
+
+section #comentarios .comentario button{
+  background-color: inherit;
+  color: white;
+  border: none;
+  font-size: 1.8vh;
+
+  transition-duration: 1s;
+}
+
+section #comentarios .comentario .responder{
+  margin-left: auto;
+}
+
+section #comentarios .comentario .like{
+  margin-right: 1vw;
+}
+
+section #comentarios .comentario button:hover{
+  cursor: pointer;
+  color:  rgb(12, 149, 235);
+}
+
+
+
+@media (min-width: 800px){
+/*
+  body{
+    background-color: black;
+  }
+*/
+}
+
+@media (min-width: 1000px){
+
+
+  section article{
+    padding: 50px;
+  }
+
+  section #noticia{
+    flex:80vw;
+    max-width: 80vw;
+  }
+
+  section #noticia{
+    flex: 65vw;
+    max-width: 65vw;
+  }
+
+  section #noticia img{
+    flex: 50vw;
+    height: 50vh;
+    max-width: 50vw;
+  }
+
+  section #comentarios{
+  
+    position: absolute;
+    width: 30vw;
+    top: 4vh;
+    right: 0.4vw;
+
+height: 100vh;
+    background-color: #191919;
+    border-radius: 0px;
+    overflow: scroll;
+  }
+
+  section .comentario{
+
+    flex: 90vw;
+    max-width: 90vw;
+    background-color: #191919;
+  }
+
+  section .comentario p .user{
+    flex: 4vw;
+    max-width: 4vw;
+  }
+
+  section #comentarios .comentario .desc_comen{
+    flex: 50vw;
+max-width: 50vw;
+  }
+
+}

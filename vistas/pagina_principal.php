@@ -11,6 +11,11 @@ if (isset($_POST["Iniciar"])) {
 } elseif (isset($_POST["Registrarte"]) || isset($_POST["empezar"])) {
   header("Location: registrarse.php");
   exit;
+}elseif(isset($_POST["noticia"])){
+
+  $_SESSION["id_noticia"]=$_POST["noticia"];
+  header("Location: noticia.php");
+  exit;
 }
 
 ?>
@@ -137,7 +142,7 @@ if (isset($_POST["Iniciar"])) {
         foreach ($obj->noticias as $key) {
           echo "<div class='div_noticia'>";
 
-            echo "<button type='submit' name='noticia' value='".$key->id_noticia."'>".$key->titulo."</button>";
+            echo "<form method='post' action='pagina_principal.php'><button type='submit' name='noticia' value='".$key->id_noticia."'>".$key->titulo."</button></form>";
             echo "<p>".$key->copete."</p>";
             echo "<img src='../img/".$key->imagen."'>";
 
