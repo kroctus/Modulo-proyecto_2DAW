@@ -4,11 +4,6 @@ session_name("farzone");
 session_start();
 
 if (isset($_POST["Iniciar"])) {
-
-  $_SESSION["usuario"] = $_POST["usuario"];
-  $_SESSION["contra"] = $_POST["clave"];
-
-
   header("Location: ../index.php");
   exit;
 }
@@ -91,7 +86,7 @@ NO puede tener otros símbolos." id="contra" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\
 
 
       <article class="">
-        <button type="submit" name="Iniciar" id="iniciar">Iniciar</button>
+        <button type="button" name="Iniciar" id="iniciar" onclick="hacer_login()">Iniciar</button>
       </article>
 
     </form>
@@ -109,7 +104,7 @@ NO puede tener otros símbolos." id="contra2" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=
         </p>
         <p><a href="#">¿Olvidaste tu contraseña?</a></p>
 
-        <button type="button" name="Iniciar" id="iniciar" onclick="hacer_login()">Iniciar</button>
+        <button type="button" name="Iniciar" id="iniciar" onclick="hacer_login2()">Iniciar</button>
 
 
     </form>

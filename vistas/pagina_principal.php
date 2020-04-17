@@ -139,7 +139,7 @@ if (isset($_POST["Iniciar"])) {
 
     <article id="musica" class="categorias">
 
-      <h2><a href="vistas/categoria_musica.php">Música</a></h2>
+      <h2><a href="../vistas/categoria_musica.php">Música</a></h2>
       <p>Todos los generos que puedas imaginar y si no encuentras uno subelo tu mismo</p>
 
     </article>
@@ -147,7 +147,7 @@ if (isset($_POST["Iniciar"])) {
     <article id="diseño" class="categorias">
 
 
-      <h2><a href="vistas/categoria_diseño.php">Diseño</a></h2>
+      <h2><a href="../vistas/categoria_diseño.php">Diseño</a></h2>
       <p>Sube aquí tus diseños y descubre también el arte de los demás</p>
 
     </article>
@@ -155,7 +155,7 @@ if (isset($_POST["Iniciar"])) {
     <article id="fotografia" class="categorias">
 
 
-      <h2><a href="vistas/categoria_fotografia.php">Fotografía<a href="#"></a></h2>
+      <h2><a href="../vistas/categoria_fotografia.php">Fotografía<a href="#"></a></h2>
       <p>nada mejor que capturar ese momento especial, bienvenidos fotografos</p>
 
     </article>
@@ -163,7 +163,7 @@ if (isset($_POST["Iniciar"])) {
     <article id="ilustracion" class="categorias">
 
 
-      <h2><a href="vistas/categoria_ilustracion.php">Ilustración</a></h2>
+      <h2><a href="../vistas/categoria_ilustracion.php">Ilustración</a></h2>
       <p>nada mejor que capturar ese momento especial, bienvenidos fotografos</p>
 
     </article>
@@ -221,7 +221,7 @@ if (isset($_POST["Iniciar"])) {
 
 
     <p id="subcategoria_title">Musica</p>
-    <p class="ver_todas"><a href="vistas/categoria_musica.php">Ver todas</a></p>
+    <p class="ver_todas"><a href="../vistas/categoria_musica.php">Ver todas</a></p>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/musica.webp" alt="">
@@ -244,7 +244,7 @@ if (isset($_POST["Iniciar"])) {
     </article>
 
     <p id="subcategoria_title">Diseño</p>
-    <p class="ver_todas"><a href="vistas/categoria_diseño.php">Ver todas</a></p>
+    <p class="ver_todas"><a href="../vistas/categoria_diseño.php">Ver todas</a></p>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/diseño.webp" alt="">
@@ -269,7 +269,7 @@ if (isset($_POST["Iniciar"])) {
 
 
     <p id="subcategoria_title">Fotografía</p>
-    <p class="ver_todas"><a href="vistas/categoria_fotografia.php">Ver todas</a></p>
+    <p class="ver_todas"><a href="../vistas/categoria_fotografia.php">Ver todas</a></p>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/foto.webp" alt="">
@@ -293,7 +293,7 @@ if (isset($_POST["Iniciar"])) {
 
 
     <p id="subcategoria_title">Ilustracion</p>
-    <p class="ver_todas"><a href="vistas/categoria_ilustracion.php">Ver todas</a></p>
+    <p class="ver_todas"><a href="../vistas/categoria_ilustracion.php">Ver todas</a></p>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/ilustracion.webp" alt="">

@@ -1,5 +1,8 @@
 <?php
 
+  session_name('farzone');
+  session_start();
+
 $cambio=false;
 
 $url = "http://localhost/Proyectos/PROYECTO/servicio_rest/";

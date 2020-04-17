@@ -63,7 +63,7 @@ function insertar_usuario($usuario, $password, $nombre, $apellido, $sexo,$fec_na
 	}else{
 		
 		mysqli_set_charset($con,'utf8');
-		$consulta="INSERT into usuarios (usuario,password,nombre,apellido,sexo,fec_nacimiento) VALUES ('$usuario','$password','$nombre','$apellido','$sexo','$fec_nac')";
+		$consulta="INSERT into usuarios (usuario,password,nombre,apellido,sexo,fec_nacimiento,correo,ubicacion,imagen) VALUES ('$usuario','$password','$nombre','$apellido','$sexo','$fec_nac','nada','nada','no_imagen.png')";
 		$resultado=mysqli_query($con,$consulta);
 
 		if(!$resultado){
@@ -110,4 +110,23 @@ function get_usuario($usuario){
 	}
 }
 
+}
+
+function actualizar_usuario($usuario,$nombre,$apellido,$contra,$sexo,$fec_nac){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Imposible conectar. Error ".mysqli_connect_errno());
+	}else{
+		mysqli_set_charset($con, "utf8");
+		$consulta="update usuarios set nombre='".$nombre."', password='".$contra."', apellido='".$apellido."', sexo='".$sexo."', fec_nacimiento='".$fec_nac."' where usuario='".$usuario."'";
+		$resultado=mysqli_query($con, $consulta);
+		if (!$resultado) {
+			$mensaje="Imposible realizar la consulta. Error ".mysqli_errno($con);
+			mysqli_close($con);
+			return array("mensaje_error"=>$mensaje);
+		}else{
+			mysqli_close($con);
+			return array("mensaje"=>"Se ha actualizado el usuario con nombre : ".$nombre);
+		}
+	}
 }

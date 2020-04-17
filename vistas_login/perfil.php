@@ -10,22 +10,47 @@ if (!isset($_SESSION["usuario"])) {
   header("Location: ../vistas/inicio_sesion.php");
 }
 
+if(isset($_POST["guardar"])){
+
+
+  /**$usuario,$nombre,$apellido,$contra,$sexo,$fec_nac*/
+
+    $datos_usuario=array();
+
+    $datos_usuario["usuario"]=$_SESSION["usuario"];
+    $datos_usuario["nombre"]=$_POST["nombre"];
+    $datos_usuario["apellido"]=$_POST["apellido"];
+    $datos_usuario["contra"]=$_POST["clave"];
+    $datos_usuario["sexo"]=$_POST["sexo"];
+    $datos_usuario["fec_nac"]=$_POST["fec_nac"];
+
+
+  $obj2=consumir_servicio_REST($url.'actualizar_usuario/'.urlencode($_SESSION["usuario"]),'PUT',$datos_usuario);
+  if(isset($obj2->mensaje_error)){
+    die($obj2->mensaje_error);
+  }else{
+    echo "<p>Los Cambios se han guardado correctamente</p>";
+  }
+
+}
 
 ?>
 
 <?php
 
-
   $obj=consumir_servicio_REST($url.'get_usuario/'.urlencode($_SESSION["usuario"]),'GET');
   if(isset($obj->mensaje_error)){
     die($obj->mensaje_error);
+
+    echo "SOY UN ERRPR";
   }else{
 
     foreach ($obj->usuario as $key) {
-      $nombre=$key->usuario;
+      $nombre=$key->nombre;
       $apellido=$key->apellido;
       $contra=$key->password;
       $fec=$key->fec_nacimiento;
+      $sexo=$key->sexo;
     }
 
     ?>
@@ -61,9 +86,11 @@ if (!isset($_SESSION["usuario"])) {
 
 <body>
 
+<form action="perfil.php" method="POST">
+
   <header>
     <p id="titulo"><a href="../index.php">Farzone</i></a></p>
-    <button id="guardar">Guardar</button>
+    <button type="submit" name="guardar" id="guardar">Guardar</button>
   </header>
 
   <section>
@@ -81,7 +108,6 @@ if (!isset($_SESSION["usuario"])) {
     <article>
 
 
-      <form action="registrarse.php" method="POST">
 
         <label for="contra">Contraseña:</label>
         <input type="password" name="clave" value="<?php echo $obj->usuario->password?>" id="contra" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
@@ -96,9 +122,9 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
         <p><label>Sexo:</label>
           <ul>
-            <li><input type="radio" name="sexo" value="mujer" class="sexo" />Mujer</li>
-            <li><input type="radio" name="sexo" value="hombre" class="sexo" />Hombre</li>
-            <li><input type="radio" name="sexo" value="otro" class="sexo" checked />Otro</li>
+            <li><input type="radio" name="sexo" value="mujer" class="sexo" <?php if($sexo=="mujer"){ echo "checked";}?> />Mujer</li>
+            <li><input type="radio" name="sexo" value="hombre" class="sexo" <?php if($sexo=="hombre"){ echo "checked";}?> />Hombre</li>
+            <li><input type="radio" name="sexo" value="otro" class="sexo" <?php if($sexo=="otro"){ echo "checked";}?> />Otro</li>
 
           </ul>
         </p>
@@ -106,7 +132,7 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
         <label for="fec_nac">Fecha de nacimiento: </label>
         <input type="date" name="fec_nac" id="fec_nac" value="<?php echo $fec?>" required>
 
-      </form>
+
 
 
     </article>
@@ -114,6 +140,8 @@ NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8
 
 
   </section>
+
+  </form>
 
 
 

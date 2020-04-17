@@ -27,6 +27,12 @@ $app->post('/login', function ()  {
 
 });
 
+$app->put('/actualizar_usuario/:usuario', function ($usuario) use($app) {
+	$datos_usuario=$app->request->put();
+	echo json_encode(actualizar_usuario($usuario,$datos_usuario["nombre"],$datos_usuario["apellido"],$datos_usuario["contra"],$datos_usuario["sexo"],$datos_usuario["fec_nac"]),JSON_FORCE_OBJECT);
+	/*echo json_encode(actualizar_tablero(2,3,9,"vacio","B2"),JSON_FORCE_OBJECT);*/
+});
+
 $app->run();
 
 ?>
