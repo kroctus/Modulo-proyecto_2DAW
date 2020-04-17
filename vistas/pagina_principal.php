@@ -1,5 +1,6 @@
 <?php
 
+require "../servicio_rest/funciones.php";
 session_name("farzone");
 session_start();
 
@@ -7,7 +8,7 @@ if (isset($_POST["Iniciar"])) {
 
   header("Location: inicio_sesion.php");
   exit;
-} elseif (isset($_POST["Registrarte"])) {
+} elseif (isset($_POST["Registrarte"]) || isset($_POST["empezar"])) {
   header("Location: registrarse.php");
   exit;
 }
@@ -47,7 +48,7 @@ if (isset($_POST["Iniciar"])) {
     <p id="titulo">Farzone</p>
     <label id="menu_busqueda_btn"><i class="fas fa-search"></i></label>
 
-    <p id="titulo_2"><a href="index.php">Farzone</a></p>
+    <p id="titulo_2"><a href="../index.php">Farzone</a></p>
     <input type="search" name="busqueda" value="" id="busq_2">
     <p id="iniciar_sesion_header"><a>Login<i class="fas fa-user-circle"></i></a></p>
 
@@ -112,27 +113,40 @@ if (isset($_POST["Iniciar"])) {
       <video id="video" loop autoplay preload muted>
         <source src="../videos/4K_8.webm" type='video/webm; codecs="vp8,vorbis"' />
       </video>
-
+      <form method="post" action="pagina_principal.php">
       <h2>Bienvenido al mundo de los contenidos</h2>
-      <button type="button" name="button">Empezar</button>
-
+      <button type="submit"  name="empezar">Empezar</button>
+      </form>
     </article>
+
+
 
     <div id="noticias">
       <h1>Noticias</h1>
 
       <div class="carousel">
         <div class="slider">
-          <div>
-            <img src="../img_comprimidas/carrusel.webp">
-          </div>
-          <div>
-            <img src="../img_comprimidas/with.webp">
-          </div>
 
-          <div>
-            <img src="../img_comprimidas/java.webp">
-          </div>
+        <?php
+    
+    $obj=consumir_servicio_REST($url.'noticias','GET');
+    if(isset($obj->mensaje_error)){
+      die($obj->mensaje_error);
+    }else{
+
+        foreach ($obj->noticias as $key) {
+          echo "<div class='div_noticia'>";
+
+            echo "<button type='submit' name='noticia' value='".$key->id_noticia."'>".$key->titulo."</button>";
+            echo "<p>".$key->copete."</p>";
+            echo "<img src='../img/".$key->imagen."'>";
+
+          echo "</div>";
+        }
+
+    }
+  
+  ?>
         </div>
       </div>
     </div>

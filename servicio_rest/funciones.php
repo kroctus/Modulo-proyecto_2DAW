@@ -130,3 +130,33 @@ function actualizar_usuario($usuario,$nombre,$apellido,$contra,$sexo,$fec_nac){
 		}
 	}
 }
+
+function get_noticias(){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from noticias";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+
+					$noticias=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$noticias[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("noticias"=>$noticias);
+
+	}
+}
+
+}

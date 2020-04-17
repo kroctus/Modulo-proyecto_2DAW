@@ -22,6 +22,10 @@ $app->get('/get_usuario/:usuario', function($usuario){
 	echo json_encode(get_usuario($usuario),JSON_FORCE_OBJECT);
 });
 
+$app->get('/noticias', function(){
+	echo json_encode(get_noticias(),JSON_FORCE_OBJECT);
+});
+
 $app->post('/login', function ()  {
 	echo json_encode(login($_POST["usuario"],$_POST["password"]),JSON_FORCE_OBJECT);
 

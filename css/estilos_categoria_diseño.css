@@ -643,6 +643,17 @@ mostrarán cuando la página se visualice en modo tablet*/
 display: none;
 }
 
+.carousel img {
+  display: flex;
+  flex: 100vw;
+  flex-direction: row;
+  height: 35vh;
+  width: 100vw;
+  max-width: 100vw;
+
+  border-radius: 10px;
+}
+
 
 /*Div de bloqueo del cuerpo de la página cuando se despliegue el menu de hambuerguesa*/
 
@@ -966,6 +977,17 @@ display: none;
 
 #plus{
   display: none;
+}
+
+.carousel img {
+  display: flex;
+  flex: 100vw;
+  flex-direction: row;
+  height: 75vh;
+  width: 100vw;
+  max-width: 100vw;
+
+  border-radius: 10px;
 }
 
 

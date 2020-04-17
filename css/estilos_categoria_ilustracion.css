@@ -651,6 +651,17 @@ mostrarán cuando la página se visualice en modo tablet*/
 display: none;
 }
 
+.carousel img {
+  display: flex;
+  flex: 100vw;
+  flex-direction: row;
+  height: 35vh;
+  width: 100vw;
+  max-width: 100vw;
+
+  border-radius: 10px;
+}
+
 
 /*Div de bloqueo del cuerpo de la página cuando se despliegue el menu de hambuerguesa*/
 
@@ -829,14 +840,18 @@ display: none;
         z-index: 3;
     }
 
-    .carousel img {
-        display: block;
-        height: 50%;
-        width: 100%;
-        max-width: 100%;
 
-        border-radius: 10px;
+    .carousel img {
+      display: flex;
+      flex: 100vw;
+      flex-direction: row;
+      height: 35vh;
+      width: 100vw;
+      max-width: 100vw;
+    
+      border-radius: 10px;
     }
+    
 
 
 
@@ -971,6 +986,17 @@ display: none;
 
 #plus{
   display: none;
+}
+
+.carousel img {
+  display: flex;
+  flex: 100vw;
+  flex-direction: row;
+  height: 75vh;
+  width: 100vw;
+  max-width: 100vw;
+
+  border-radius: 10px;
 }
 
 

@@ -991,6 +991,17 @@ display: none;
   display: none;
 }
 
+.carousel img {
+  display: flex;
+  flex: 100vw;
+  flex-direction: row;
+  height: 75vh;
+  width: 100vw;
+  max-width: 100vw;
+
+  border-radius: 10px;
+}
+
 
 
 }
