@@ -259,3 +259,27 @@ function get_coment_noticia($id){
 }
 
 }
+
+function insertar_comentario_noticia($id_usuario, $id_noticia, $desc_comentario, $fec_publicacion)
+{
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="INSERT into comentarios_noticias (id_usuario,id_noticia,desc_comentario,fec_publicacion) VALUES ('$id_usuario','$id_noticia','$desc_comentario','$fec_publicacion')";
+		$resultado=mysqli_query($con,$consulta);
+
+		if(!$resultado){
+			
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje_error"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"se ha agregado el comentario exitosamente");
+		}
+	}
+}

@@ -38,6 +38,10 @@ $app->get('/comentarios_noticia/:id', function($id){
 	echo json_encode(get_coment_noticia($id),JSON_FORCE_OBJECT);
 });
 
+$app->post('/insertar_comentario_noticia', function () {
+	echo json_encode(insertar_comentario_noticia($_POST["id_usuario"],$_POST["id_noticia"],$_POST["desc_comentario"],$_POST["fec_publicacion"]),JSON_FORCE_OBJECT);
+});
+
 $app->post('/login', function ()  {
 	echo json_encode(login($_POST["usuario"],$_POST["password"]),JSON_FORCE_OBJECT);
 

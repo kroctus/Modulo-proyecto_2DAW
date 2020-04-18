@@ -1,5 +1,6 @@
 <?php
 
+require "../servicio_rest/funciones.php";
 session_name("farzone");
 session_start();
 
@@ -10,6 +11,11 @@ if (isset($_POST["logout"])) {
   exit;
 }elseif (isset($_POST["ajustes"])){
   header("Location: perfil.php");
+  exit;
+}elseif(isset($_POST["noticia"])){
+
+  $_SESSION["id_noticia"]=$_POST["noticia"];
+  header("Location: noticia.php");
   exit;
 }
 
@@ -136,16 +142,26 @@ if (isset($_POST["logout"])) {
 
       <div class="carousel">
         <div class="slider">
-          <div>
-            <img src="../img_comprimidas/carrusel.webp">
-          </div>
-          <div>
-            <img src="../img_comprimidas/with.webp">
-          </div>
+        <?php
+    
+    $obj=consumir_servicio_REST($url.'noticias','GET');
+    if(isset($obj->mensaje_error)){
+      die($obj->mensaje_error);
+    }else{
 
-          <div>
-            <img src="../img_comprimidas/java.webp">
-          </div>
+        foreach ($obj->noticias as $key) {
+          echo "<div class='div_noticia'>";
+
+            echo "<form method='post' action='pagina_principal.php'><button type='submit' name='noticia' value='".$key->id_noticia."'>".$key->titulo."</button></form>";
+            echo "<p>".$key->copete."</p>";
+            echo "<img src='../img/".$key->imagen."'>";
+
+          echo "</div>";
+        }
+
+    }
+  
+  ?>
         </div>
       </div>
     </div>
