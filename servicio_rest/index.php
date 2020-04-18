@@ -42,6 +42,11 @@ $app->post('/insertar_comentario_noticia', function () {
 	echo json_encode(insertar_comentario_noticia($_POST["id_usuario"],$_POST["id_noticia"],$_POST["desc_comentario"],$_POST["fec_publicacion"]),JSON_FORCE_OBJECT);
 });
 
+$app->post('/insertar_publicacion', function () {
+	echo json_encode(insertar_publicacion($_POST["titulo"],$_POST["descripcion"],$_POST["fec_publicacion"],$_POST["categoria"],$_POST["usuario"],$_POST["archivo"]),JSON_FORCE_OBJECT);
+});
+
+
 $app->post('/login', function ()  {
 	echo json_encode(login($_POST["usuario"],$_POST["password"]),JSON_FORCE_OBJECT);
 
@@ -52,6 +57,15 @@ $app->put('/actualizar_usuario/:usuario', function ($usuario) use($app) {
 	echo json_encode(actualizar_usuario($usuario,$datos_usuario["nombre"],$datos_usuario["apellido"],$datos_usuario["contra"],$datos_usuario["sexo"],$datos_usuario["fec_nac"]),JSON_FORCE_OBJECT);
 	/*echo json_encode(actualizar_tablero(2,3,9,"vacio","B2"),JSON_FORCE_OBJECT);*/
 });
+
+/**PUBLICACIONES */
+
+
+$app->get('/publicaciones', function(){
+	echo json_encode(get_publicaciones(),JSON_FORCE_OBJECT);
+});
+
+
 
 $app->run();
 

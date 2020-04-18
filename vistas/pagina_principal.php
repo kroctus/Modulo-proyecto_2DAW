@@ -188,6 +188,34 @@ if (isset($_POST["Iniciar"])) {
     </article>
 
 
+<?php
+
+    $aux=consumir_servicio_REST($url.'publicaciones','GET');
+    if(isset($aux->mensaje_error)){
+      die($aux->mensaje_error);
+    }else{
+      foreach ($aux->publicaciones as $key) {
+       echo "<article>";
+
+        switch ($key->categoria){
+
+          case('diseño'):
+          break;
+
+          case('fotografia'):
+          break;
+
+          case('ilustracion'):
+          break;
+
+        }
+
+       echo "</article>";
+      }
+    }
+
+?>
+
     <article class="contenido">
       <p>Autor: nombre</p>
       <p>titulo: titulo</p>

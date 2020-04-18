@@ -10,8 +10,29 @@ if (!isset($_SESSION["usuario"])) {
   header("Location: ../vistas/inicio_sesion.php");
 }
 
+$obj = consumir_servicio_REST($url . 'get_usuario/' . urlencode($_SESSION["usuario"]), 'GET');
+if (isset($obj->mensaje_error)) {
+  die($obj->mensaje_error);
+} else {
+  foreach ($obj->usuario as $key) {
+    $usuario = $key->id_usuario;
+  }
+}
+
 
 if (isset($_POST["guardar"])) {
+
+
+  $datos = array();
+
+  $datos["titulo"] = $_POST["titulo"];
+  $datos["descripcion"] = $_POST["descripcion"];
+  $datos["fec_publicacion"] = date("Y-m-d");
+  $datos["categoria"] = $_POST["categoria"];
+  $datos["usuario"] = $usuario;
+  $datos["archivo"]=$_FILES["file"]["name"];
+
+
 
   /**IMAGEN*/
   if ($_POST["categoria"] == 'ilustracion' || $_POST["categoria"] == "diseño" || $_POST["categoria"] == 'fotografia') {
@@ -23,9 +44,16 @@ if (isset($_POST["guardar"])) {
       $uploadOk = 1;
 
       if (move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/pictures/' . $_FILES['file']['name'])) {
+
         echo "<div class='ok'>";
         echo "<p>Su publicación se ha subido correctamente</p>";
         echo "</div>";
+
+        $aux=consumir_servicio_REST($url.'insertar_publicacion','POST',$datos);
+        if(isset($aux->mensaje_error)){
+          die($aux->mensaje_error);
+        }
+
       }
     } else {
       echo "<div class='error'>";
@@ -37,7 +65,7 @@ if (isset($_POST["guardar"])) {
 
   /**MUSICA */
 
-  if ($_POST["categoria"] == 'musica') {
+ elseif ($_POST["categoria"] == 'musica') {
 
     // Check if image file is a actual image or fake image
 
@@ -48,14 +76,22 @@ if (isset($_POST["guardar"])) {
         echo "<div class='error'>";
         echo "<p>El archivo seleccionado no es compatible con la categoria seleccionada, por favor elija otra categoria o cambie el archivo</p>";
         echo "</div>";
-      }
+      }else{
+        $nombre = $_FILES['file']['name'] . date("Y/m/d");
+        if (move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/audio/' . $_FILES['file']['name'])) {
 
-      $nombre = $_FILES['file']['name'] . date("Y/m/d");
-      if (move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/audio/' . $_FILES['file']['name'])) {
-        echo "<div class='ok'>";
-        echo "<p>Su publicación se ha subido correctamente</p>";
-        echo "</div>";
+          echo "<div class='ok'>";
+          echo "<p>Su publicación se ha subido correctamente</p>";
+          echo "</div>";
+
+          $aux=consumir_servicio_REST($url.'insertar_publicacion','POST',$datos);
+          if(isset($aux->mensaje_error)){
+            die($aux->mensaje_error);
+          }
+  
+        }
       }
+      
     }
   }
 }

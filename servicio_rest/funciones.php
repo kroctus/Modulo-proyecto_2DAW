@@ -283,3 +283,58 @@ function insertar_comentario_noticia($id_usuario, $id_noticia, $desc_comentario,
 		}
 	}
 }
+
+function insertar_publicacion($titulo, $descripcion, $fec_publicacion, $categoria,$id_usuario,$archivo)
+{
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		$likes=0;
+		mysqli_set_charset($con,'utf8');
+		$consulta="INSERT into publicaciones (titulo,descripcion,fec_publicacion,categoria,id_usuario,num_likes,archivo) VALUES ('$titulo','$descripcion','$fec_publicacion','$categoria','$id_usuario','$likes','$archivo')";
+		$resultado=mysqli_query($con,$consulta);
+
+		if(!$resultado){
+			
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje_error"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"se ha agregado el comentario exitosamente");
+		}
+	}
+}
+
+function get_publicaciones(){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from publicaciones";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+
+					$publicaciones=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$publicaciones[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("publicaciones"=>$publicaciones);
+
+	}
+}
+
+}
