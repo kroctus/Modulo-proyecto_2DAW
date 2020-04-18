@@ -74,6 +74,44 @@ require "../servicio_rest/funciones.php";
 
             <h1>Comentarios</h1>
 
+            <?php
+
+            $obj2 = consumir_servicio_REST($url . 'comentarios_noticia/' . urlencode($_SESSION["id_noticia"]), 'GET');
+            if (isset($obj2->mensaje_error)) {
+                die($obj2->mensaje_error);
+            } else {
+
+                foreach ($obj2->comentarios as $key) {
+
+                        echo "<div class='comentario'>";
+
+                        /**INFO DEL USUARIO QUE SUBIO EL COMENT*/
+
+                        $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+                        if(isset($obj3->mensaje_error)){
+                          die($obj3->mensaje_error);
+                        }else{
+                      
+                          foreach ($obj3->usuario as $key2) {
+                            $usuario=$key2->usuario;
+                          }
+                        }
+
+                        echo "<p class='label_user'><span class='user'>".$key2->usuario."</span></p>";
+
+                        echo " <p class='desc_comen'>".$key->desc_comentario."</p>";
+
+                        echo " <button type='submit' name='responder' value='".$key->id_noticia."' class='responder'>Responder</button>";
+
+                        echo "<button type='submit' name='like' value='".$key->id_noticia."' class='like'><i class='fas fa-heart'></i></button>";
+
+                        echo "</div>";
+                   
+                }
+            }
+
+            ?>
+
             <div class="comentario">
 
                 <p class="label_user"><span class="user">Camila28</span></p>

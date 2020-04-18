@@ -22,12 +22,20 @@ $app->get('/get_usuario/:usuario', function($usuario){
 	echo json_encode(get_usuario($usuario),JSON_FORCE_OBJECT);
 });
 
+$app->get('/get_usuario_by_id/:usuario', function($id){
+	echo json_encode(get_usuario_by_id($id),JSON_FORCE_OBJECT);
+});
+
 $app->get('/noticias', function(){
 	echo json_encode(get_noticias(),JSON_FORCE_OBJECT);
 });
 
 $app->get('/get_noticia/:id', function($id){
 	echo json_encode(get_noticia($id),JSON_FORCE_OBJECT);
+});
+
+$app->get('/comentarios_noticia/:id', function($id){
+	echo json_encode(get_coment_noticia($id),JSON_FORCE_OBJECT);
 });
 
 $app->post('/login', function ()  {

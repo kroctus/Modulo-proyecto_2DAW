@@ -112,6 +112,39 @@ function get_usuario($usuario){
 
 }
 
+function get_usuario_by_id($id){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from usuarios where id_usuario='".$id."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+				if(mysqli_num_rows($resultado)>0){
+					$usuario=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$usuario[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("usuario"=>$usuario);
+				
+				}else{
+					return false;// no esta repetido
+				}
+	}
+}
+
+}
+
 function actualizar_usuario($usuario,$nombre,$apellido,$contra,$sexo,$fec_nac){
 	$con=conectar();
 	if(!$con){
@@ -185,6 +218,39 @@ function get_noticia($id){
 					mysqli_free_result($resultado);
 					mysqli_close($con);
 					return array("noticia"=>$noticia);
+				
+				}else{
+					return false;// no esta repetido
+				}
+	}
+}
+
+}
+
+function get_coment_noticia($id){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from comentarios_noticias where id_noticia='".$id."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+				if(mysqli_num_rows($resultado)>0){
+					$comentarios=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$comentarios[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("comentarios"=>$comentarios);
 				
 				}else{
 					return false;// no esta repetido
