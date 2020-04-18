@@ -364,10 +364,6 @@ if (isset($_POST["Iniciar"])) {
 
     </article>
 
-    <div id="plus">
-      <i class="fas fa-plus-circle 5x"></i>
-    </div>
-
 
     <div id="up">
       <i class="far fa-caret-square-up 5x"></i>

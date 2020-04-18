@@ -501,16 +501,38 @@ font-family: 'Righteous', cursive;
 /*Este dimbolo simula un botón de "añadir contenido"*/
 #plus {
   position: fixed;
-  top: 90%;
-  left: 85%;
-  bottom: 4%;
-  right: 10%;
+
+  bottom: 10vh;
+  right: 2vw;
 
   font-size: 8vh;
   color: white;
   border-radius: 10px;
 
   transition-duration: 1s;
+}
+
+/* The animation code */
+@keyframes example {
+  0%   {color: white;}
+  25%  {color: pink;}
+  50%  {color: #0477BF;}
+  100% {color:  rgb(191, 12, 236);}
+}
+
+#plus button{
+  background-color: inherit;
+  border: none;
+  font-size: 8vh;
+  color: white;
+  transition-duration: 3s;
+}
+
+#plus button:hover{
+  cursor: pointer;
+  animation-name: example;
+  animation-duration: 2s;
+  transform: rotate(360deg);
 }
 
 /*Flecha que hará la función de volver arriba*/
@@ -1064,9 +1086,6 @@ z-index: 10000;
       display: none;
     }
 
-    #plus{
-      display: none;
-    }
 
 
   #iniciar_sesion_header,#busq_2, #titulo_2{

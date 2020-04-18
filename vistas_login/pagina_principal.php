@@ -17,6 +17,9 @@ if (isset($_POST["logout"])) {
   $_SESSION["id_noticia"]=$_POST["noticia"];
   header("Location: noticia.php");
   exit;
+}elseif(isset($_POST["add"])){
+  header("Location: add.php");
+  exit;
 }
 
 ?>
@@ -375,7 +378,9 @@ if (isset($_POST["logout"])) {
     </article>
 
     <div id="plus">
-      <i class="fas fa-plus-circle 5x"></i>
+      <form action="pagina_principal.php" method='post'>
+      <button type='submit' name='add' value='<?php echo $_SESSION["usuario"]?>'><i class="fas fa-plus-circle 5x"></i></button>
+      </form>
     </div>
 
 
