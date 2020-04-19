@@ -11,9 +11,9 @@ if (isset($_POST["Iniciar"])) {
 } elseif (isset($_POST["Registrarte"]) || isset($_POST["empezar"])) {
   header("Location: registrarse.php");
   exit;
-}elseif(isset($_POST["noticia"])){
+} elseif (isset($_POST["noticia"])) {
 
-  $_SESSION["id_noticia"]=$_POST["noticia"];
+  $_SESSION["id_noticia"] = $_POST["noticia"];
   header("Location: noticia.php");
   exit;
 }
@@ -40,10 +40,10 @@ if (isset($_POST["Iniciar"])) {
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
   <!--fuentes-->
-  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 
-   <!--Mi script-->
-   <script src="../js/funciones.js"></script>
+  <!--Mi script-->
+  <script src="../js/funciones.js"></script>
 </head>
 
 <body>
@@ -119,8 +119,8 @@ if (isset($_POST["Iniciar"])) {
         <source src="../videos/4K_8.webm" type='video/webm; codecs="vp8,vorbis"' />
       </video>
       <form method="post" action="pagina_principal.php">
-      <h2>Bienvenido al mundo de los contenidos</h2>
-      <button type="submit"  name="empezar">Empezar</button>
+        <h2>Bienvenido al mundo de los contenidos</h2>
+        <button type="submit" name="empezar">Empezar</button>
       </form>
     </article>
 
@@ -132,26 +132,25 @@ if (isset($_POST["Iniciar"])) {
       <div class="carousel">
         <div class="slider">
 
-        <?php
-    
-    $obj=consumir_servicio_REST($url.'noticias','GET');
-    if(isset($obj->mensaje_error)){
-      die($obj->mensaje_error);
-    }else{
+          <?php
 
-        foreach ($obj->noticias as $key) {
-          echo "<div class='div_noticia'>";
+          $obj = consumir_servicio_REST($url . 'noticias', 'GET');
+          if (isset($obj->mensaje_error)) {
+            die($obj->mensaje_error);
+          } else {
 
-            echo "<form method='post' action='pagina_principal.php'><button type='submit' name='noticia' value='".$key->id_noticia."'>".$key->titulo."</button></form>";
-            echo "<p>".$key->copete."</p>";
-            echo "<img src='../img/".$key->imagen."'>";
+            foreach ($obj->noticias as $key) {
+              echo "<div class='div_noticia'>";
 
-          echo "</div>";
-        }
+              echo "<form method='post' action='pagina_principal.php'><button type='submit' name='noticia' value='" . $key->id_noticia . "'>" . $key->titulo . "</button></form>";
+              echo "<p>" . $key->copete . "</p>";
+              echo "<img src='../img/" . $key->imagen . "'>";
 
-    }
-  
-  ?>
+              echo "</div>";
+            }
+          }
+
+          ?>
         </div>
       </div>
     </div>
@@ -188,84 +187,76 @@ if (isset($_POST["Iniciar"])) {
     </article>
 
 
-<?php
-
-    $aux=consumir_servicio_REST($url.'publicaciones','GET');
-    if(isset($aux->mensaje_error)){
+    <?php
+   
+    $aux = consumir_servicio_REST($url . 'publicaciones', 'GET');
+    if (isset($aux->mensaje_error)) {
       die($aux->mensaje_error);
-    }else{
+    } else {
       foreach ($aux->publicaciones as $key) {
-       echo "<article>";
 
-        switch ($key->categoria){
-
-          case('diseño'):
-          break;
-
-          case('fotografia'):
-          break;
-
-          case('ilustracion'):
-          break;
-
+        $obj=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+        if(isset($obj->mensaje_error)){
+          die($obj->mensaje_error);
         }
 
-       echo "</article>";
+        foreach ($obj->usuario as $kay) {
+          $usuario=$kay->usuario;
+        }
+
+
+        switch ($key->categoria) {
+
+          case ('diseño'):
+            echo "<div class='publicacion'>";
+            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo '<div>';
+            echo "<button class='titulo'>".$key->titulo."</button>";
+            echo "<button class='autor'>".$usuario."</button>";
+            echo '</div>';
+            echo "</div>";
+            break;
+
+          case ('fotografia'):
+            echo "<div class='publicacion'>";
+            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo '<div>';
+            echo "<button class='titulo'>".$key->titulo."</button>";
+            echo "<button class='autor'>".$usuario."</button>";
+            echo '</div>';
+            echo "</div>";
+            break;
+
+          case ('ilustracion'):
+            echo "<div class='publicacion'>";
+            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo '<div>';
+            echo "<button class='titulo'>".$key->titulo."</button>";
+            echo "<button class='autor'>".$usuario."</button>";
+            echo '</div>';
+            echo "</div>";
+            break;
+
+          case ('musica'):
+
+            echo "<div class='publicacion'>";
+            echo "<img src='../img_comprimidas/musica.webp'>";
+            echo '<div>';
+            echo "<button class='titulo'>".$key->titulo."</button>";
+            echo "<button class='autor'>".$usuario."</button>";
+            echo '</div>';
+            echo "</div>";
+
+            break;
+          
+        }
       }
+
+      echo "<span class='espacio'></span>";
+
     }
 
-?>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
+    ?>
 
     <p id="subcategoria_title">Musica</p>
     <p class="ver_todas"><a href="../vistas/categoria_musica.php">Ver todas</a></p>
@@ -507,7 +498,7 @@ if (isset($_POST["Iniciar"])) {
   $(document).ready(function() {
 
     console.log("CAMBIO: " + cambio);
-    
+
 
 
     $(window).resize(function() {
@@ -742,12 +733,10 @@ if (isset($_POST["Iniciar"])) {
 </script>
 
 <script>
+  $(document).ready(function() {
 
+    if (cambio == 1) {
 
-  $(document).ready(function(){
-
-    if(cambio==1){
-     
       $('.opc_session').fadeOut();
       $('.opc_login').fadeOut();
 
@@ -756,40 +745,39 @@ if (isset($_POST["Iniciar"])) {
 
       /*Opciones login*/
 
-    $('#iniciar_sesion_header').click(function() {
-      $(".opc_iniciado").fadeIn();
-      $(".opc_iniciado").css({
-        "transform": "translate(0vw,1vh)",
+      $('#iniciar_sesion_header').click(function() {
+        $(".opc_iniciado").fadeIn();
+        $(".opc_iniciado").css({
+          "transform": "translate(0vw,1vh)",
+        });
+
+        $('.bloqueo').css({
+          "display": "block",
+        });
+
+        $('#menu_desplegable').fadeOut();
+
+        control_bloqueo = true;
+
       });
 
-      $('.bloqueo').css({
-        "display": "block",
+      $('#cerrar_session2').click(function() {
+
+        $(".opc_iniciado").fadeOut();
+        $(".opc_iniciado").css({
+          "transform": "translate(0vw,-100vh)",
+        });
+
+        $('.bloqueo').css({
+          "display": "none",
+        });
+
       });
-
-      $('#menu_desplegable').fadeOut();
-
-      control_bloqueo = true;
-
-    });
-
-    $('#cerrar_session2').click(function() {
-
-      $(".opc_iniciado").fadeOut();
-      $(".opc_iniciado").css({
-        "transform": "translate(0vw,-100vh)",
-      });
-
-      $('.bloqueo').css({
-        "display": "none",
-      });
-
-    });
 
 
     }
 
   });
-
 </script>
 
 
