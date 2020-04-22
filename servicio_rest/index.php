@@ -65,6 +65,21 @@ $app->get('/publicaciones', function(){
 	echo json_encode(get_publicaciones(),JSON_FORCE_OBJECT);
 });
 
+$app->get('/get_publicacion/:id',function($id){
+	echo json_encode(get_publicacion($id),JSON_FORCE_OBJECT);
+});
+
+$app->get('/comentarios_publicacion/:id', function($id){
+	echo json_encode(get_coment_publicacion($id),JSON_FORCE_OBJECT);
+});
+
+$app->get('/get_publicaciones_by_tipo/:tipo',function($tipo){
+	echo json_encode(get_publicacion_by_tipo($tipo),JSON_FORCE_OBJECT);
+});
+
+$app->get('/get_publicaciones_by_tipo_limit/:tipo',function($tipo){
+	echo json_encode(get_publicacion_by_tipo_limit($tipo),JSON_FORCE_OBJECT);
+});
 
 
 $app->run();

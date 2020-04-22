@@ -406,7 +406,7 @@ article p{
 
 }
 
-#musica , .publicacion_musica{
+#musica {
   background-image: url("../img_comprimidas/musica.webp");
 }
 
@@ -861,6 +861,14 @@ z-index: 10000;
   width: 80vw;
 }
 
+#form_publicaciones{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 100vw;
+  max-width: 100vw;
+}
+
 
 
 @media (min-width: 800px) {
@@ -899,6 +907,10 @@ z-index: 10000;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .publicacion{
+    display: none;
   }
 
   /*Comunidades */
@@ -1299,27 +1311,14 @@ z-index: 10000;
   }
 
 
-  .contenido img{
-
-    width: 400px;
-    height: 300px;  
-    border-radius: 10px;
-
-    margin-left: auto;
-    margin-right: auto;
-
-  }
-
-
-
 
 .subcategoria_contenido{
 
   display: flex;
-  flex: 0%;
-  max-width: 16%;
-  margin-left: 2%;
-  margin-right: 2%;
+  flex: 0vw;
+  max-width: 18vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
 
   transition-duration: 1s;
 }
@@ -1331,9 +1330,84 @@ z-index: 10000;
 
 }
 
+
 .subcategoria_contenido img{
+  display: flex;
+  flex-direction: row;
+  flex: 16vw;
+  max-width: 16vw;
   border-radius: 10px;
+  height: 30vh;
 }
+
+.subcategoria_contenido div{
+
+  position: relative;
+  bottom: 8vh;
+
+  display:  flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex: 16vw;
+  max-width: 16vw;
+  height: 8vh;
+
+  background-color: black;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: white;
+}
+
+.subcategoria_contenido div .titulo{
+  text-align: left;
+  max-width: 18vw;
+  border: none;
+  background-color: inherit;
+  overflow: hidden;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  transition-duration: 1s;
+
+  color: white;
+}
+
+.subcategoria_contenido div .titulo:hover{
+  cursor: pointer;
+  border-radius: 10px;
+  color: white;
+}
+
+.subcategoria_contenido div .autor{
+
+  position: relative;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex: 10vw;
+
+  overflow: hidden;
+  height: 100rem;
+
+  text-align: center ;
+  max-width: 8vw;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  background-color:  white;
+  border: none;
+  border-bottom-right-radius: 10px;
+  color: black;
+
+  transition-duration: 1s;
+}
+
+.subcategoria_contenido div .autor:hover{
+  cursor: pointer;
+  color: #0477BF;
+}
+
+
+
 
 
 

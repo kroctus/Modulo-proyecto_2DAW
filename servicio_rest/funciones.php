@@ -338,3 +338,136 @@ function get_publicaciones(){
 }
 
 }
+
+function get_publicacion($id){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from publicaciones where id_publicacion='".$id."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+				if(mysqli_num_rows($resultado)>0){
+					$publicacion=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$publicacion[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("publicacion"=>$publicacion);
+				
+				}else{
+					return false;// no esta repetido
+				}
+	}
+}
+
+}
+
+
+function get_publicacion_by_tipo($tipo){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from publicaciones where categoria='".$tipo."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+				if(mysqli_num_rows($resultado)>0){
+					$publicacion=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$publicacion[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("publicaciones"=>$publicacion);
+				
+				}else{
+					return false;// no esta repetido
+				}
+	}
+}
+
+}
+
+function get_publicacion_by_tipo_limit($tipo){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from publicaciones where categoria='".$tipo."' LIMIT 5";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+				if(mysqli_num_rows($resultado)>0){
+					$publicacion=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$publicacion[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("publicaciones"=>$publicacion);
+				
+				}else{
+					return false;// no esta repetido
+				}
+	}
+}
+
+}
+
+function get_coment_publicacion($id){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from comentarios where id_publicacion='".$id."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+				if(mysqli_num_rows($resultado)>0){
+					$comentarios=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$comentarios[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("comentarios"=>$comentarios);
+				
+				}else{
+					return false;// no esta repetido
+				}
+	}
+}
+
+}

@@ -12,7 +12,7 @@ require "../servicio_rest/funciones.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farzone-Noticia</title>
+    <title>Farzone-Publicación</title>
     <link rel="stylesheet" href="../css/estilos_noticia.css">
 
     <script src="https://kit.fontawesome.com/68921df666.js" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@ require "../servicio_rest/funciones.php";
 
     <header>
         <p><a href="../index.php"><i class="fas fa-chevron-left"></i></a></p>
-        <p id="titulo">Farzone news <i class="far fa-newspaper"></i></p>
+        <p id="titulo">Farzone magazine <i class="fas fa-pager"></i></i></p>
         <label for="menu_busqueda"></i></label>
     </header>
 
@@ -50,14 +50,14 @@ require "../servicio_rest/funciones.php";
 
             <?php
 
-            $obj = consumir_servicio_REST($url . 'get_noticia/' . urlencode($_SESSION["id_noticia"]), 'GET');
+            $obj = consumir_servicio_REST($url . 'get_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
             if (isset($obj->mensaje_error)) {
                 die($obj->mensaje_error);
             } else {
 
-                foreach ($obj->noticia as $key) {
+                foreach ($obj->publicacion as $key) {
 
-                    echo "<img src='../img/" . $key->imagen . "'>";
+                    echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
                     echo "<h1>" . $key->titulo . "</h1>";
                     echo "<p>" . $key->descripcion . "</p>";
                 }
@@ -71,14 +71,20 @@ require "../servicio_rest/funciones.php";
 
         <article id="comentarios">
 
-            <h1>Comentarios</h1>
 
             <?php
 
-            $obj2 = consumir_servicio_REST($url . 'comentarios_noticia/' . urlencode($_SESSION["id_noticia"]), 'GET');
+            $obj2 = consumir_servicio_REST($url . 'comentarios_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
             if (isset($obj2->mensaje_error)) {
                 die($obj2->mensaje_error);
             } else {
+
+                if($obj2==false){
+                    echo "<h1 class='no_comen'>No hay Comentarios</h1>";
+                    return;
+                }
+
+                echo "<h1 class='no_comen'>Comentarios</h1>";                
 
                 foreach ($obj2->comentarios as $key) {
 

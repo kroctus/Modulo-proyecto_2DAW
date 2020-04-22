@@ -272,6 +272,14 @@ section #comentarios .comentario button:hover{
   color:  rgb(12, 149, 235);
 }
 
+.no_comen{
+  display: flex;
+  flex-direction: row;
+  flex: 100vw;
+  max-width: 100vw;
+  height: 1px;
+}
+
 
 
 @media (min-width: 800px){
