@@ -127,6 +127,7 @@ if (isset($_POST["logout"])) {
 
   </div>
 
+  
   <section>
 
     <article id="intro">
@@ -134,44 +135,46 @@ if (isset($_POST["logout"])) {
       <video id="video" loop autoplay preload muted>
         <source src="../videos/4K_8.webm" type='video/webm; codecs="vp8,vorbis"' />
       </video>
-
-      <h2>Bienvenido al mundo de los contenidos</h2>
-      <button type="button" name="button">Empezar</button>
-
+      <form method="post" action="pagina_principal.php">
+        <h2>Bienvenido al mundo de los contenidos</h2>
+        <button type="submit" name="empezar">Empezar</button>
+      </form>
     </article>
+
+
 
     <div id="noticias">
       <h1>Noticias</h1>
 
       <div class="carousel">
         <div class="slider">
-        <?php
-    
-    $obj=consumir_servicio_REST($url.'noticias','GET');
-    if(isset($obj->mensaje_error)){
-      die($obj->mensaje_error);
-    }else{
 
-        foreach ($obj->noticias as $key) {
-          echo "<div class='div_noticia'>";
+          <?php
 
-            echo "<form method='post' action='pagina_principal.php'><button type='submit' name='noticia' value='".$key->id_noticia."'>".$key->titulo."</button></form>";
-            echo "<p>".$key->copete."</p>";
-            echo "<img src='../img/".$key->imagen."'>";
+          $obj = consumir_servicio_REST($url . 'noticias', 'GET');
+          if (isset($obj->mensaje_error)) {
+            die($obj->mensaje_error);
+          } else {
 
-          echo "</div>";
-        }
+            foreach ($obj->noticias as $key) {
+              echo "<div class='div_noticia'>";
 
-    }
-  
-  ?>
+              echo "<form method='post' action='pagina_principal.php'><button type='submit' name='noticia' value='" . $key->id_noticia . "'>" . $key->titulo . "</button></form>";
+              echo "<p>" . $key->copete . "</p>";
+              echo "<img src='../img/" . $key->imagen . "'>";
+
+              echo "</div>";
+            }
+          }
+
+          ?>
         </div>
       </div>
     </div>
 
     <article id="musica" class="categorias">
 
-      <h2><a href="vistas/categoria_musica.php">Música</a></h2>
+      <h2><a href="../vistas/categoria_musica.php">Música</a></h2>
       <p>Todos los generos que puedas imaginar y si no encuentras uno subelo tu mismo</p>
 
     </article>
@@ -179,7 +182,7 @@ if (isset($_POST["logout"])) {
     <article id="diseño" class="categorias">
 
 
-      <h2><a href="vistas/categoria_diseño.php">Diseño</a></h2>
+      <h2><a href="../vistas/categoria_diseño.php">Diseño</a></h2>
       <p>Sube aquí tus diseños y descubre también el arte de los demás</p>
 
     </article>
@@ -187,7 +190,7 @@ if (isset($_POST["logout"])) {
     <article id="fotografia" class="categorias">
 
 
-      <h2><a href="vistas/categoria_fotografia.php">Fotografía<a href="#"></a></h2>
+      <h2><a href="../vistas/categoria_fotografia.php">Fotografía<a href="#"></a></h2>
       <p>nada mejor que capturar ese momento especial, bienvenidos fotografos</p>
 
     </article>
@@ -195,88 +198,212 @@ if (isset($_POST["logout"])) {
     <article id="ilustracion" class="categorias">
 
 
-      <h2><a href="vistas/categoria_ilustracion.php">Ilustración</a></h2>
+      <h2><a href="../vistas/categoria_ilustracion.php">Ilustración</a></h2>
       <p>nada mejor que capturar ese momento especial, bienvenidos fotografos</p>
 
     </article>
 
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+    <form method="post" action="pagina_principal.php" id="form_publicaciones">
+    <?php
+   
+    $aux = consumir_servicio_REST($url . 'publicaciones', 'GET');
+    if (isset($aux->mensaje_error)) {
+      die($aux->mensaje_error);
+    } else {
+      foreach ($aux->publicaciones as $key) {
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+        $obj=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+        if(isset($obj->mensaje_error)){
+          die($obj->mensaje_error);
+        }
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+        foreach ($obj->usuario as $kay) {
+          $usuario=$kay->usuario;
+        }
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+        switch ($key->categoria) {
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+          case ('diseño'):
+            echo "<div class='publicacion'>";
+            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo '<div>';
+            echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+            echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+            echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
+            echo '</div>';
+            echo "</div>";
+            break;
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+          case ('fotografia'):
+            echo "<div class='publicacion'>";
+            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo '<div>';
+            echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+            echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+            echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
+            echo '</div>';
+            echo "</div>";
+            break;
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+          case ('ilustracion'):
+            echo "<div class='publicacion'>";
+            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo '<div>';
+            echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+            echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+            echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
+            echo '</div>';
+            echo "</div>";
+            break;
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+          case ('musica'):
 
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
+            echo "<div class='publicacion'>";
+            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo '<div>';
+            echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+            echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+            echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
+            echo '</div>';
+            echo "</div>";
 
+            break;
+          
+        }
+      }
+
+      echo "<span class='espacio'></span>";
+
+    }
+
+    ?>
+
+    </form>
+
+    <form action="pagina_principal.php" method="post"/>
 
     <p id="subcategoria_title">Musica</p>
-    <p class="ver_todas"><a href="vistas/categoria_musica.php">Ver todas</a></p>
+    <p class="ver_todas"><a href="../vistas/categoria_musica.php">Ver todas</a></p>
+
+    <?php
+
+$obj = consumir_servicio_REST($url . 'get_publicaciones_by_tipo_limit/'.urlencode('musica'), 'GET');
+if (isset($obj->mensaje_error)) {
+  die($obj->mensaje_error);
+} else {
+
+  $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+  if(isset($obj3->mensaje_error)){
+    die($obj3->mensaje_error);
+  }
+
+  foreach ($obj3->usuario as $kay) {
+    $usuario=$kay->usuario;
+  }
+
+  foreach ($obj->publicaciones as $key) {
+
+      echo "<article class='subcategoria_contenido'>";
+        echo "<img src='../img_comprimidas/musica.webp'>";
+        echo "<div>";
+          echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+          echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+          echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
+        echo "</div>";
+      echo "</article>";
+
+
+  }
+}
+
+?>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/musica.webp" alt="">
+      <div>
+      <button class='titulo'>".$key->titulo."</button>
+      <button class='autor'>".$usuario."</button>
+      </div>
     </article>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/musica.webp" alt="">
+      <div>
+      <button class='titulo'>".$key->titulo."</button>
+      <button class='autor'>".$usuario."</button>
+      </div>
     </article>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/musica.webp" alt="">
+      <div>
+      <button class='titulo'>".$key->titulo."</button>
+      <button class='autor'>".$usuario."</button>
+      </div>
     </article>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/musica.webp" alt="">
+      <div>
+      <button class='titulo'>".$key->titulo."</button>
+      <button class='autor'>".$usuario."</button>
+      </div>
     </article>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/musica.webp" alt="">
+      <div>
+      <button class='titulo'>".$key->titulo."</button>
+      <button class='autor'>".$usuario."</button>
+      </div>
     </article>
+
+    <article class="subcategoria_contenido">
+      <img src="../img_comprimidas/musica.webp" alt="">
+      <div>
+      <button class='titulo'>".$key->titulo."</button>
+      <button class='autor'>".$usuario."</button>
+      </div>
+    </article>
+
 
     <p id="subcategoria_title">Diseño</p>
-    <p class="ver_todas"><a href="vistas/categoria_diseño.php">Ver todas</a></p>
+    <p class="ver_todas"><a href="../vistas/categoria_diseño.php">Ver todas</a></p>
+
+    <?php
+
+$obj = consumir_servicio_REST($url . 'get_publicaciones_by_tipo_limit/'.urlencode('diseño'), 'GET');
+if (isset($obj->mensaje_error)) {
+  die($obj->mensaje_error);
+} else {
+
+  $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+  if(isset($obj3->mensaje_error)){
+    die($obj3->mensaje_error);
+  }
+
+  foreach ($obj3->usuario as $kay) {
+    $usuario=$kay->usuario;
+  }
+
+  foreach ($obj->publicaciones as $key) {
+
+      echo "<article class='subcategoria_contenido'>";
+        echo "<img src='../uploads/pictures/".$key->archivo."'>";
+        echo "<div>";
+        echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+        echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+        echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
+        echo "</div>";
+      echo "</article>";
+
+
+  }
+}
+
+?>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/diseño.webp" alt="">
@@ -301,7 +428,40 @@ if (isset($_POST["logout"])) {
 
 
     <p id="subcategoria_title">Fotografía</p>
-    <p class="ver_todas"><a href="vistas/categoria_fotografia.php">Ver todas</a></p>
+    <p class="ver_todas"><a href="../vistas/categoria_fotografia.php">Ver todas</a></p>
+
+    <?php
+
+$obj = consumir_servicio_REST($url . 'get_publicaciones_by_tipo_limit/'.urlencode('fotografia'), 'GET');
+if (isset($obj->mensaje_error)) {
+  die($obj->mensaje_error);
+} else {
+
+  $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+  if(isset($obj3->mensaje_error)){
+    die($obj3->mensaje_error);
+  }
+
+  foreach ($obj3->usuario as $kay) {
+    $usuario=$kay->usuario;
+  }
+
+  foreach ($obj->publicaciones as $key) {
+
+      echo "<article class='subcategoria_contenido'>";
+        echo "<img src='../uploads/pictures/".$key->archivo."'>";
+        echo "<div>";
+        echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+        echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+        echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
+        echo "</div>";
+      echo "</article>";
+
+
+  }
+}
+
+?>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/foto.webp" alt="">
@@ -325,7 +485,40 @@ if (isset($_POST["logout"])) {
 
 
     <p id="subcategoria_title">Ilustracion</p>
-    <p class="ver_todas"><a href="vistas/categoria_ilustracion.php">Ver todas</a></p>
+    <p class="ver_todas"><a href="../vistas/categoria_ilustracion.php">Ver todas</a></p>
+
+    <?php
+
+$obj = consumir_servicio_REST($url . 'get_publicaciones_by_tipo_limit/'.urlencode('ilustracion'), 'GET');
+if (isset($obj->mensaje_error)) {
+  die($obj->mensaje_error);
+} else {
+
+  $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+  if(isset($obj3->mensaje_error)){
+    die($obj3->mensaje_error);
+  }
+
+  foreach ($obj3->usuario as $kay) {
+    $usuario=$kay->usuario;
+  }
+
+  foreach ($obj->publicaciones as $key) {
+
+      echo "<article class='subcategoria_contenido'>";
+        echo "<img src='../uploads/pictures/".$key->archivo."'>";
+        echo "<div>";
+        echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+        echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+        echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
+        echo "</div>";
+      echo "</article>";
+
+
+  }
+}
+
+?>
 
     <article class="subcategoria_contenido">
       <img src="../img_comprimidas/ilustracion.webp" alt="">
@@ -348,7 +541,7 @@ if (isset($_POST["logout"])) {
     </article>
 
 
-
+    </form>
 
 
 
@@ -376,12 +569,6 @@ if (isset($_POST["logout"])) {
 
 
     </article>
-
-    <div id="plus">
-      <form action="pagina_principal.php" method='post'>
-      <button type='submit' name='add' value='<?php echo $_SESSION["usuario"]?>'><i class="fas fa-plus-circle 5x"></i></button>
-      </form>
-    </div>
 
 
     <div id="up">

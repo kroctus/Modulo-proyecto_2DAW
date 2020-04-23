@@ -1,6 +1,6 @@
 *{
-  font-family: 'Righteous', cursive;
   /*font-family: 'Roboto', sans-serif;*/
+  font-family: 'Righteous', cursive;
   box-sizing: border-box;
 }
 
@@ -971,10 +971,13 @@ display: none;
 .subcategoria_contenido{
 
   display: flex;
-  flex: 0%;
-  max-width: 16%;
-  margin-left: 2%;
-  margin-right: 2%;
+  flex: 16vw;
+  flex-direction: row;
+  max-width: 20vw;
+
+  margin-left: 2vw;
+  margin-right: 2vw;
+
 
   transition-duration: 1s;
 }
@@ -987,6 +990,12 @@ display: none;
 }
 
 .subcategoria_contenido img{
+  display: flex;
+  flex: 16vw;
+  flex-direction: row;
+  max-width: 20vw;
+
+  
   border-radius: 10px;
 }
 

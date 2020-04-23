@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+
 /*Cuerpo de la página*/
 
 body{
@@ -13,7 +14,7 @@ background-color: #191919;
 /*Cabecera*/
 
 header {
-  width: 100%;
+  width: 100vw;
   height: 60px;
   padding-bottom: 5px;
   color: white;
@@ -965,10 +966,12 @@ display: none;
 .subcategoria_contenido{
 
   display: flex;
-  flex: 0%;
-  max-width: 16%;
-  margin-left: 2%;
-  margin-right: 2%;
+  flex: 16vw;
+  flex-direction: row;
+  max-width: 20vw;
+
+  margin-left: 2vw;
+  margin-right: 2vw;
 
 
   transition-duration: 1s;
@@ -982,6 +985,12 @@ display: none;
 }
 
 .subcategoria_contenido img{
+  display: flex;
+  flex: 16vw;
+  flex-direction: row;
+  max-width: 20vw;
+
+  
   border-radius: 10px;
 }
 

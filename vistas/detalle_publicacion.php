@@ -37,19 +37,27 @@ require "../servicio_rest/funciones.php";
 
     <header>
         <p><a href="../index.php"><i class="fas fa-chevron-left"></i></a></p>
-        <p id="titulo">Farzone magazine <i class="fas fa-pager"></i></i></p>
+        <p id="titulo">Farzone magazine<i class="fas fa-pager"></i></i></p>
         <label for="menu_busqueda"></i></label>
     </header>
 
 
     <section>
+<!-- 
+                        echo '<button type="button" name="button" onclick="play()"><i class="fas fa-play fa-1x"></i></button>';
+                        echo '<button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>';
+                        echo '<button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>';
+                        echo '<button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>';
+                        echo '<button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>';
+                        echo '<button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>';
+ 
+-->
 
         <span class="linea"></span>
 
         <article id="noticia">
 
             <?php
-
             $obj = consumir_servicio_REST($url . 'get_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
             if (isset($obj->mensaje_error)) {
                 die($obj->mensaje_error);
@@ -57,9 +65,26 @@ require "../servicio_rest/funciones.php";
 
                 foreach ($obj->publicacion as $key) {
 
-                    echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
-                    echo "<h1>" . $key->titulo . "</h1>";
-                    echo "<p>" . $key->descripcion . "</p>";
+                    if ($key->categoria == 'musica') {
+
+                        echo '<article class="contenido">';
+                        echo '<p>' . $key->titulo.'</p>';
+                        echo '<span id="linea"></span>';
+                        
+
+                        echo '<audio id="audio" controls>';
+                        echo '<source src="../uploads/audio/'.$key->archivo.'" />';
+                        echo '</audio>';
+
+                        echo '</article>';
+
+                        echo "<p>" . $key->descripcion . "</p>";
+                    } else {
+
+                        echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+                        echo "<h1>" . $key->titulo . "</h1>";
+                        echo "<p>" . $key->descripcion . "</p>";
+                    }
                 }
             }
 
@@ -79,39 +104,38 @@ require "../servicio_rest/funciones.php";
                 die($obj2->mensaje_error);
             } else {
 
-                if($obj2==false){
+                if ($obj2 == false) {
                     echo "<h1 class='no_comen'>No hay Comentarios</h1>";
                     return;
                 }
 
-                echo "<h1 class='no_comen'>Comentarios</h1>";                
+                echo "<h1 class='no_comen'>Comentarios</h1>";
 
                 foreach ($obj2->comentarios as $key) {
 
-                        echo "<div class='comentario'>";
+                    echo "<div class='comentario'>";
 
-                        /**INFO DEL USUARIO QUE SUBIO EL COMENT*/
+                    /**INFO DEL USUARIO QUE SUBIO EL COMENT*/
 
-                        $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
-                        if(isset($obj3->mensaje_error)){
-                          die($obj3->mensaje_error);
-                        }else{
-                      
-                          foreach ($obj3->usuario as $key2) {
-                            $usuario=$key2->usuario;
-                          }
+                    $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($key->id_usuario), 'GET');
+                    if (isset($obj3->mensaje_error)) {
+                        die($obj3->mensaje_error);
+                    } else {
+
+                        foreach ($obj3->usuario as $key2) {
+                            $usuario = $key2->usuario;
                         }
+                    }
 
-                        echo "<p class='label_user'><span class='user'>".$key2->usuario."</span></p>";
+                    echo "<p class='label_user'><span class='user'>" . $key2->usuario . "</span></p>";
 
-                        echo " <p class='desc_comen'>".$key->desc_comentario."</p>";
+                    echo " <p class='desc_comen'>" . $key->desc_comentario . "</p>";
 
-                        echo " <button type='submit' name='responder' value='".$key->id_noticia."' class='responder'>Responder</button>";
+                    echo " <button type='submit' name='responder' value='" . $key->id_noticia . "' class='responder'>Responder</button>";
 
-                        echo "<button type='submit' name='like' value='".$key->id_noticia."' class='like'><i class='fas fa-heart'></i></button>";
+                    echo "<button type='submit' name='like' value='" . $key->id_noticia . "' class='like'><i class='fas fa-heart'></i></button>";
 
-                        echo "</div>";
-                   
+                    echo "</div>";
                 }
             }
 
@@ -244,6 +268,94 @@ require "../servicio_rest/funciones.php";
 
     </section>
 
+
 </body>
+
+<script>
+    /*MUSIC SCRIPT*/
+    var video = document.getElementById("audio");
+
+    function play() {
+
+        if (video.paused)
+            video.play();
+        else
+            video.pause();
+    }
+
+    function reload() {
+        video.load();
+    }
+
+    function parar() {
+        video.pause();
+        video.currentTime = 0;
+    }
+
+    function reiniciar() {
+        video.pause();
+        video.currentTime = 0;
+        video.play();
+    }
+
+    function silenciar() {
+        if (video.muted == true) {
+            console.log("silencio");
+            video.muted = false;
+            document.getElementById('muted').innerHTML = '<i class="fas fa-volume-up"></i>';
+        } else {
+            video.muted = true;
+            console.log("dessilencio");
+            document.getElementById('muted').innerHTML = '<i class="fas fa-volume-mute">';
+        }
+    }
+
+    function desmutear() {
+        video.muted = false;
+    }
+
+    function fast(value) {
+        video.playbackRate += value;
+        video.play();
+    }
+
+    function low(value) {
+        video.playbackRate -= value;
+        video.play();
+    }
+
+    function skip(value) {
+        video.currentTime += value;
+    }
+
+    function skipMinus(value) {
+        video.currentTime -= value;
+    }
+
+
+
+
+    function hora(segundos) {
+        var d = new Date(segundos * 1000);
+        // Ajuste de las 23 horas
+        var hora = (d.getHours() == 0) ? 23 : d.getHours() - 1;
+        var hora = (hora < 9) ? "0" + hora : hora;
+        var minuto = (d.getMinutes() < 9) ? "0" + d.getMinutes() : d.getMinutes();
+        var segundo = (d.getSeconds() < 9) ? "0" + d.getSeconds() : d.getSeconds();
+        return minuto + ":" + segundo;
+    }
+
+    video.addEventListener("timeupdate", function(ev) {
+        document.getElementById("tiempo").innerHTML = hora(video.currentTime);
+    }, true);
+
+
+    //volumen
+
+    barra.addEventListener("change", function(ev) {
+        video.volume = ev.currentTarget.value;
+    }, true);
+</script>
+
 
 </html>

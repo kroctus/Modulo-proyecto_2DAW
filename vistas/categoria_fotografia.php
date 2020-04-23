@@ -15,6 +15,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
   <script src="../jq/mine_jquery.js"></script>
+
+    <!--fuentes-->
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+<!--Mi script-->
+<script src="../js/funciones.js"></script>
 </head>
 
 <body>

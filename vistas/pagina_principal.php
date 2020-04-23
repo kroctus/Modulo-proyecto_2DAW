@@ -18,6 +18,7 @@ if (isset($_POST["Iniciar"])) {
   exit;
 }elseif(isset($_POST["titulo_pub"])){
   $_SESSION["id_publicacion"]=$_POST['titulo_pub'];
+  $_SESSION["categoria"]=$_POST["categoria"];
   header('Location: detalle_publicacion.php');
   exit;
 }
@@ -220,6 +221,7 @@ if (isset($_POST["Iniciar"])) {
             echo '<div>';
             echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
             echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+            echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
             echo '</div>';
             echo "</div>";
             break;
@@ -230,6 +232,7 @@ if (isset($_POST["Iniciar"])) {
             echo '<div>';
             echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
             echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+            echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
             echo '</div>';
             echo "</div>";
             break;
@@ -240,6 +243,7 @@ if (isset($_POST["Iniciar"])) {
             echo '<div>';
             echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
             echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+            echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
             echo '</div>';
             echo "</div>";
             break;
@@ -251,6 +255,7 @@ if (isset($_POST["Iniciar"])) {
             echo '<div>';
             echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
             echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+            echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
             echo '</div>';
             echo "</div>";
 
@@ -266,6 +271,8 @@ if (isset($_POST["Iniciar"])) {
     ?>
 
     </form>
+
+    <form action="pagina_principal.php" method="post"/>
 
     <p id="subcategoria_title">Musica</p>
     <p class="ver_todas"><a href="../vistas/categoria_musica.php">Ver todas</a></p>
@@ -291,8 +298,9 @@ if (isset($obj->mensaje_error)) {
       echo "<article class='subcategoria_contenido'>";
         echo "<img src='../img_comprimidas/musica.webp'>";
         echo "<div>";
-          echo "<button class='titulo'>".$key->titulo."</button>";
-          echo "<button class='autor'>".$usuario."</button>";
+          echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+          echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+          echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
         echo "</div>";
       echo "</article>";
 
@@ -375,8 +383,9 @@ if (isset($obj->mensaje_error)) {
       echo "<article class='subcategoria_contenido'>";
         echo "<img src='../uploads/pictures/".$key->archivo."'>";
         echo "<div>";
-          echo "<button class='titulo'>".$key->titulo."</button>";
-          echo "<button class='autor'>".$usuario."</button>";
+        echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+        echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+        echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
         echo "</div>";
       echo "</article>";
 
@@ -432,8 +441,9 @@ if (isset($obj->mensaje_error)) {
       echo "<article class='subcategoria_contenido'>";
         echo "<img src='../uploads/pictures/".$key->archivo."'>";
         echo "<div>";
-          echo "<button class='titulo'>".$key->titulo."</button>";
-          echo "<button class='autor'>".$usuario."</button>";
+        echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+        echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+        echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
         echo "</div>";
       echo "</article>";
 
@@ -488,8 +498,9 @@ if (isset($obj->mensaje_error)) {
       echo "<article class='subcategoria_contenido'>";
         echo "<img src='../uploads/pictures/".$key->archivo."'>";
         echo "<div>";
-          echo "<button class='titulo'>".$key->titulo."</button>";
-          echo "<button class='autor'>".$usuario."</button>";
+        echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
+        echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
+        echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
         echo "</div>";
       echo "</article>";
 
@@ -520,7 +531,7 @@ if (isset($obj->mensaje_error)) {
     </article>
 
 
-
+    </form>
 
 
 
