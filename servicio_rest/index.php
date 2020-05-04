@@ -89,6 +89,10 @@ $app->get('/comunidades', function(){
 	echo json_encode(get_comunidades(),JSON_FORCE_OBJECT);
 });
 
+$app->get('/get_comunidad/:id',function($id){
+	echo json_encode(get_comunidad($id),JSON_FORCE_OBJECT);
+});
+
 
 $app->run();
 

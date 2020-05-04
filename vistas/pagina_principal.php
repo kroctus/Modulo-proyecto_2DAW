@@ -21,6 +21,12 @@ if (isset($_POST["Iniciar"])) {
   $_SESSION["categoria"]=$_POST["categoria"];
   header('Location: detalle_publicacion.php');
   exit;
+
+}elseif(isset($_POST["btn_comunidad"])){
+
+  $_SESSION['id_comunidad']=$_POST["btn_comunidad"];
+  header('Location: comunidades.php');
+  exit;
 }
 
 
@@ -542,6 +548,8 @@ if (isset($obj->mensaje_error)) {
 
     <article class="categorias" id="comunidad">
 
+    <form action="pagina_principal.php" method="post">
+
       <h3 id="comunidad_text">Comunidades</h3>
 
       <?php 
@@ -550,7 +558,7 @@ if (isset($obj->mensaje_error)) {
           if(isset($obj->mensaje_error)){
             die($obj->mensaje_error);
           }else{
-            
+
           foreach ($obj->comunidades as $key) {
             
             echo "<p class='comunidades'><button type='submit' name='btn_comunidad' value='".$key->id_comunidad."'>".$key->nombre."</button></p>";
@@ -561,7 +569,7 @@ if (isset($obj->mensaje_error)) {
 
 
       <p id="falta_comunidad"><a href="#">¿Hace falta alguna comunidad?</a></p>
-
+      </form>
 
     </article>
 

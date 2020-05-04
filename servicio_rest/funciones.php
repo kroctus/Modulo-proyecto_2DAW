@@ -503,3 +503,36 @@ function get_comunidades(){
 }
 
 }
+
+function get_comunidad($id){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from comunidades where id_comunidad='".$id."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+				if(mysqli_num_rows($resultado)>0){
+					$publicacion=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$comunidad[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("comunidad"=>$comunidad);
+				
+				}else{
+					return false;// no esta repetido
+				}
+	}
+}
+
+}

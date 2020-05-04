@@ -24,11 +24,14 @@ if (isset($_POST["logout"])) {
 }elseif(!isset($_SESSION["usuario"])){
   $_SESSION["restringido"]="";
   header("Location: ../vistas/inicio_sesion.php");
+
 }elseif(isset($_POST["titulo_pub"])){
+
   $_SESSION["id_publicacion"]=$_POST['titulo_pub'];
   $_SESSION["categoria"]=$_POST["categoria"];
   header('Location: ../vistas/detalle_publicacion.php');
   exit;
+  
 }
 
 ?>
