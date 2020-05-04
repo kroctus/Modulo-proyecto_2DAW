@@ -4,6 +4,7 @@ require "../servicio_rest/funciones.php";
 session_name("farzone");
 session_start();
 
+
 if (isset($_POST["logout"])) {
 
   session_unset();
@@ -19,6 +20,14 @@ if (isset($_POST["logout"])) {
   exit;
 }elseif(isset($_POST["add"])){
   header("Location: add.php");
+  exit;
+}elseif(!isset($_SESSION["usuario"])){
+  $_SESSION["restringido"]="";
+  header("Location: ../vistas/inicio_sesion.php");
+}elseif(isset($_POST["titulo_pub"])){
+  $_SESSION["id_publicacion"]=$_POST['titulo_pub'];
+  $_SESSION["categoria"]=$_POST["categoria"];
+  header('Location: ../vistas/detalle_publicacion.php');
   exit;
 }
 
@@ -130,14 +139,16 @@ if (isset($_POST["logout"])) {
   
   <section>
 
+  <form action="pagina_principal.php" method='post'>
+
     <article id="intro">
 
       <video id="video" loop autoplay preload muted>
         <source src="../videos/4K_8.webm" type='video/webm; codecs="vp8,vorbis"' />
       </video>
       <form method="post" action="pagina_principal.php">
-        <h2>Bienvenido al mundo de los contenidos</h2>
-        <button type="submit" name="empezar">Empezar</button>
+        <h2>Tu espacio para ser creativo</h2>
+        <button type="submit" name="empezar">Bienvenido <?php echo $_SESSION["usuario"]?></button>
       </form>
     </article>
 
@@ -261,7 +272,7 @@ if (isset($_POST["logout"])) {
           case ('musica'):
 
             echo "<div class='publicacion'>";
-            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo "<img src='../img_comprimidas/musica.webp'>";
             echo '<div>';
             echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
             echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
@@ -553,16 +564,20 @@ if (isset($obj->mensaje_error)) {
 
       <h3 id="comunidad_text">Comunidades</h3>
 
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
+      <?php 
+      
+          $obj=consumir_servicio_REST($url.'comunidades','GET');
+          if(isset($obj->mensaje_error)){
+            die($obj->mensaje_error);
+          }else{
+            
+          foreach ($obj->comunidades as $key) {
+            
+            echo "<p class='comunidades'><button type='submit' name='btn_comunidad' value='".$key->id_comunidad."'>".$key->nombre."</button></p>";
 
+          }
+          }
+      ?>
 
 
       <p id="falta_comunidad"><a href="#">¿Hace falta alguna comunidad?</a></p>
@@ -575,8 +590,17 @@ if (isset($obj->mensaje_error)) {
       <i class="far fa-caret-square-up 5x"></i>
     </div>
 
+    <div id='plus'>
+    <form action="pagina_principal.php" method="post">
+    <button type='submit' name='add'><i class="fas fa-plus-circle"></i></button>
+    </form>
+    </div>
+
+
 
     <p id="quienes"><a href="vistas/quienessomos.php">¿Quienes somos?</a></p>
+
+  </form>
 
   </section>
 
@@ -600,6 +624,11 @@ if (isset($obj->mensaje_error)) {
 <script>
   var estadoMenu = false;
   $(document).ready(function() {
+
+    $('#plus').css({
+      "display":"block"
+    });
+
     $('header').children('label:first-child').click(function() {
 
       if (estadoMenu == false) {
@@ -732,7 +761,7 @@ if (isset($obj->mensaje_error)) {
 
       } else {
         $("#menu_desplegable").css({
-          "transform": "translate(-80vw,-40px)"
+          "transform": "translate(-95vw,-40px)"
         });
 
         if (control_bloqueo == false) {

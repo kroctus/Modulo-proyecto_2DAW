@@ -82,6 +82,14 @@ $app->get('/get_publicaciones_by_tipo_limit/:tipo',function($tipo){
 });
 
 
+/**COMUNIDADES */
+
+
+$app->get('/comunidades', function(){
+	echo json_encode(get_comunidades(),JSON_FORCE_OBJECT);
+});
+
+
 $app->run();
 
 ?>

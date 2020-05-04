@@ -471,3 +471,35 @@ function get_coment_publicacion($id){
 }
 
 }
+
+/**COMUNIDADES */
+
+function get_comunidades(){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from comunidades";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+
+					$comunidades=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$comunidades[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("comunidades"=>$comunidades);
+
+	}
+}
+
+}

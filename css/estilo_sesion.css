@@ -270,12 +270,7 @@ display: none;
 }
 
 .notificacion{
-  /*
-    position: fixed;
-    left: auto;
-    right: auto;
-    top: 15vw;
-  */
+
     display: flex;
     flex: 60vw;
     max-width: 65vw;
@@ -289,19 +284,19 @@ display: none;
     background-color: crimson;
     padding: 50px;
     border-radius: 10px;
-    height: 10vh;
     color: white;
   
   }
   
   .notificacion p{
-    margin: auto;
+    margin-right: auto;
+    margin-left: auto;
     color: white;
     display: flex;
     flex-direction: row;
     flex: 90vw;
     max-width: 90vw;
-    font-size: 3vh;
+    font-size: 3vw;
   }
 
 /*Tablet*/
@@ -425,6 +420,10 @@ section article button{
     width: 35vw;
     color: green;
 
+}
+
+.notificacion p{
+  font-size: 1.2vw;
 }
   
 }

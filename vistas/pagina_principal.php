@@ -251,13 +251,14 @@ if (isset($_POST["Iniciar"])) {
           case ('musica'):
 
             echo "<div class='publicacion'>";
-            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+            echo "<img src='../img_comprimidas/musica.webp'>";
             echo '<div>';
             echo "<button class='titulo' type='submit' name='titulo_pub' value='".$key->id_publicacion."'>".$key->titulo."</button>";
             echo "<button class='autor' type='submit' name='usuario_pub' value='".$usuario."'>".$usuario."</button>";
             echo "<input type='hidden' name='categoria' value='".$key->categoria."'/>";
             echo '</div>';
             echo "</div>";
+
 
             break;
           
@@ -543,16 +544,20 @@ if (isset($obj->mensaje_error)) {
 
       <h3 id="comunidad_text">Comunidades</h3>
 
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
-      <p class="comunidades"><a href="#">Comunidad</a></p>
+      <?php 
+      
+          $obj=consumir_servicio_REST($url.'comunidades','GET');
+          if(isset($obj->mensaje_error)){
+            die($obj->mensaje_error);
+          }else{
+            
+          foreach ($obj->comunidades as $key) {
+            
+            echo "<p class='comunidades'><button type='submit' name='btn_comunidad' value='".$key->id_comunidad."'>".$key->nombre."</button></p>";
 
+          }
+          }
+      ?>
 
 
       <p id="falta_comunidad"><a href="#">¿Hace falta alguna comunidad?</a></p>
@@ -590,6 +595,7 @@ if (isset($obj->mensaje_error)) {
 <script>
   var estadoMenu = false;
   $(document).ready(function() {
+
     $('header').children('label:first-child').click(function() {
 
       if (estadoMenu == false) {
@@ -664,8 +670,6 @@ if (isset($obj->mensaje_error)) {
   $(document).ready(function() {
     $('.slider').bxSlider();
 
-
-
   });
 </script>
 
@@ -722,8 +726,9 @@ if (isset($obj->mensaje_error)) {
 
       } else {
         $("#menu_desplegable").css({
-          "transform": "translate(-80vw,-40px)"
+          "transform": "translate(-95vw,-40px)"
         });
+
 
         if (control_bloqueo == false) {
           $('.bloqueo').css({

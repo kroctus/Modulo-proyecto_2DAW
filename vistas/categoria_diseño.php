@@ -515,7 +515,7 @@
         });
 
         $("#menu_desplegable").css({
-          "transform": "translate(-80vw,-40px)"
+          "transform": "translate(-95vw,-40px)"
         });
 
         $("#menu_desplegable_busqueda").css({
@@ -546,7 +546,7 @@
 
       } else {
         $("#menu_desplegable").css({
-          "transform": "translate(-80vw,-40px)"
+          "transform": "translate(-95vw,-40px)"
         });
 
         if (control_bloqueo == false) {
@@ -568,7 +568,7 @@
 
       if (estadoBusqueda == false) {
         $("#menu_desplegable_busqueda").css({
-          "transform": "translate(35%)",
+          "transform": "translate(15vw)",
           "z-index": "10001",
           "opacity": "1",
         });

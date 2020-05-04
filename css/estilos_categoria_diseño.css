@@ -338,8 +338,6 @@ transform: scale(1.1,1.1);
 
 
 
-
-
 /*--footer--*/
 footer{
   margin-top: 10%;
@@ -448,15 +446,14 @@ input:hover{
 
 #menu_desplegable{
   position: fixed;
-  top: 5%;
+  top: 7vh;
   background-color: #191919;
-  width: 350px;
-  height: 100%;
+  width: 80vw;
+  height: 100vh;
   padding-top:40px;
   transition-duration: 1s;
-  border-radius: 10px;
 
-  transform: translate(-80vw,-40px);
+  transform: translate(-95vw,-40px);
 
   z-index: 4;
 }
@@ -465,16 +462,16 @@ input:hover{
 
 #menu_desplegable_busqueda{
   position: fixed;
-  top: 8%;
+  top: 8vh;
   background-color: #191919;
-  width: 70vw;
-  max-width: 70vw;
+  width: 90vw;
+  max-width: 90vw;
   height: 10vh;
   transition-duration: 1s;
   border-radius: 10px;
   padding-bottom: 100px;
 
-  transform: translate(250%,1%);
+  transform: translate(250vw,1vh);
 }
 
 #menu_desplegable_busqueda input{
