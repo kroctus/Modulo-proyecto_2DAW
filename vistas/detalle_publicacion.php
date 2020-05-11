@@ -7,7 +7,7 @@ require "../servicio_rest/funciones.php";
 
 if(isset($_POST['pub_user'])){
     $_SESSION['usuario_a_buscar']=$_POST['pub_user'];
-    if($_POST['usuario_pub']==$_SESSION['usuario']){
+    if($_POST['pub_user']==$_SESSION['usuario']){
       header('Location: ../vistas_login/user_details.php');
       exit;
     }
