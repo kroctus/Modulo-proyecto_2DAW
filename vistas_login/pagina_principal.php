@@ -36,6 +36,7 @@ if (isset($_POST["logout"])) {
   $_SESSION['usuario_a_buscar']=$_POST['usuario_pub'];
   if($_POST['usuario_pub']==$_SESSION['usuario']){
     header('Location: ../vistas_login/user_details.php');
+    exit;
   }
   header('Location: ../vistas/check_user.php');
   exit;

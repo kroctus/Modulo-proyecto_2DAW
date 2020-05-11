@@ -5,6 +5,16 @@ session_start();
 
 require "../servicio_rest/funciones.php";
 
+if(isset($_POST['pub_user'])){
+    $_SESSION['usuario_a_buscar']=$_POST['pub_user'];
+    if($_POST['usuario_pub']==$_SESSION['usuario']){
+      header('Location: ../vistas_login/user_details.php');
+      exit;
+    }
+    header('Location: ../vistas/check_user.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,15 +53,7 @@ require "../servicio_rest/funciones.php";
 
 
     <section>
-<!-- 
-                        echo '<button type="button" name="button" onclick="play()"><i class="fas fa-play fa-1x"></i></button>';
-                        echo '<button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>';
-                        echo '<button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>';
-                        echo '<button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>';
-                        echo '<button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>';
-                        echo '<button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>';
- 
--->
+<form action="detalle_publicacion.php" method="post">
 
         <span class="linea"></span>
 
@@ -69,6 +71,7 @@ require "../servicio_rest/funciones.php";
 
                         echo '<article class="contenido">';
                         echo '<p>' . $key->titulo.'</p>';
+
                         echo '<span id="linea"></span>';
                         
 
@@ -78,12 +81,44 @@ require "../servicio_rest/funciones.php";
 
                         echo '</article>';
 
+                        
+                        $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+                        if(isset($obj3->mensaje_error)){
+                          die($obj3->mensaje_error);
+                        }
+                      
+                        foreach ($obj3->usuario as $kay) {
+                          $usuario=$kay->usuario;
+                        }
+
+                        echo "<p class='cont_btn_usu'>";
+                        echo 'Publicado por: ';
+                        echo "<button type='submit' name='pub_user' class='to_usuario_btn'  value='".$usuario."'>".$usuario."</button>";
+                        echo "</p>";
                         echo "<p>" . $key->descripcion . "</p>";
+
                     } else {
 
                         echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
                         echo "<h1>" . $key->titulo . "</h1>";
+                        
+                        $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
+                        if(isset($obj3->mensaje_error)){
+                          die($obj3->mensaje_error);
+                        }
+                      
+                        foreach ($obj3->usuario as $kay) {
+                          $usuario=$kay->usuario;
+                        }
+
+                        
+                        echo "<p class='cont_btn_usu'>";
+                        echo 'Publicado por: ';
+                        echo "<button type='submit' name='pub_user' class='to_usuario_btn'  value='".$usuario."'>".$usuario."</button>";
+                        echo "</p>";
+
                         echo "<p>" . $key->descripcion . "</p>";
+
                     }
                 }
             }
@@ -265,7 +300,7 @@ require "../servicio_rest/funciones.php";
 
 
         </article>
-
+        </form>
     </section>
 
 
