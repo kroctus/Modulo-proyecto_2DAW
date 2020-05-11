@@ -27,6 +27,13 @@ if (isset($_POST["Iniciar"])) {
   $_SESSION['id_comunidad']=$_POST["btn_comunidad"];
   header('Location: comunidades.php');
   exit;
+}elseif (isset($_POST["usuario_pub"])) {
+  $_SESSION['usuario_a_buscar']=$_POST['usuario_pub'];
+  if($_POST['usuario_pub']==$_SESSION['usuario']){
+    header('Location: ../vistas_login/user_details.php');
+  }
+  header('Location: ../vistas/check_user.php');
+  exit;
 }
 
 

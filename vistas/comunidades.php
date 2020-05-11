@@ -64,7 +64,7 @@ if(!isset($_SESSION['id_comunidad'])){
             echo "<img class='icono' src='../uploads/img_comunidades/".$key->icono."'/>";
 
             echo "<div class='nombre_comunidad'>";
-            echo "<p id='nombre'>".$key->nombre."</p>";
+            echo "<p id='nombre_com'>".$key->nombre."</p>";
            
             switch ($key->categoria) {
                 case 'diseño':

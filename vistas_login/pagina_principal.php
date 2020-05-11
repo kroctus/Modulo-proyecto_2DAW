@@ -11,7 +11,7 @@ if (isset($_POST["logout"])) {
   header("Location: ../index.php");
   exit;
 }elseif (isset($_POST["ajustes"])){
-  header("Location: perfil.php");
+  header("Location: user_details.php");
   exit;
 }elseif(isset($_POST["noticia"])){
 
@@ -32,6 +32,13 @@ if (isset($_POST["logout"])) {
   header('Location: ../vistas/detalle_publicacion.php');
   exit;
   
+}elseif (isset($_POST["usuario_pub"])) {
+  $_SESSION['usuario_a_buscar']=$_POST['usuario_pub'];
+  if($_POST['usuario_pub']==$_SESSION['usuario']){
+    header('Location: ../vistas_login/user_details.php');
+  }
+  header('Location: ../vistas/check_user.php');
+  exit;
 }
 
 ?>
@@ -88,7 +95,7 @@ if (isset($_POST["logout"])) {
       <span><button type="button" id="cerrar_session"><i class="fas fa-times"></i></button></span>
 
       <button type="submit" name="logout" id="logout" class="btn_2"><i class="fas fa-sign-out-alt"></i>Cerrar session</button>
-      <button type="submit" name="ajustes" id="ajustes" class="btn_2"><i class="fas fa-cog"></i>Ajustes</button>
+      <button type="submit" name="ajustes" id="ajustes" class="btn_2"><i class="fas fa-cog"></i>mi perfil</button>
 
       <button type="button" class="mode"><i class="fas fa-moon"></i>/<i class="fas fa-sun"></i></button>
 
@@ -100,7 +107,7 @@ if (isset($_POST["logout"])) {
       <span><button type="button" id="cerrar_session2"><i class="fas fa-times"></i></button></span>
 
       <button type="submit" name="logout" id="logout" class="mode"><i class="fas fa-sign-out-alt"></i>Cerrar session</button>
-      <button type="submit" name="ajustes" id="ajustes" class="mode"><i class="fas fa-cog"></i>Ajustes</button>
+      <button type="submit" name="ajustes" id="ajustes" class="mode"><i class="fas fa-cog"></i>mi perfil</button>
 
       <button type="button" class="mode"><i class="fas fa-moon"></i>/<i class="fas fa-sun"></i></button>
 
