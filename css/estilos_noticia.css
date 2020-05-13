@@ -355,17 +355,18 @@ section #comentarios .comentario button:hover{
   flex-direction: row;
   flex: 100vw;
   max-width: 100vw;
+  flex-wrap: wrap;
 }
 
 .to_usuario_btn{
 
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   flex: 20vw;
-  max-width: 20vw;
+  max-width: 50vw;
 
   margin-left: auto;
-
   background-color: rgb(12, 149, 235);
   border: none;
   color: white;

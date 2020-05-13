@@ -4,6 +4,23 @@ require "../servicio_rest/funciones.php";
 session_name("farzone");
 session_start();
 
+
+if (isset($_POST['seguir_usuario'])) {
+
+  if (!isset($_SESSION['usuario'])) {
+    $_SESSION['must_login']="Debes iniciar sesion para realizar esta acción";
+    header('Location: ../vistas/inicio_sesion.php');
+    exit;
+  }
+}elseif(isset($_POST['publicacion_btn'])){
+
+  $_SESSION['publicacion_a_buscar']=$_POST['publicacion_btn'];
+  header('Location: ../vistas/detalle_publicacion.php');
+  exit;
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -38,14 +55,14 @@ session_start();
 <body>
 
   <header>
-    <form action="user_details.php" method="post">
+    <form action="check_user.php" method="post">
       <p id="titulo"><a href="../index.php">Farzone</i></a></p>
       <button type='submit' name='seguir_usuario' id="guardar">Seguir a este usuario</button>
     </form>
   </header>
 
   <section>
-    <form action="user_details.php" method="post">
+    <form action="check_user.php" method="post">
       <?php
 
       $obj = consumir_servicio_REST($url . 'get_usuario/' . urlencode($_SESSION["usuario_a_buscar"]), 'GET');
@@ -94,6 +111,8 @@ session_start();
 
   <section id='publicaciones'>
 
+  <form action="check_user.php" method="post">
+
     <?php
 
     $obj = consumir_servicio_REST($url . 'get_publicaciones_user/' . urlencode($id_usuario), 'GET');
@@ -128,7 +147,7 @@ session_start();
     }
 
     ?>
-
+</form>
 
   </section>
 

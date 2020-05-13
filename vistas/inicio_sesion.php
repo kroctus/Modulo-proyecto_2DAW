@@ -62,6 +62,13 @@ if (isset($_POST["Registrarte"])) {
       echo "<div class='notificacion'><p>Esta intentando acceder a un espacio restringido por favor inicie session</p></div>";
       session_unset();
     }
+
+    if(isset($_SESSION['must_login'])){
+      echo "<div class='notificacion'><p>";
+      echo $_SESSION['must_login'];
+      echo "</p></div>";
+      session_unset();
+    }
   
   ?>
 

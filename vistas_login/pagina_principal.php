@@ -40,6 +40,11 @@ if (isset($_POST["logout"])) {
   }
   header('Location: ../vistas/check_user.php');
   exit;
+}elseif(isset($_POST["btn_comunidad"])){
+
+  $_SESSION['id_comunidad']=$_POST["btn_comunidad"];
+  header('Location: comunidades.php');
+  exit;
 }
 
 ?>

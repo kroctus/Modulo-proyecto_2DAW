@@ -5,6 +5,12 @@ session_start();
 
 require "../servicio_rest/funciones.php";
 
+
+if(isset($_SESSION['publicacion_a_buscar'])){
+    $_SESSION["id_publicacion"]=$_SESSION['publicacion_a_buscar'];
+    unset($_SESSION['publicacion_a_buscar']);
+}
+
 if(isset($_POST['pub_user'])){
     $_SESSION['usuario_a_buscar']=$_POST['pub_user'];
     if($_POST['pub_user']==$_SESSION['usuario']){
