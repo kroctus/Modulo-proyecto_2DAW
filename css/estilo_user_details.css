@@ -237,7 +237,8 @@
   display: flex;
   flex: 29vw;
   max-width: 30vw;
-  height: 130px;
+  height: 145px;
+
 }
   
   /*--footer--*/
@@ -353,6 +354,7 @@
     flex: 15vw;
     max-width: 15vw;
     height: 250px;
+
   }
  
 

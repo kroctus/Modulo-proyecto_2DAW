@@ -413,7 +413,7 @@ function get_publicacion_by_tipo_limit($tipo){
 	}else{
 		
 		mysqli_set_charset($con,'utf8');
-		$consulta="SELECT * from publicaciones where categoria='".$tipo."' LIMIT 5";
+		$consulta="SELECT * from publicaciones where categoria='".$tipo."' LIMIT 6";
 		$resultado=mysqli_query($con,$consulta);
 		if(!$resultado){		
 			mysqli_free_result($resultado);

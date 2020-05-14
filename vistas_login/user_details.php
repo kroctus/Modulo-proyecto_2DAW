@@ -13,6 +13,12 @@ if (!isset($_SESSION['usuario'])) {
 if (isset($_POST['editar_perf'])) {
   header('Location: ../vistas_login/perfil.php');
   exit;
+}elseif(isset($_POST['publicacion_btn'])){
+
+  $_SESSION['publicacion_a_buscar']=$_POST['publicacion_btn'];
+  header('Location: ../vistas/detalle_publicacion.php');
+  exit;
+
 }
 ?>
 
@@ -104,6 +110,8 @@ if (isset($_POST['editar_perf'])) {
 
   <section id='publicaciones'>
 
+  <form action="user_details.php" method="post">
+
     <?php
 
     $obj = consumir_servicio_REST($url . 'get_publicaciones_user/' . urlencode($id_usuario), 'GET');
@@ -139,7 +147,7 @@ if (isset($_POST['editar_perf'])) {
 
     ?>
 
-
+  </form>
   </section>
 
 

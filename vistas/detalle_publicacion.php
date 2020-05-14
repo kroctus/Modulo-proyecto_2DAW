@@ -59,12 +59,11 @@ if(isset($_POST['pub_user'])){
 
 
     <section>
-<form action="detalle_publicacion.php" method="post">
 
         <span class="linea"></span>
 
         <article id="noticia">
-
+        <form action="detalle_publicacion.php" method="post">
             <?php
             $obj = consumir_servicio_REST($url . 'get_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
             if (isset($obj->mensaje_error)) {
@@ -131,11 +130,25 @@ if(isset($_POST['pub_user'])){
 
             ?>
 
-
+        </form>
 
         </article>
 
         <article id="comentarios">
+        <form action="detalle_publicacion.php" method="post">
+
+        <?php
+        
+        echo "<h1>Comentarios</h1>";
+
+        echo '<p id="indicacion">Escribe un comentario:</p>';
+
+        echo '<textarea name="comentario" id="user_comentario" cols="40" rows="5" required></textarea>';
+
+        echo '<button type="submit" name="enviar_comentario" value="'.$_SESSION['usuario'].'" id="enviar_comentario"><i class="fas fa-share"></i></button>';
+
+        
+        ?>
 
 
             <?php
@@ -304,9 +317,9 @@ if(isset($_POST['pub_user'])){
             </div>
 
 
-
-        </article>
         </form>
+        </article>
+
     </section>
 
 

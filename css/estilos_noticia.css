@@ -91,6 +91,14 @@ section article{
   max-width: 100vw;
 }
 
+section article form{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 100vw;
+  max-width: 100vw;
+}
+
 section article img{
   display: flex;
   flex: 90vw;
@@ -280,7 +288,6 @@ section #comentarios .comentario button:hover{
   flex-direction: row;
   flex: 100vw;
   max-width: 100vw;
-  height: 1px;
 }
 
 
@@ -461,6 +468,10 @@ height: 100vh;
   .contenido audio{
     margin-top: 33vh;
     margin-left: auto;
+  }
+
+  .no_comen{
+
   }
 
 }

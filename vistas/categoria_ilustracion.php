@@ -1,3 +1,16 @@
+<?php
+require "../servicio_rest/funciones.php";
+session_name("farzone");
+session_start();
+
+if(isset($_POST['publicacion_btn'])){
+
+  $_SESSION['publicacion_a_buscar']=$_POST['publicacion_btn'];
+  header('Location: ../vistas/detalle_publicacion.php');
+  exit;
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -114,244 +127,47 @@
 
     <span id="linea"></span>
 
-    <article id="diseño" class="categorias">
+    <section id='publicaciones'>
 
-      <h2><a href="#">Subcategoria Ilustracion 1</a></h2>
-      <p>Todos los generos que puedas imaginar y si no encuentras uno subelo tu mismo</p>
+<form action="categoria_ilustracion.php" method="post">
 
-    </article>
+  <?php
 
-    <article id="musica" class="categorias">
+  $categoria='ilustracion';
+  $obj = consumir_servicio_REST($url . 'get_publicaciones_by_tipo/' . $categoria, 'GET');
+  if (isset($obj->mensaje_error)) {
+    echo "<p>No hay publicaciones</p>";
+    die($obj->mensaje_error);
+  } else {
 
 
-      <h2><a href="#">Subcategoria Ilustracion 2</a></h2>
-      <p>Sube aquí tus diseños y descubre también el arte de los demás</p>
+    foreach ($obj->publicaciones as $key) {
 
-    </article>
+      switch ($key->categoria) {
 
-    <article id="fotografia" class="categorias">
+        case ('diseño'):
+          echo "<button type='submit' name='publicacion_btn' value='" . $key->id_publicacion . "'><img src='../uploads/pictures/" . $key->archivo . "'/></button>";
+          break;
 
+        case ('fotografia'):
+          echo "<button type='submit' name='publicacion_btn' value='" . $key->id_publicacion . "'><img src='../uploads/pictures/" . $key->archivo . "'/></button>";
+          break;
 
-      <h2><a href="#">Subcategoria Ilustracion 3<a href="#"></a></h2>
-      <p>nada mejor que capturar ese momento especial, bienvenidos fotografos</p>
+        case ('ilustracion'):
+          echo "<button type='submit' name='publicacion_btn' value='" . $key->id_publicacion . "'><img src='../uploads/pictures/" . $key->archivo . "'/></button>";
+          break;
 
-    </article>
+        case ('musica'):
+          echo "<button type='submit' name='publicacion_btn' value='" . $key->id_publicacion . "'><img src='../img_comprimidas/musica.jpeg/" . $key->archivo . "'/></button>";
+          break;
+      }
+    }
+  }
 
-    <article id="ilustracion" class="categorias">
+  ?>
+</form>
 
-
-      <h2><a href="#">Subcategoria Ilustracion 4</a></h2>
-      <p>sskdnolsnoshnoishdosjsjd</p>
-
-    </article>
-
-    <article id="diseño" class="categorias">
-
-      <h2><a href="#">Subcategoria Diseño 1</a></h2>
-      <p>Todos los generos que puedas imaginar y si no encuentras uno subelo tu mismo</p>
-
-    </article>
-
-    <article id="musica" class="categorias">
-
-
-      <h2><a href="#">Subcategoria Ilustracion 2</a></h2>
-      <p>Sube aquí tus diseños y descubre también el arte de los demás</p>
-
-    </article>
-
-    <article id="fotografia" class="categorias">
-
-
-      <h2><a href="#">Subcategoria Ilustracion 3<a href="#"></a></h2>
-      <p>nada mejor que capturar ese momento especial, bienvenidos fotografos</p>
-
-    </article>
-
-    <article id="ilustracion" class="categorias">
-
-
-      <h2><a href="#">Subcategoria Ilustracion 4</a></h2>
-      <p>sskdnolsnoshnoishdosjsjd</p>
-
-    </article>
-
-
-    <nav id="desplegable">
-      <ul class="nav">
-        <li><a href="">Lo más reciente<i class="fas fa-chevron-down"></i></a>
-          <ul>
-            <li><a href="">Submenu1</a></li>
-            <li><a href="">Submenu2</a></li>
-            <li><a href="">Submenu3</a></li>
-            <li><a href="">Submenu4</a></li>
-          </ul>
-        </li>
-        <li><a href="">Categorias<i class="fas fa-chevron-down"></i></a>
-          <ul>
-            <li><a href="">Submenu1</a></li>
-            <li><a href="">Submenu2</a></li>
-            <li><a href="">Submenu3</a></li>
-            <li><a href="">Submenu4</a></li>
-          </ul>
-        </li>
-        <li><a href="">Ordenar por<i class="fas fa-chevron-down"></i></a>
-          <ul>
-            <li><a href="">Submenu1</a></li>
-            <li><a href="">Submenu2</a></li>
-            <li><a href="">Submenu3</a></li>
-            <li><a href="">Submenu4</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-
-
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-    </article>
-
-    <p id="subcategoria_title">Subcategoria1</p>
-    <p class="ver_todas"><a href="#">Ver todas</a></p>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-
-
-
-    <p id="subcategoria_title">Subcategoria2</p>
-    <p class="ver_todas"><a href="#">Ver todas</a></p>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-
-
-
-    <p id="subcategoria_title">Subcategoria3</p>
-    <p class="ver_todas"><a href="#">Ver todas</a></p>
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-
-
-    <p id="subcategoria_title">Subcategoria4</p>
-    <p class="ver_todas"><a href="#">Ver todas</a></p>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/ilustracion.webp" alt="">
-    </article>
-
+</section>
 
 
 
