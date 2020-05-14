@@ -505,6 +505,30 @@ function get_publicaciones_user($id){
 
 }
 
+function insertar_comentario_publicacion($des_comentario,$id_usuario,$id_publicacion)
+{
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="INSERT into comentarios (des_comentario,id_usuario,id_publicacion,num_likes) VALUES ('$des_comentario','$id_usuario','$id_publicacion',0)";
+		$resultado=mysqli_query($con,$consulta);
+
+		if(!$resultado){
+			
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje_error"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"se ha agregado el comentario exitosamente");
+		}
+	}
+}
+
 /**COMUNIDADES */
 
 function get_comunidades(){

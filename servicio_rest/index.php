@@ -85,6 +85,10 @@ $app->get('/get_publicaciones_user/:id',function($id){
 	echo json_encode(get_publicaciones_user($id),JSON_FORCE_OBJECT);
 });
 
+$app->post('/insertar_comentario_publicacion', function () {
+	echo json_encode(insertar_comentario_publicacion($_POST["des_comentario"],$_POST["id_usuario"],$_POST["id_publicacion"]),JSON_FORCE_OBJECT);
+});
+
 
 /**COMUNIDADES */
 

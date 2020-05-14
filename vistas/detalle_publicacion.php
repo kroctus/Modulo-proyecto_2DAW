@@ -19,6 +19,39 @@ if(isset($_POST['pub_user'])){
     }
     header('Location: ../vistas/check_user.php');
     exit;
+}else if(isset($_POST["enviar_comentario"])){
+
+
+
+    /**insertar_comentario_noticia */
+
+    $obj4=consumir_servicio_REST($url.'get_usuario/'.urlencode($_SESSION["usuario"]),'GET');
+    if(isset($obj4->mensaje_error)){
+      die($obj4->mensaje_error);
+    }else{
+  
+      foreach ($obj4->usuario as $key2) {
+        $id_usuario=$key2->id_usuario;
+      }
+    }
+
+    $datos_comentario=array();
+
+    $datos_comentario["des_comentario"]=$_POST["comentario"];
+    $datos_comentario["id_usuario"]=$id_usuario;
+    $datos_comentario["id_publicacion"]=$_SESSION["id_publicacion"];
+
+    var_dump($datos_comentario);
+
+    $obj5=consumir_servicio_REST($url.'insertar_comentario_publicacion','POST',$datos_comentario);
+    if(isset($obj5->mensaje_error)){
+        echo "ERRROR";
+      die($obj5->mensaje_error);
+    }
+
+    
+
+
 }
 
 ?>
@@ -149,8 +182,9 @@ if(isset($_POST['pub_user'])){
 
         
         ?>
+        </form>
 
-
+        <form action="detalle_publicacion.php" method="post">
             <?php
 
             $obj2 = consumir_servicio_REST($url . 'comentarios_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
@@ -181,13 +215,13 @@ if(isset($_POST['pub_user'])){
                         }
                     }
 
-                    echo "<p class='label_user'><span class='user'>" . $key2->usuario . "</span></p>";
+                    echo "<p class='label_user'><button type='submit' name='pub_user' value='".$key2->usuario."'>" . $key2->usuario . "</button></p>";
 
-                    echo " <p class='desc_comen'>" . $key->desc_comentario . "</p>";
+                    echo " <p class='desc_comen'>" . $key->des_comentario . "</p>";
 
-                    echo " <button type='submit' name='responder' value='" . $key->id_noticia . "' class='responder'>Responder</button>";
+                    echo " <button type='submit' name='responder' value='" . $key->id_publicacion . "' class='responder'>Responder</button>";
 
-                    echo "<button type='submit' name='like' value='" . $key->id_noticia . "' class='like'><i class='fas fa-heart'></i></button>";
+                    echo "<button type='submit' name='like' value='" . $key->id_publicacion . "' class='like'><i class='fas fa-heart'></i></button>";
 
                     echo "</div>";
                 }
