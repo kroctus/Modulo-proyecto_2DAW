@@ -4,6 +4,19 @@ require "../servicio_rest/funciones.php";
 session_name("farzone");
 session_start();
 
+if(isset($_POST["crear_comunidad"])){
+
+    header('Location: add_comunidad.php');
+    exit;
+
+}else if(isset($_POST["btn_comunidad"])){
+    
+    $_SESSION['id_comunidad']=$_POST["btn_comunidad"];
+    header('Location: comunidades.php');
+    exit;
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +29,7 @@ session_start();
 
     <link rel="shortcut icon" href="../img/logo_cuadrado2.png">
 
-    <link rel="stylesheet" href="../css/estilo_user_details.css">
+    <link rel="stylesheet" href="../css/estilo_all_comunidades.css">
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../tooltipster/dist/css/tooltipster.bundle.min.css" />
@@ -29,9 +42,9 @@ session_start();
 <body>
 
     <header>
-        <form action="check_user.php" method="post">
+        <form action="all_comunities.php" method="post">
             <p id="titulo"><a href="../index.php">Farzone</i></a></p>
-            <button type='submit' name='seguir_usuario' id="guardar">Crear comunidad</button>
+            <button type='submit' name='crear_comunidad' id="guardar">Crear comunidad</button>
         </form>
     </header>
 
@@ -65,10 +78,10 @@ session_start();
         <div class='contenedor'>
             <h1 id='head_h1'>Encuentra la comunidad perfecta para ti</h1>
             <p class='advice'>Sino encuentras lo que necesitas siempre puedes crear una</p>
-            <form action="check_user.php" method="post">
+            <form action="all_comunities.php" method="post">
                 <?php
                 echo "<article id='user_block'>";
-                echo "<button type='submit' name='seguir_usuario' id='btn_edit'>Crear una comunidad</button>";
+                echo "<button type='submit' name='crear_comunidad' id='btn_edit'>Crear una comunidad</button>";
                 echo "</article>";
 
                 echo "<article id='comunity_list'>";

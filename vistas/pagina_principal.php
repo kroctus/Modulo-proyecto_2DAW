@@ -562,7 +562,7 @@ if (isset($obj->mensaje_error)) {
 
       <?php 
       
-          $obj=consumir_servicio_REST($url.'comunidades','GET');
+          $obj=consumir_servicio_REST($url.'comunidades_limit','GET');
           if(isset($obj->mensaje_error)){
             die($obj->mensaje_error);
           }else{
@@ -576,7 +576,7 @@ if (isset($obj->mensaje_error)) {
       ?>
 
 
-      <p id="falta_comunidad"><a href="#">¿Hace falta alguna comunidad?</a></p>
+      <p id="falta_comunidad"><a href="../vistas/all_comunities.php">¿Hace falta alguna comunidad?</a></p>
       </form>
 
     </article>

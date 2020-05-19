@@ -97,9 +97,20 @@ $app->get('/comunidades', function(){
 	echo json_encode(get_comunidades(),JSON_FORCE_OBJECT);
 });
 
+$app->get('/comunidades_limit', function(){
+	echo json_encode(get_comunidades_limit(),JSON_FORCE_OBJECT);
+});
+
 $app->get('/get_comunidad/:id',function($id){
 	echo json_encode(get_comunidad($id),JSON_FORCE_OBJECT);
 });
+
+$app->post('/crear_comunidad', function () {
+
+	/*$creador, $nombre, $descripcion, $icono,$categoria */
+	echo json_encode(insertar_comunidad($_POST["creador"],$_POST["nombre"],$_POST["descripcion"],$_POST["icono"],$_POST["categoria"]),JSON_FORCE_OBJECT);
+});
+
 
 
 $app->run();

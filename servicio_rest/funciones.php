@@ -538,7 +538,39 @@ function get_comunidades(){
 	}else{
 		
 		mysqli_set_charset($con,'utf8');
-		$consulta="SELECT * from comunidades";
+		$consulta="SELECT * from comunidades ORDER BY id_comunidad DESC";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+
+					$comunidades=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$comunidades[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("comunidades"=>$comunidades);
+
+	}
+}
+
+}
+
+/**COMUNIDADES */
+
+function get_comunidades_limit(){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from comunidades limit 5";
 		$resultado=mysqli_query($con,$consulta);
 		if(!$resultado){		
 			mysqli_free_result($resultado);
@@ -592,4 +624,29 @@ function get_comunidad($id){
 	}
 }
 
+}
+
+function insertar_comunidad($creador, $nombre, $descripcion, $icono,$categoria)
+{
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		$likes=0;
+		mysqli_set_charset($con,'utf8');
+		$consulta="INSERT into comunidades (creador,nombre,descripcion,categoria,icono,categoria) VALUES ('$creador','$nombre','$descripcion','$categoria','$icono','$likes','$categoria')";
+		$resultado=mysqli_query($con,$consulta);
+
+		if(!$resultado){
+			
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje_error"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"se ha creado la comunidad exitosamente");
+		}
+	}
 }
