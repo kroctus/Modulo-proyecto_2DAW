@@ -50,7 +50,7 @@ if (isset($_POST["Iniciar"])) {
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <title id="eltitulo">Farzone</title>
   <script src="https://kit.fontawesome.com/68921df666.js" crossorigin="anonymous"></script>
-  <link rel="shortcut icon" href="img/logo_cuadrado2.png">
+  <link rel="shortcut icon" href="../img/logo_cuadrado2.png">
   <link rel="stylesheet" href="../css/estilo.css">
   <script src="../jq/jquery-3.1.1.min.js" type="text/javascript"></script>
   <script src="../jq/JQueryRotate.js" type="text/javascript"></script>

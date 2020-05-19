@@ -22,6 +22,18 @@
       position: fixed; /* Hacemos que la cabecera tenga una posición fija 
     z-index: 5;
     */
+
+    z-index: 5;
+  }
+
+
+  header form{
+
+    display: flex;
+    flex: 100vw;
+    max-width: 100vw;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   header p{
     font-size: 3vh;
@@ -85,7 +97,20 @@
     border-radius: 5px;
     color: white;
   
+  }
 
+.contenedor{
+  
+    display: flex;
+    flex: 100vw;
+    max-width: 100vw;
+    flex-direction: row;
+    flex-wrap: wrap;
+  
+    border-radius: 5px;
+    color: white;
+
+    margin-top: 9vh;
   
   }
 
@@ -134,27 +159,23 @@
     font-size: 4vh;
   }
 
-  section form article div #btn_edit{
-    display: flex;
-    flex: 80vw;
-    max-width: 80vw;
+ #btn_edit{
+
+    width: 80vw;
 
     margin-left: auto;
     margin-right: auto;
-
-    flex-direction: column;
+    text-align: center;
 
     padding: 10px;
     border-radius: 5px;
     border: none;
 
     margin-bottom: 2vh;
-
-
     transition-duration: 1s;
   }
 
-  section form article div #btn_edit:hover{
+#btn_edit:hover{
 
     cursor: pointer;
     background-color: #0477BF;
@@ -311,11 +332,125 @@
     transform: scale(1.1,1.1);
   }
 
+    /*All comunities*/
+
+    body video{
+     display: none;
+     max-width: 90vw;
+    }
+    #head_h1{
+      display: flex;
+      flex: 90vw;
+      flex-direction: column;
+      margin-top: 4vh;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+
+      font-size: 4vh;
+    }
+  
+    .advice{
+  
+      display: flex;
+      flex: 90vw;
+      flex-direction: column;
+      margin-top: 1vh;
+      margin-left: auto;
+      margin-right: auto;
+
+      text-align: center;
+      font-size: 2.5vh;
+      color: #e4e4e4;
+    }
+
+    #comunity_list{
+      display: flex;
+      flex: 100vw;
+      max-width: 100vw;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      margin-left: auto;
+      margin-right: auto;
+
+      border-top:  solid 2px #e4e4e4;
+    }
+
+    .comunidades{
+      display: flex;
+      flex: 30.5vw;
+      max-width: 29vw;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      margin-top: 2vh;
+      margin-left: auto;
+      margin-right: auto;
+
+      border-radius: 5px;
+
+      background-color: rgba(245, 245, 245, 0.876);
+    }
+
+    .comunidades img{
+
+      height: 120px;
+      width: 100px;
+
+      margin-top: 2vh;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2vh;
+
+      border-radius: 150px;
+      
+    }
+
+    .comunidades button{
+
+      display: flex;
+      flex:100vw;
+      max-width: 29vw;
+      flex-direction: row;
+      flex-wrap: wrap;
+      text-align: center;
+
+      background-color: #0477BF;
+      color: white;
+      border: none;
+      font-size: 1.5vh;
+      padding: 10px;
+
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+  
+    }
+
+    .comunidades button:hover{
+      cursor: pointer;
+    }
+
+    .contenedor{
+      position: absolute;
+      top: 0;
+      z-index: 4;
+    }
+
   /* version WEB*/
 
 @media (min-width: 1129px ){
 
+  body video{
 
+    visibility: visible;
+
+    display: flex;
+    flex: 98vw;
+    max-width: 98.3vw;
+
+    z-index: 1;
+  }
 
   header button{
     display: block;
@@ -326,7 +461,13 @@
     flex: 50vw;
     flex-direction: row;
   }
-  section form article div #btn_edit{
+
+  section{
+    position: absolute;
+  }
+
+
+#btn_edit{
     display: none;
   }
 
@@ -357,5 +498,30 @@
 
   }
  
+/*All_comunities.php*/
+
+.comunidades{
+  max-width: 15vw;
+  margin-left: 0.6vw;
+  margin-right: 0.6vw;
+}
+
+.comunidades img{
+
+  height: 120px;
+  width: 120px;
+
+}
+
+.contenedor{
+  margin-top: 0vh;
+}
+
+body{
+  background-color: #191919;
+}
+
+
+
 
 }

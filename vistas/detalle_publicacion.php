@@ -6,52 +6,46 @@ session_start();
 require "../servicio_rest/funciones.php";
 
 
-if(isset($_SESSION['publicacion_a_buscar'])){
-    $_SESSION["id_publicacion"]=$_SESSION['publicacion_a_buscar'];
+if (isset($_SESSION['publicacion_a_buscar'])) {
+    $_SESSION["id_publicacion"] = $_SESSION['publicacion_a_buscar'];
     unset($_SESSION['publicacion_a_buscar']);
 }
 
-if(isset($_POST['pub_user'])){
-    $_SESSION['usuario_a_buscar']=$_POST['pub_user'];
-    if($_POST['pub_user']==$_SESSION['usuario']){
-      header('Location: ../vistas_login/user_details.php');
-      exit;
+if (isset($_POST['pub_user'])) {
+    $_SESSION['usuario_a_buscar'] = $_POST['pub_user'];
+    if ($_POST['pub_user'] == $_SESSION['usuario']) {
+        header('Location: ../vistas_login/user_details.php');
+        exit;
     }
     header('Location: ../vistas/check_user.php');
     exit;
-}else if(isset($_POST["enviar_comentario"])){
+} else if (isset($_POST["enviar_comentario"])) {
 
 
 
     /**insertar_comentario_noticia */
 
-    $obj4=consumir_servicio_REST($url.'get_usuario/'.urlencode($_SESSION["usuario"]),'GET');
-    if(isset($obj4->mensaje_error)){
-      die($obj4->mensaje_error);
-    }else{
-  
-      foreach ($obj4->usuario as $key2) {
-        $id_usuario=$key2->id_usuario;
-      }
+    $obj4 = consumir_servicio_REST($url . 'get_usuario/' . urlencode($_SESSION["usuario"]), 'GET');
+    if (isset($obj4->mensaje_error)) {
+        die($obj4->mensaje_error);
+    } else {
+
+        foreach ($obj4->usuario as $key2) {
+            $id_usuario = $key2->id_usuario;
+        }
     }
 
-    $datos_comentario=array();
+    $datos_comentario = array();
 
-    $datos_comentario["des_comentario"]=$_POST["comentario"];
-    $datos_comentario["id_usuario"]=$id_usuario;
-    $datos_comentario["id_publicacion"]=$_SESSION["id_publicacion"];
+    $datos_comentario["des_comentario"] = $_POST["comentario"];
+    $datos_comentario["id_usuario"] = $id_usuario;
+    $datos_comentario["id_publicacion"] = $_SESSION["id_publicacion"];
 
-    var_dump($datos_comentario);
-
-    $obj5=consumir_servicio_REST($url.'insertar_comentario_publicacion','POST',$datos_comentario);
-    if(isset($obj5->mensaje_error)){
+    $obj5 = consumir_servicio_REST($url . 'insertar_comentario_publicacion', 'POST', $datos_comentario);
+    if (isset($obj5->mensaje_error)) {
         echo "ERRROR";
-      die($obj5->mensaje_error);
+        die($obj5->mensaje_error);
     }
-
-    
-
-
 }
 
 ?>
@@ -96,262 +90,261 @@ if(isset($_POST['pub_user'])){
         <span class="linea"></span>
 
         <article id="noticia">
-        <form action="detalle_publicacion.php" method="post">
-            <?php
-            $obj = consumir_servicio_REST($url . 'get_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
-            if (isset($obj->mensaje_error)) {
-                die($obj->mensaje_error);
-            } else {
+            <form action="detalle_publicacion.php" method="post">
+                <?php
+                $obj = consumir_servicio_REST($url . 'get_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
+                if (isset($obj->mensaje_error)) {
+                    die($obj->mensaje_error);
+                } else {
 
-                foreach ($obj->publicacion as $key) {
+                    foreach ($obj->publicacion as $key) {
 
-                    if ($key->categoria == 'musica') {
+                        if ($key->categoria == 'musica') {
 
-                        echo '<article class="contenido">';
-                        echo '<p>' . $key->titulo.'</p>';
+                            echo '<article class="contenido">';
+                            echo '<p>' . $key->titulo . '</p>';
 
-                        echo '<span id="linea"></span>';
-                        
+                            echo '<span id="linea"></span>';
 
-                        echo '<audio id="audio" controls>';
-                        echo '<source src="../uploads/audio/'.$key->archivo.'" />';
-                        echo '</audio>';
 
-                        echo '</article>';
+                            echo '<audio id="audio" controls>';
+                            echo '<source src="../uploads/audio/' . $key->archivo . '" />';
+                            echo '</audio>';
 
-                        
-                        $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
-                        if(isset($obj3->mensaje_error)){
-                          die($obj3->mensaje_error);
+                            echo '</article>';
+
+
+                            $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($key->id_usuario), 'GET');
+                            if (isset($obj3->mensaje_error)) {
+                                die($obj3->mensaje_error);
+                            }
+
+                            foreach ($obj3->usuario as $kay) {
+                                $usuario = $kay->usuario;
+                            }
+
+                            echo "<p class='cont_btn_usu'>";
+                            echo 'Publicado por: ';
+                            echo "<button type='submit' name='pub_user' class='to_usuario_btn'  value='" . $usuario . "'>" . $usuario . "</button>";
+                            echo "</p>";
+                            echo "<p>" . $key->descripcion . "</p>";
+                        } else {
+
+                            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+                            echo "<h1>" . $key->titulo . "</h1>";
+
+                            $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($key->id_usuario), 'GET');
+                            if (isset($obj3->mensaje_error)) {
+                                die($obj3->mensaje_error);
+                            }
+
+                            foreach ($obj3->usuario as $kay) {
+                                $usuario = $kay->usuario;
+                            }
+
+
+                            echo "<p class='cont_btn_usu'>";
+                            echo 'Publicado por: ';
+                            echo "<button type='submit' name='pub_user' class='to_usuario_btn'  value='" . $usuario . "'>" . $usuario . "</button>";
+                            echo "</p>";
+
+                            echo "<p>" . $key->descripcion . "</p>";
                         }
-                      
-                        foreach ($obj3->usuario as $kay) {
-                          $usuario=$kay->usuario;
-                        }
-
-                        echo "<p class='cont_btn_usu'>";
-                        echo 'Publicado por: ';
-                        echo "<button type='submit' name='pub_user' class='to_usuario_btn'  value='".$usuario."'>".$usuario."</button>";
-                        echo "</p>";
-                        echo "<p>" . $key->descripcion . "</p>";
-
-                    } else {
-
-                        echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
-                        echo "<h1>" . $key->titulo . "</h1>";
-                        
-                        $obj3=consumir_servicio_REST($url.'get_usuario_by_id/'.urlencode($key->id_usuario),'GET');
-                        if(isset($obj3->mensaje_error)){
-                          die($obj3->mensaje_error);
-                        }
-                      
-                        foreach ($obj3->usuario as $kay) {
-                          $usuario=$kay->usuario;
-                        }
-
-                        
-                        echo "<p class='cont_btn_usu'>";
-                        echo 'Publicado por: ';
-                        echo "<button type='submit' name='pub_user' class='to_usuario_btn'  value='".$usuario."'>".$usuario."</button>";
-                        echo "</p>";
-
-                        echo "<p>" . $key->descripcion . "</p>";
-
                     }
                 }
-            }
 
-            ?>
+                ?>
 
-        </form>
+            </form>
 
         </article>
 
         <article id="comentarios">
-        <form action="detalle_publicacion.php" method="post">
+            <form action="detalle_publicacion.php" method="post">
 
-        <?php
-        
-        echo "<h1>Comentarios</h1>";
+                <?php
 
-        echo '<p id="indicacion">Escribe un comentario:</p>';
+                echo "<h1>Comentarios</h1>";
+                if (isset($_SESSION['usuario'])) {
 
-        echo '<textarea name="comentario" id="user_comentario" cols="40" rows="5" required></textarea>';
+                    echo '<p id="indicacion">Escribe un comentario:</p>';
 
-        echo '<button type="submit" name="enviar_comentario" value="'.$_SESSION['usuario'].'" id="enviar_comentario"><i class="fas fa-share"></i></button>';
+                    echo '<textarea name="comentario" id="user_comentario" cols="40" rows="5" required></textarea>';
 
-        
-        ?>
-        </form>
-
-        <form action="detalle_publicacion.php" method="post">
-            <?php
-
-            $obj2 = consumir_servicio_REST($url . 'comentarios_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
-            if (isset($obj2->mensaje_error)) {
-                die($obj2->mensaje_error);
-            } else {
-
-                if ($obj2 == false) {
-                    echo "<h1 class='no_comen'>No hay Comentarios</h1>";
-                    return;
+                    echo '<button type="submit" name="enviar_comentario" value="' . $_SESSION['usuario'] . '" id="enviar_comentario"><i class="fas fa-share"></i></button>';
                 }
 
-                echo "<h1 class='no_comen'>Comentarios</h1>";
+                ?>
+            </form>
 
-                foreach ($obj2->comentarios as $key) {
+            <form action="detalle_publicacion.php" method="post">
+                <?php
 
-                    echo "<div class='comentario'>";
+                $obj2 = consumir_servicio_REST($url . 'comentarios_publicacion/' . urlencode($_SESSION["id_publicacion"]), 'GET');
+                if (isset($obj2->mensaje_error)) {
+                    die($obj2->mensaje_error);
+                } else {
 
-                    /**INFO DEL USUARIO QUE SUBIO EL COMENT*/
-
-                    $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($key->id_usuario), 'GET');
-                    if (isset($obj3->mensaje_error)) {
-                        die($obj3->mensaje_error);
-                    } else {
-
-                        foreach ($obj3->usuario as $key2) {
-                            $usuario = $key2->usuario;
-                        }
+                    if ($obj2 == false) {
+                        echo "<h1 class='no_comen'>No hay Comentarios</h1>";
+                        return;
                     }
 
-                    echo "<p class='label_user'><button type='submit' name='pub_user' value='".$key2->usuario."'>" . $key2->usuario . "</button></p>";
+                    echo "<h1 class='no_comen'>Comentarios</h1>";
 
-                    echo " <p class='desc_comen'>" . $key->des_comentario . "</p>";
+                    foreach ($obj2->comentarios as $key) {
 
-                    echo " <button type='submit' name='responder' value='" . $key->id_publicacion . "' class='responder'>Responder</button>";
+                        echo "<div class='comentario'>";
 
-                    echo "<button type='submit' name='like' value='" . $key->id_publicacion . "' class='like'><i class='fas fa-heart'></i></button>";
+                        /**INFO DEL USUARIO QUE SUBIO EL COMENT*/
 
-                    echo "</div>";
+                        $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($key->id_usuario), 'GET');
+                        if (isset($obj3->mensaje_error)) {
+                            die($obj3->mensaje_error);
+                        } else {
+
+                            foreach ($obj3->usuario as $key2) {
+                                $usuario = $key2->usuario;
+                            }
+                        }
+
+                        echo "<p class='label_user'><button type='submit' name='pub_user' value='" . $key2->usuario . "'>" . $key2->usuario . "</button></p>";
+
+                        echo " <p class='desc_comen'>" . $key->des_comentario . "</p>";
+
+                        echo " <button type='submit' name='responder' value='" . $key->id_publicacion . "' class='responder'>Responder</button>";
+
+                        echo "<button type='submit' name='like' value='" . $key->id_publicacion . "' class='like'><i class='fas fa-heart'></i></button>";
+
+                        echo "</div>";
+                    }
                 }
-            }
 
-            ?>
+                ?>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
-            <div class="comentario">
+                <div class="comentario">
 
-                <p class="label_user"><span class="user">Camila28</span></p>
+                    <p class="label_user"><span class="user">Camila28</span></p>
 
-                <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
+                    <p class="desc_comen">Gabriel es el amor de mi vida, mi osito, me casaré con él</p>
 
-                <button type="submit" name="responder" class="responder">Responder</button>
-                <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
+                    <button type="submit" name="responder" class="responder">Responder</button>
+                    <button type="submit" name="like" class="like"><i class="fas fa-heart"></i></button>
 
-            </div>
+                </div>
 
 
-        </form>
+            </form>
         </article>
 
     </section>

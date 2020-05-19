@@ -5,6 +5,17 @@ session_start();
 
 require "../servicio_rest/funciones.php";
 
+
+if (isset($_POST['pub_user'])) {
+    $_SESSION['usuario_a_buscar'] = $_POST['pub_user'];
+    if ($_POST['pub_user'] == $_SESSION['usuario']) {
+        header('Location: ../vistas_login/user_details.php');
+        exit;
+    }
+    header('Location: ../vistas/check_user.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +83,7 @@ require "../servicio_rest/funciones.php";
         <article id="comentarios">
 
             <h1>Comentarios</h1>
-
+            <form action="noticia.php" method="post">
             <?php
 
             $obj2 = consumir_servicio_REST($url . 'comentarios_noticia/' . urlencode($_SESSION["id_noticia"]), 'GET');
@@ -96,7 +107,7 @@ require "../servicio_rest/funciones.php";
                           }
                         }
 
-                        echo "<p class='label_user'><span class='user'>".$key2->usuario."</span></p>";
+                        echo "<p class='label_user'><button type='submit' name='pub_user' value='".$usuario."'>" . $usuario . "</button></p>";
 
                         echo " <p class='desc_comen'>".$key->desc_comentario."</p>";
 
@@ -233,7 +244,7 @@ require "../servicio_rest/funciones.php";
             </div>
 
 
-
+            </form>
         </article>
 
     </section>

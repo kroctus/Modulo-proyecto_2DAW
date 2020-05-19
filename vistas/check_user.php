@@ -62,6 +62,7 @@ if (isset($_POST['seguir_usuario'])) {
   </header>
 
   <section>
+
     <form action="check_user.php" method="post">
       <?php
 
@@ -121,7 +122,10 @@ if (isset($_POST['seguir_usuario'])) {
       die($obj->mensaje_error);
     } else {
 
-
+      if($obj==false){
+        echo "<p>No hay publicaciones</p>";
+        return;
+      }
 
       foreach ($obj->publicaciones as $key) {
 

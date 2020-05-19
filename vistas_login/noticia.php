@@ -34,6 +34,14 @@ if(isset($_POST["enviar_comentario"])){
     
 
 
+}if (isset($_POST['pub_user'])) {
+    $_SESSION['usuario_a_buscar'] = $_POST['pub_user'];
+    if ($_POST['pub_user'] == $_SESSION['usuario']) {
+        header('Location: ../vistas_login/user_details.php');
+        exit;
+    }
+    header('Location: ../vistas/check_user.php');
+    exit;
 }
 
 ?>
@@ -106,7 +114,7 @@ if(isset($_POST["enviar_comentario"])){
         <article id="comentarios">
 
             <h1>Comentarios</h1>
-
+            <form action="noticia.php" method="post">
 
             <p id="indicacion">Escribe un comentario:</p>
 
@@ -114,6 +122,9 @@ if(isset($_POST["enviar_comentario"])){
 
             <button type='submit' name='enviar_comentario' value="<?php echo $_SESSION['usuario']?>" id="enviar_comentario"><i class="fas fa-share"></i></button>
 
+            </form>
+
+            <form action="noticia.php" method="post">
             <?php
 
             $obj2 = consumir_servicio_REST($url . 'comentarios_noticia/' . urlencode($_SESSION["id_noticia"]), 'GET');
@@ -137,7 +148,7 @@ if(isset($_POST["enviar_comentario"])){
                           }
                         }
 
-                        echo "<p class='label_user'><span class='user'>".$key2->usuario."</span></p>";
+                        echo "<p class='label_user'><button type='submit' name='pub_user' value='".$usuario."'>" . $usuario . "</button></p>";
 
                         echo " <p class='desc_comen'>".$key->desc_comentario."</p>";
 
@@ -274,10 +285,8 @@ if(isset($_POST["enviar_comentario"])){
             </div>
 
 
-
+            </form>
         </article>
-
-        </form>
 
     </section>
 
