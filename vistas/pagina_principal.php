@@ -210,7 +210,7 @@ if (isset($_POST["Iniciar"])) {
 
     <form method="post" action="pagina_principal.php" id="form_publicaciones">
     <?php
-   
+
     $aux = consumir_servicio_REST($url . 'publicaciones', 'GET');
     if (isset($aux->mensaje_error)) {
       die($aux->mensaje_error);
@@ -275,7 +275,7 @@ if (isset($_POST["Iniciar"])) {
 
 
             break;
-          
+
         }
       }
 
@@ -560,15 +560,15 @@ if (isset($obj->mensaje_error)) {
 
       <h3 id="comunidad_text">Comunidades</h3>
 
-      <?php 
-      
+      <?php
+
           $obj=consumir_servicio_REST($url.'comunidades_limit','GET');
           if(isset($obj->mensaje_error)){
             die($obj->mensaje_error);
           }else{
 
           foreach ($obj->comunidades as $key) {
-            
+
             echo "<p class='comunidades'><button type='submit' name='btn_comunidad' value='".$key->id_comunidad."'>".$key->nombre."</button></p>";
 
           }
@@ -656,7 +656,7 @@ if (isset($obj->mensaje_error)) {
       $('header').css("opacity", "1");
       $('#up').fadeOut();
     }
-    //Cuando se haga el click sobre el div(el boton de ir hacia arriba) 
+    //Cuando se haga el click sobre el div(el boton de ir hacia arriba)
     $('#up').click(function() {
 
       $('html').animate({
@@ -684,7 +684,14 @@ if (isset($obj->mensaje_error)) {
 <script>
   //Slider con jquery
   $(document).ready(function() {
-    $('.slider').bxSlider();
+    $('.slider').bxSlider({
+      auto: true,
+stopAutoOnClick: true,
+pager: true,
+infiniteLoop:true,
+controls:false,
+options:'fade',
+    });
 
   });
 </script>

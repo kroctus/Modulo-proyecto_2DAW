@@ -245,10 +245,18 @@ article h3{
   margin-right: auto;
 
 background-color: #0477BF;
-  padding: 2%;
+  padding: 1%;
   width: 80vw;
   text-align: center;
   border-radius: 10px;
+}
+
+#seccion_fotografia{
+  background-color: #BFA36F;
+}
+
+#seccion_diseño{
+  background-color: palevioletred;
 }
 
 /*Linea que divide el nombre de la categoria de su contenido*/

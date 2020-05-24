@@ -102,25 +102,6 @@ if(isset($_POST['publicacion_btn'])){
 
   <section>
 
-    <article>
-      <h1>Noticias</h1>
-
-      <div class="carousel">
-        <div class="slider">
-          <div>
-            <img src="../img_comprimidas/carrusel.webp">
-          </div>
-          <div>
-            <img src="../img_comprimidas/with.webp">
-          </div>
-
-          <div>
-            <img src="../img_comprimidas/java.webp">
-          </div>
-        </div>
-      </div>
-    </article>
-
     <article class="">
       <h3>Ilustracion</h3>
     </article>

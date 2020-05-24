@@ -20,7 +20,7 @@ if(isset($_POST["guardar"])){
     $datos_usuario["usuario"]=$_SESSION["usuario"];
     $datos_usuario["nombre"]=$_POST["nombre"];
     $datos_usuario["apellido"]=$_POST["apellido"];
-    $datos_usuario["contra"]=$_POST["clave"];
+    $datos_usuario["contra"]=md5($_POST["clave"]);
     $datos_usuario["sexo"]=$_POST["sexo"];
     $datos_usuario["fec_nac"]=$_POST["fec_nac"];
 
