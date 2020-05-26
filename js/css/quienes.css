@@ -1,0 +1,175 @@
+*{
+  /*font-family: 'Roboto', sans-serif;*/
+  font-family: 'Righteous', cursive;
+  box-sizing: border-box;
+}
+
+  
+  header {
+    width: 100vw;
+    height: 10vh;
+    padding-bottom: 5px;
+    color: white;
+    background-color: #191919;
+    border-radius: 5px;
+    margin-bottom: 0%;
+    display: flex;
+    flex-flow: row;
+  
+  /*Para hacer que la cabecera florte sobre el contenido*/
+    left: 0; /* Posicionamos la cabecera al lado izquierdo */
+      top: 0; /* Posicionamos la cabecera pegada arriba */
+      position: fixed; /* Hacemos que la cabecera tenga una posición fija */
+    z-index: 5;
+  }
+  header p{
+    font-size: 2.5vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+  }
+  
+  header label{
+    font-size: 2.5vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  header a{
+    text-decoration: none;
+    color: white;
+  }
+  
+  header a:hover{
+   color: #BFA36F;
+  }
+  
+  
+  header p:nth-child(2) {
+  font-weight: bold;
+  }
+  
+  body{
+    background-color: #191919;
+  }
+  
+  
+  footer{
+    background-color: #BFA36F;
+  
+    margin-top: auto;
+  }
+
+  article{
+      display: flex;
+      flex: 90vw;
+      max-width: 90vw;
+      margin-left: auto;
+      margin-right: auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      margin-top: 10vh;
+      background-color: #191919;
+      border: dotted #0477BF 0.8vw;
+      border-top: none;
+      border-radius: 100px;
+      padding: 80px;
+      color: white;
+      font-size: 1.2vw;
+    
+  }
+  article h1{
+      display: flex;
+      flex: 100vw;
+      font-size: 2.5vw;
+  }
+  article p{
+      color: #e7d417;
+  }
+  
+  article span{
+      color: #e71775;
+  }
+
+  
+  
+  #contenedor{
+
+    background-color: #191919;
+    padding: 1%;
+    border-radius: 5px;
+    display: flex;
+    flex: 1%;
+    max-width: 80%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  
+    margin-top: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #contenedor video{
+    display: flex;
+    flex: 100%;
+    border-radius: 5px;
+  }
+  
+  #botones{
+    margin-top: 1%;
+    display: flex;
+    flex: 1%;
+    max-width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+  }
+  
+  #tiempo{
+      margin-top:auto;
+      margin-bottom: auto;
+      margin-left: auto;
+      margin-right: 2px;
+  }
+  
+  #barra{
+    width: 10%;
+  }
+  
+  #linea{
+  
+    margin-top:5px;
+  
+    background-color: white;
+    padding: 1px;
+    border-radius: 10px;
+    display: flex;
+    flex: 100%;
+  }
+  
+  button{
+    border: none;
+    transition-duration: 1s;
+    background-color: inherit;
+    color: white;
+  }
+  
+  button:hover{
+    cursor: pointer;
+    color: #0477BF;
+  }
+  
+  #expand{
+    background-color: inherit;
+    color: white;
+  }
+  
+  #expand:hover{
+    transform: scale(1.2,1.2);
+  }
+  
