@@ -144,7 +144,7 @@ if (isset($_POST['seguir_usuario'])) {
             break;
 
           case ('musica'):
-            echo "<button type='submit' name='publicacion_btn' value='" . $key->id_publicacion . "'><img src='../img_comprimidas/musica.jpeg/" . $key->archivo . "'/></button>";
+            echo "<button type='submit' name='publicacion_btn' value='" . $key->id_publicacion . "'><img src='../img/audio.png'/><p class='titulo_song'>".$key->titulo."</p></button>";
             break;
         }
       }

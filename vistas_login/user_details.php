@@ -5,11 +5,6 @@ session_name("farzone");
 session_start();
 
 
-if (!isset($_SESSION['usuario'])) {
-  header('Location: ../vistas/pagina_principal.php');
-  exit;
-}
-
 if (isset($_POST['editar_perf'])) {
   header('Location: ../vistas_login/perfil.php');
   exit;
@@ -139,7 +134,7 @@ if (isset($_POST['editar_perf'])) {
             break;
 
           case ('musica'):
-            echo "<button type='submit' name='publicacion_btn' value='" . $key->id_publicacion . "'><img src='../img_comprimidas/musica.jpeg/" . $key->archivo . "'/></button>";
+            echo "<button type='submit' name='publicacion_btn' value='" . $key->id_publicacion . "'><img src='../img/audio.png'/><p class='titulo_song'>".$key->titulo."</p></button>";
             break;
         }
       }

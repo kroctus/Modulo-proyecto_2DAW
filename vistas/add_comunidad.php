@@ -25,17 +25,16 @@ if (isset($_POST["guardar"])) {
 
   $datos = array();
 
-  $datos["titulo"] = $_POST["titulo"];
+  $datos["creador"]=$usuario;
+  $datos["nombre"] = $_POST["titulo"];
   $datos["descripcion"] = $_POST["descripcion"];
-  $datos["fec_publicacion"] = date("Y-m-d");
+  $datos["icono"]=$_FILES["file"]["name"];
   $datos["categoria"] = $_POST["categoria"];
-  $datos["usuario"] = $usuario;
-  $datos["archivo"]=$_FILES["file"]["name"];
-
+  $datos["fec_creacion"] = date("Y-m-d");
 
 
   /**IMAGEN*/
-  if ($_POST["categoria"] == 'ilustracion' || $_POST["categoria"] == "diseño" || $_POST["categoria"] == 'fotografia') {
+  if (isset($_POST["categoria"])) {
 
     // Check if image file is a actual image or fake image
 
@@ -43,21 +42,22 @@ if (isset($_POST["guardar"])) {
     if ($check !== false) {
       $uploadOk = 1;
 
-      if (move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/pictures/' . $_FILES['file']['name'])) {
+      if (move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/img_comunidades/' . $_FILES['file']['name'])) {
 
         echo "<div class='ok'>";
-        echo "<p>Su publicación se ha subido correctamente</p>";
+        echo "<p>La comunidad ".$_POST["titulo"]." se ha creado correctamente</p>";
         echo "</div>";
 
-        $aux=consumir_servicio_REST($url.'insertar_publicacion','POST',$datos);
+        $aux=consumir_servicio_REST($url.'crear_comunidad','POST',$datos);
         if(isset($aux->mensaje_error)){
+          echo "<p>todo mal</p>";
           die($aux->mensaje_error);
         }
 
       }
     } else {
       echo "<div class='error'>";
-      echo "<p>El archivo seleccionado no es compatible con la categoria, por favor elija otra categoria o cambie el archivo</p>";
+      echo "<p>El archivo seleccionado no puede ser el icono de la comunidad ,por favor seleccione otro archivo</p>";
       echo "</div>";
       $uploadOk = 0;
     }
@@ -65,7 +65,7 @@ if (isset($_POST["guardar"])) {
 
   /**MUSICA */
 
- elseif ($_POST["categoria"] == 'musica') {
+/** elseif ($_POST["categoria"] == 'musica') {
 
     // Check if image file is a actual image or fake image
 
@@ -93,7 +93,7 @@ if (isset($_POST["guardar"])) {
       }
       
     }
-  }
+  } */
 }
 
 ?>
@@ -130,7 +130,7 @@ if (isset($_POST["guardar"])) {
 
 <body>
 
-  <form action="add.php" method="POST" enctype="multipart/form-data">
+  <form action="add_comunidad.php" method="POST" enctype="multipart/form-data">
 
     <header>
       <p id="titulo"><a href="../index.php">Farzone</i></a></p>
@@ -147,7 +147,7 @@ if (isset($_POST["guardar"])) {
 
         <input type="file" name="file" id="" accept="image/*,audio/*">
 
-        <p id="name">sube aquí tu archivo</p>
+        <p id="name">Sube aquí el ícono de tu comunidad</p>
 
       </article>
 

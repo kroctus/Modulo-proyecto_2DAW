@@ -316,7 +316,7 @@ function get_publicaciones(){
 	}else{
 		
 		mysqli_set_charset($con,'utf8');
-		$consulta="SELECT * from publicaciones";
+		$consulta="SELECT * from publicaciones ORDER BY id_publicacion DESC";
 		$resultado=mysqli_query($con,$consulta);
 		if(!$resultado){		
 			mysqli_free_result($resultado);
@@ -413,7 +413,7 @@ function get_publicacion_by_tipo_limit($tipo){
 	}else{
 		
 		mysqli_set_charset($con,'utf8');
-		$consulta="SELECT * from publicaciones where categoria='".$tipo."' LIMIT 6";
+		$consulta="SELECT * from publicaciones where categoria='".$tipo."' ORDER BY id_publicacion DESC LIMIT 5";
 		$resultado=mysqli_query($con,$consulta);
 		if(!$resultado){		
 			mysqli_free_result($resultado);
@@ -472,6 +472,26 @@ function get_coment_publicacion($id){
 
 }
 
+function borrar_comentarios($id){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="DELETE from comentarios where id_publicacion='".$id."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+					return array("mensaje_ok"=>"Se han eliminado los comentarios correctamente");
+
+		}
+}
+}
+
 function get_publicaciones_user($id){
 	$con=conectar();
 	if(!$con){
@@ -479,7 +499,7 @@ function get_publicaciones_user($id){
 	}else{
 		
 		mysqli_set_charset($con,'utf8');
-		$consulta="SELECT * from publicaciones where id_usuario='".$id."'";
+		$consulta="SELECT * from publicaciones where id_usuario='".$id."' ORDER BY id_publicacion DESC";
 		$resultado=mysqli_query($con,$consulta);
 		if(!$resultado){		
 			mysqli_free_result($resultado);
@@ -527,6 +547,26 @@ function insertar_comentario_publicacion($des_comentario,$id_usuario,$id_publica
 			return array("mensaje"=>"se ha agregado el comentario exitosamente");
 		}
 	}
+}
+
+function borrar_publicacion($id){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="DELETE from publicaciones where id_publicacion='".$id."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+					return array("mensaje_ok"=>"Se ha eliminado la publicación correctamente");
+
+		}
+}
 }
 
 /**COMUNIDADES */
@@ -600,7 +640,7 @@ function get_comunidad($id){
 	}else{
 		
 		mysqli_set_charset($con,'utf8');
-		$consulta="SELECT * from comunidades where id_comunidad='".$id."'";
+		$consulta="SELECT * from comunidades where id_comunidad='".$id."'  ORDER BY id_comunidad DESC";
 		$resultado=mysqli_query($con,$consulta);
 		if(!$resultado){		
 			mysqli_free_result($resultado);
@@ -626,7 +666,41 @@ function get_comunidad($id){
 
 }
 
-function insertar_comunidad($creador, $nombre, $descripcion, $icono,$categoria)
+
+function get_comunidad_by_tipo($categoria){
+	$con=conectar();
+	if(!$con){
+		return array("mensaje_error"=>"Error no se pudo conectar a la BD ERROR: ".mysqli_connect_errno());
+	}else{
+		
+		mysqli_set_charset($con,'utf8');
+		$consulta="SELECT * from comunidades where categoria='".$categoria."'";
+		$resultado=mysqli_query($con,$consulta);
+		if(!$resultado){		
+			mysqli_free_result($resultado);
+			mysqli_close($con);
+			return array("mensaje"=>"Error no se ha realizado la consulta ERROR: ".mysqli_errno($con));
+		}else{
+
+				if(mysqli_num_rows($resultado)>0){
+					$comunidad=Array();
+					while($fila=mysqli_fetch_assoc($resultado)){
+						$comunidad[]=$fila;
+					}
+		
+					mysqli_free_result($resultado);
+					mysqli_close($con);
+					return array("comunidad"=>$comunidad);
+				
+				}else{
+					return false;// no esta repetido
+				}
+	}
+}
+
+}
+/**$_POST["creador"],$_POST["nombre"],$_POST["descripcion"],$_POST["icono"],$_POST["categoria"],$_POST["fec_creacion"] */
+function insertar_comunidad($creador, $nombre, $descripcion, $icono,$categoria,$fec_creacion)
 {
 	$con=conectar();
 	if(!$con){
@@ -635,7 +709,7 @@ function insertar_comunidad($creador, $nombre, $descripcion, $icono,$categoria)
 		
 		$likes=0;
 		mysqli_set_charset($con,'utf8');
-		$consulta="INSERT into comunidades (creador,nombre,descripcion,categoria,icono,categoria) VALUES ('$creador','$nombre','$descripcion','$categoria','$icono','$likes','$categoria')";
+		$consulta="INSERT into comunidades (creador,nombre,descripcion,icono,categoria,fec_creacion) VALUES ('$creador','$nombre','$descripcion','$icono','$categoria','$fec_creacion')";
 		$resultado=mysqli_query($con,$consulta);
 
 		if(!$resultado){

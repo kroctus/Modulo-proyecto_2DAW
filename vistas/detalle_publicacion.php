@@ -6,6 +6,10 @@ session_start();
 require "../servicio_rest/funciones.php";
 
 
+if(!isset($_SESSION["id_publicacion"])){
+header("Location: ../index.php");
+}
+
 if (isset($_SESSION['publicacion_a_buscar'])) {
     $_SESSION["id_publicacion"] = $_SESSION['publicacion_a_buscar'];
     unset($_SESSION['publicacion_a_buscar']);
@@ -46,6 +50,18 @@ if (isset($_POST['pub_user'])) {
         echo "ERRROR";
         die($obj5->mensaje_error);
     }
+}elseif (isset($_POST["edit_pub"])) {
+    $_SESSION["pub_a_edit"]=$_POST["edit_pub"];
+    header("Location: ../vistas/edit_publicacion.php");
+}elseif (isset($_POST["delete_pub"])) {
+
+    echo "<form action='detalle_publicacion.php' method='post' class='bloqueo_not'>";
+
+        echo "<p>¿Estas seguro de que deseas eliminar esta publicación?</p>";
+        echo "<button type='submit' name='cont_delete' >Si,eliminar</button>";
+        echo "<button type='submit'>No</button>";
+
+    echo "</form>";
 }
 
 ?>
@@ -130,9 +146,6 @@ if (isset($_POST['pub_user'])) {
                             echo "<p>" . $key->descripcion . "</p>";
                         } else {
 
-                            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
-                            echo "<h1>" . $key->titulo . "</h1>";
-
                             $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($key->id_usuario), 'GET');
                             if (isset($obj3->mensaje_error)) {
                                 die($obj3->mensaje_error);
@@ -141,6 +154,21 @@ if (isset($_POST['pub_user'])) {
                             foreach ($obj3->usuario as $kay) {
                                 $usuario = $kay->usuario;
                             }
+                    
+                            if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]==$usuario){
+                                echo "<div class='contenedor_opc'>";
+                                
+                                echo "<button type='submit' name='edit_pub' id='btn_edit' value='".$key->id_publicacion."'><i class='far fa-edit fa-2x'></i></button>";
+                                echo "<button type='submit' name='delete_pub' id='btn_delete' value='".$key->id_publicacion."'><i class='fas fa-trash-alt fa-2x'></i></button>";
+                                
+                                echo "</div>";
+                            }
+
+                            echo "<img src='../uploads/pictures/" . $key->archivo . "'>";
+                            echo "<h1>" . $key->titulo;
+                            echo "</h1>";
+
+                         
 
 
                             echo "<p class='cont_btn_usu'>";
@@ -163,7 +191,6 @@ if (isset($_POST['pub_user'])) {
             <form action="detalle_publicacion.php" method="post">
 
                 <?php
-
                 echo "<h1>Comentarios</h1>";
                 if (isset($_SESSION['usuario'])) {
 
@@ -189,8 +216,6 @@ if (isset($_POST['pub_user'])) {
                         echo "<h1 class='no_comen'>No hay Comentarios</h1>";
                         return;
                     }
-
-                    echo "<h1 class='no_comen'>Comentarios</h1>";
 
                     foreach ($obj2->comentarios as $key) {
 

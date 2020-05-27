@@ -437,6 +437,29 @@
       z-index: 4;
     }
 
+    .comunidad_class{
+      display: flex;
+      flex: 90vw;
+      flex-direction: column;
+      max-width: 90vw;
+      text-align: center;
+
+      margin-left: auto;
+      margin-right: auto;
+
+      font-size: 3vw;
+    }
+
+    .filtro{
+      display: flex;
+      flex: 80vw;
+      max-width: 80vw;
+
+      padding: 10px;
+      font-size: 4vw;
+    }
+
+
   /* version WEB*/
 
 @media (min-width: 1129px ){
@@ -523,5 +546,8 @@ body{
 
 
 
+.filtro{
+  font-size: 1.5vw;
+}
 
 }

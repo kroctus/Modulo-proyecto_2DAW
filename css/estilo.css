@@ -880,7 +880,7 @@ z-index: 10000;
   display: none;
 }
 
-#subcategoria_title, .ver_todas,.subcategoria_contenido{
+.subcategoria_title, .ver_todas,.subcategoria_contenido{
   display: none;
 }
 
@@ -1284,13 +1284,29 @@ z-index: 10000;
 
 
 
-  #subcategoria_title{
+  .subcategoria_title{
     margin-top: 5vh;
     display: flex;
     flex: 100vw;
     max-width: 85vw;
     color: white;
     font-weight: bold;
+  }
+
+  #subcategoria_title_musica{
+    color: yellow;
+  }
+
+  #subcategoria_title_diseño{
+    color: pink;
+  }
+
+  #subcategoria_title_fotografia{
+    color: #BFA36F;
+  }
+
+  #subcategoria_title_ilustracion{
+    color: #0477BF;
   }
 
 .ver_todas{

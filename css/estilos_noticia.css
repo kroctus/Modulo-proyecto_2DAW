@@ -403,6 +403,95 @@ section #comentarios .comentario button:hover{
   color: #0477BF !important;
 }
 
+.contenedor_opc{
+  display: flex;
+  flex: 55vw;
+  max-width: 92vw;
+  flex-direction: row;
+}
+
+.contenedor_opc button{
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px;
+
+  transition-duration: 1s;
+}
+
+.contenedor_opc button:hover{
+  cursor: pointer;
+  background-color: white;
+  color: black;
+}
+
+.contenedor_opc button:nth-child(1){
+  margin-left: auto;
+}
+
+.contenedor_opc #btn_edit{
+  border-top-left-radius: 10px;
+}
+
+.contenedor_opc #btn_delete{
+  border-top-right-radius: 10px;
+}
+
+.contenedor_opc #btn_delete:hover{
+  color: red;
+}
+
+
+.bloqueo_not{
+
+  position: absolute;
+  top: 0vh;
+  right: 0;
+  
+
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgb(55, 66, 88);
+  width: 60vw;
+  border-bottom-left-radius: 10px;
+  
+  transition-duration: 1s;
+
+}
+
+.bloqueo_not p{
+  color: white;
+  font-size: 3vw;
+}
+
+.bloqueo_not button{
+  width: 50vw;
+  padding: 10px;
+  text-align: center;
+  border: none;
+  color: white;
+
+  margin-bottom: 1vw;
+  border-radius: 5px;
+
+  transition-duration: 1s;
+}
+
+.bloqueo_not button:hover{
+  cursor: pointer;
+  transform: scale(1.05,1.05);
+}
+
+.bloqueo_not button:nth-child(2){
+background-color: red;
+}
+
+.bloqueo_not button:nth-child(3){
+  color: #0477BF;
+}
+
+
 
 @media (min-width: 800px){
 /*
@@ -477,6 +566,22 @@ height: 100vh;
 
 .comentario .label_user button{
     color: #0477BF !important;
+  }
+
+  .contenedor_opc{
+    flex: 54vw;
+    max-width: 54vw;
+  }
+
+  .bloqueo_not{
+    right: 0vw;
+    width: 20vw;
+
+    z-index: 600;
+  }
+
+  .bloqueo_not p{
+    font-size: 1vw;
   }
 
 }

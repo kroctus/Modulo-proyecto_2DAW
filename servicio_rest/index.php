@@ -90,6 +90,13 @@ $app->post('/insertar_comentario_publicacion', function () {
 });
 
 
+$app->delete('/borrar_publicacion/:id',function($id){
+	echo json_encode(borrar_publicacion($id),JSON_FORCE_OBJECT);
+});
+
+
+
+
 /**COMUNIDADES */
 
 
@@ -105,10 +112,13 @@ $app->get('/get_comunidad/:id',function($id){
 	echo json_encode(get_comunidad($id),JSON_FORCE_OBJECT);
 });
 
-$app->post('/crear_comunidad', function () {
+$app->get('/get_comunidad_by_cate/:categoria',function($categoria){
+	echo json_encode(get_comunidad_by_tipo($categoria),JSON_FORCE_OBJECT);
+});
 
+$app->post('/crear_comunidad', function () {
 	/*$creador, $nombre, $descripcion, $icono,$categoria */
-	echo json_encode(insertar_comunidad($_POST["creador"],$_POST["nombre"],$_POST["descripcion"],$_POST["icono"],$_POST["categoria"]),JSON_FORCE_OBJECT);
+	echo json_encode(insertar_comunidad($_POST["creador"],$_POST["nombre"],$_POST["descripcion"],$_POST["icono"],$_POST["categoria"],$_POST["fec_creacion"]),JSON_FORCE_OBJECT);
 });
 
 

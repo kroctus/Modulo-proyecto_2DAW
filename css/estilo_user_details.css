@@ -310,7 +310,34 @@ footer a:hover{
   transform: scale(1.1,1.1);
 }
 
+.titulo_song{
+  position: absolute;
+  top: 2;
+
+  background-color: rgb(255, 0, 0);
+  color: white;
+  
+  display: flex;
+  flex: 100rem;
+  max-width: 100rem;
+  padding: 10px;
+
+  border-top-right-radius: 10px ;
+}
+
 /* version WEB*/
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+  #publicaciones button{
+    margin-top: 1vh;
+  }
+
+  #publicaciones button img{
+    height: 200px;
+  }
+} 
 
 @media (min-width: 1129px ){
 

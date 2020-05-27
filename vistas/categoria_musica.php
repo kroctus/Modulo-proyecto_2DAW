@@ -1,3 +1,20 @@
+<?php
+require "../servicio_rest/funciones.php";
+session_name("farzone");
+session_start();
+
+if(isset($_POST['publicacion_btn'])){
+
+  $_SESSION['publicacion_a_buscar']=$_POST['publicacion_btn'];
+  header('Location: ../vistas/detalle_publicacion.php');
+  exit;
+
+}elseif(isset($_POST["usuario"])){
+  $_SESSION["usuario_a_buscar"]=$_POST["usuario"];
+  header('Location: ../vistas/check_user.php');
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -86,134 +103,64 @@
   </div>
   <section>
 
-    <article>
-      <h1>Noticias</h1>
-
-      <div class="carousel">
-        <div class="slider">
-          <div>
-            <img src="../img_comprimidas/carrusel.webp">
-          </div>
-          <div>
-            <img src="../img_comprimidas/with.webp">
-          </div>
-
-          <div>
-            <img src="../img_comprimidas/java.webp">
-          </div>
-        </div>
-      </div>
-    </article>
-    </article>
-
     <article class="">
       <h3>musica</h3>
     </article>
 
     <span id="linea"></span>
 
-    <article id="diseño" class="categorias">
 
-      <h2><a href="#">Subcategoria musica 1</a></h2>
-      <p>Todos los generos que puedas imaginar y si no encuentras uno subelo tu mismo</p>
+    
+    <?php
+   echo '<form action="categoria_musica.php" method="post">';
+    $categoria='musica';
+    $obj = consumir_servicio_REST($url . 'get_publicaciones_by_tipo/' . $categoria, 'GET');
+    if (isset($obj->mensaje_error)) {
+      echo "<p>No hay publicaciones</p>";
+      die($obj->mensaje_error);
+    } else {
 
-    </article>
+  foreach ($obj->publicaciones as $aux) {
+    $id_usuario = $aux->id_usuario;
 
-    <article id="musica" class="categorias">
+    $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($id_usuario), 'GET');
+    if (isset($obj3->mensaje_error)) {
+      die($obj3->mensaje_error);
+    } else {
+      foreach ($obj3->usuario as $key) {
+        $usuario=$key->usuario;
+        
+      }
+    }
 
+    echo' <audio id="videoPlayer'.$aux->id_publicacion.'">';
+    echo'  <source src="../uploads/audio/'.$aux->archivo.'" />';
+    echo'  Your browser does not support the audio element.';
+    echo' </audio>';
 
-      <h2><a href="#">Subcategoria musica 2</a></h2>
-      <p>Sube aquí tus musicas y descubre también el arte de los demás</p>
+    echo'<article class="contenido">';
+    echo '<p><button type="submit" name="usuario" value="'.$usuario.'" class="btn_opc_rep">'.$usuario.'</button></p>';
+    echo '<p><button type="submit" name="publicacion_btn" value="'.$aux->id_publicacion.'" class="btn_opc_rep">'.$aux->titulo.'</button></p>';
+    echo '<span id="linea"></span>';
 
-    </article>
+    echo '<button type="button" name="button" onclick="playPause('.$aux->id_publicacion.')"><i class="fas fa-play fa-1x"></i></i></button>';
+    echo '<button type="button" name="button" onclick="parar('.$aux->id_publicacion.')"><i class="fas fa-stop fa-1x"></i></button>';
+    echo '<button type="button" name="button" onclick="reiniciar('.$aux->id_publicacion.')"><i class="fas fa-redo-alt fa-1x"></i></button>';
+    echo '<button type="button" name="button" onclick="low(1,'.$aux->id_publicacion.')"><i class="fas fa-backward"></i></button>';
+    echo '<button type="button" name="button" onclick="fast(1,'.$aux->id_publicacion.')"><i class="fas fa-forward"></i></button>';
+    echo '<button type="button" name="button" onclick="silenciar('.$aux->id_publicacion.')" id="muted"><i class="fas fa-volume-up"></i></button>';
 
-    <article id="fotografia" class="categorias">
+    echo ' <span id="tiempo'.$aux->id_publicacion.'"></span>';
 
-
-      <h2><a href="#">Subcategoria musica 3<a href="#"></a></h2>
-      <p>nada mejor que capturar ese momento especial, bienvenidos fotografos</p>
-
-    </article>
-
-    <article id="ilustracion" class="categorias">
-
-
-      <h2><a href="#">Subcategoria Diseño 4</a></h2>
-      <p>sskdnolsnoshnoishdosjsjd</p>
-
-    </article>
-
-    <article id="diseño" class="categorias">
-
-      <h2><a href="#">Subcategoria musica 1</a></h2>
-      <p>Todos los generos que puedas imaginar y si no encuentras uno subelo tu mismo</p>
-
-    </article>
-
-    <article id="musica" class="categorias">
-
-
-      <h2><a href="#">Subcategoria musica 2</a></h2>
-      <p>Sube aquí tus musicas y descubre también el arte de los demás</p>
-
-    </article>
-
-    <article id="fotografia" class="categorias">
-
-
-      <h2><a href="#">Subcategoria musica 3<a href="#"></a></h2>
-      <p>nada mejor que capturar ese momento especial, bienvenidos fotografos</p>
-
-    </article>
-
-    <article id="ilustracion" class="categorias">
-
-
-      <h2><a href="#">Subcategoria musica 4</a></h2>
-      <p>sskdnolsnoshnoishdosjsjd</p>
-
-    </article>
-
-
-    <nav id="desplegable">
-      <ul class="nav">
-        <li><a href="">Lo más reciente<i class="fas fa-chevron-down"></i></a>
-          <ul>
-            <li><a href="">Submenu1</a></li>
-            <li><a href="">Submenu2</a></li>
-            <li><a href="">Submenu3</a></li>
-            <li><a href="">Submenu4</a></li>
-          </ul>
-        </li>
-        <li><a href="">Categorias<i class="fas fa-chevron-down"></i></a>
-          <ul>
-            <li><a href="">Submenu1</a></li>
-            <li><a href="">Submenu2</a></li>
-            <li><a href="">Submenu3</a></li>
-            <li><a href="">Submenu4</a></li>
-          </ul>
-        </li>
-        <li><a href="">Ordenar por<i class="fas fa-chevron-down"></i></a>
-          <ul>
-            <li><a href="">Submenu1</a></li>
-            <li><a href="">Submenu2</a></li>
-            <li><a href="">Submenu3</a></li>
-            <li><a href="">Submenu4</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-
-    <audio id="videoPlayer">
-      <source src="../sound/m1.mp3" />
-      Your browser does not support the audio element.
-    </audio>
+    echo '</article>';
+  }
+}
+        echo "<form>";
+    ?>
 
 
 
-
-
-    <article class="contenido">
+<!--    <article class="contenido">
       <p>Autor: nombre</p>
       <p>titulo: titulo</p>
       <span id="linea"></span>
@@ -227,219 +174,7 @@
 
       <span id="tiempo"></span>
 
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-      <span id="linea"></span>
-
-      <button type="button" name="button" onclick="playPause()"><i class="fas fa-play fa-1x"></i></i></button>
-      <button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>
-      <button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>
-      <button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>
-      <button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>
-      <button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>
-
-      <span id="tiempo"></span>
-
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-      <span id="linea"></span>
-
-      <button type="button" name="button" onclick="playPause()"><i class="fas fa-play fa-1x"></i></i></button>
-      <button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>
-      <button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>
-      <button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>
-      <button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>
-      <button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>
-
-      <span id="tiempo"></span>
-
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-      <span id="linea"></span>
-
-      <button type="button" name="button" onclick="playPause()"><i class="fas fa-play fa-1x"></i></i></button>
-      <button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>
-      <button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>
-      <button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>
-      <button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>
-      <button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>
-
-      <span id="tiempo"></span>
-
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-      <span id="linea"></span>
-
-      <button type="button" name="button" onclick="playPause()"><i class="fas fa-play fa-1x"></i></i></button>
-      <button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>
-      <button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>
-      <button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>
-      <button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>
-      <button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>
-
-      <span id="tiempo"></span>
-
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-      <span id="linea"></span>
-
-      <button type="button" name="button" onclick="playPause()"><i class="fas fa-play fa-1x"></i></i></button>
-      <button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>
-      <button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>
-      <button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>
-      <button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>
-      <button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>
-
-      <span id="tiempo"></span>
-
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-      <span id="linea"></span>
-
-      <button type="button" name="button" onclick="playPause()"><i class="fas fa-play fa-1x"></i></i></button>
-      <button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>
-      <button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>
-      <button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>
-      <button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>
-      <button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>
-
-      <span id="tiempo"></span>
-
-    </article>
-
-    <article class="contenido">
-      <p>Autor: nombre</p>
-      <p>titulo: titulo</p>
-      <span id="linea"></span>
-
-      <button type="button" name="button" onclick="playPause()"><i class="fas fa-play fa-1x"></i></i></button>
-      <button type="button" name="button" onclick="parar()"><i class="fas fa-stop fa-1x"></i></button>
-      <button type="button" name="button" onclick="reiniciar()"><i class="fas fa-redo-alt fa-1x"></i></button>
-      <button type="button" name="button" onclick="low(1)"><i class="fas fa-backward"></i></button>
-      <button type="button" name="button" onclick="fast(1)"><i class="fas fa-forward"></i></button>
-      <button type="button" name="button" onclick="silenciar()" id="muted"><i class="fas fa-volume-up"></i></button>
-
-      <span id="tiempo"></span>
-
-    </article>
-
-    <p id="subcategoria_title">Subcategoria1</p>
-    <p class="ver_todas"><a href="#">Ver todas</a></p>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-
-
-
-    <p id="subcategoria_title">Subcategoria2</p>
-    <p class="ver_todas"><a href="#">Ver todas</a></p>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-
-    <p id="subcategoria_title">Subcategoria3</p>
-    <p class="ver_todas"><a href="#">Ver todas</a></p>
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-
-    <p id="subcategoria_title">Subcategoria4</p>
-    <p class="ver_todas"><a href="#">Ver todas</a></p>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-    <article class="subcategoria_contenido">
-      <img src="../img_comprimidas/musica.webp" alt="">
-    </article>
-
-
-
-
+    </article> -->
 
 
 
@@ -466,10 +201,6 @@
 
 
     </article>
-
-    <div id="plus">
-      <i class="fas fa-plus-circle 5x"></i>
-    </div>
 
     <div id="up">
       <i class="far fa-caret-square-up 5x"></i>
@@ -500,44 +231,51 @@
 
 <script>
   /*MUSIC SCRIPT*/
-  var video = document.getElementById("videoPlayer");
 
-  function playPause() {
-    
+
+  function playPause(id) {
+    var video = document.getElementById("videoPlayer"+id);
     if (video.paused)
-      video.play();
+      video.play(id);
     else
-      video.pause();
+      video.pause(id);
   }
 
-  function reload() {
+  function reload(id) {
+    var video = document.getElementById("videoPlayer"+id);
     video.load();
   }
 
-  function makeLarge() {
-    video.requestFullscreen();
+  function makeLarge(id) {
+    var video = document.getElementById("videoPlayer"+id);
+    video.requestFullscreen(id);
   }
 
-  function makeSmall() {
+  function makeSmall(id) {
+    var video = document.getElementById("videoPlayer"+id);
     video.width = 250;
   }
 
-  function makeNormal() {
+  function makeNormal(id) {
+    var video = document.getElementById("videoPlayer"+id);
     video.width = 500;
   }
 
-  function parar() {
-    video.pause();
+  function parar(id) {
+    var video = document.getElementById("videoPlayer"+id);
+    video.pause(id);
     video.currentTime = 0;
   }
 
-  function reiniciar() {
-    video.pause();
+  function reiniciar(id) {
+    var video = document.getElementById("videoPlayer"+id);
+    video.pause(id);
     video.currentTime = 0;
-    video.play();
+    video.play(id);
   }
 
-  function silenciar() {
+  function silenciar(id) {
+    var video = document.getElementById("videoPlayer"+id);
     if (video.muted == true) {
       console.log("silencio");
       video.muted = false;
@@ -549,32 +287,38 @@
     }
   }
 
-  function desmutear() {
+  function desmutear(id) {
+    var video = document.getElementById("videoPlayer"+id);
     video.muted = false;
   }
 
-  function fast(value) {
+  function fast(value,id) {
+    var video = document.getElementById("videoPlayer"+id);
     video.playbackRate += value;
     video.play();
   }
 
-  function low(value) {
+  function low(value,id) {
+    var video = document.getElementById("videoPlayer"+id);
     video.playbackRate -= value;
     video.play();
   }
 
-  function skip(value) {
+  function skip(value,id) {
+    var video = document.getElementById("videoPlayer"+id);
     video.currentTime += value;
   }
 
-  function skipMinus(value) {
+  function skipMinus(value,id) {
+    var video = document.getElementById("videoPlayer"+id);
     video.currentTime -= value;
   }
 
 
 
 
-  function hora(segundos) {
+  function hora(segundos,id) {
+    var video = document.getElementById("videoPlayer"+id);
     var d = new Date(segundos * 1000);
     // Ajuste de las 23 horas
     var hora = (d.getHours() == 0) ? 23 : d.getHours() - 1;
@@ -585,13 +329,15 @@
   }
 
   video.addEventListener("timeupdate", function(ev) {
-    document.getElementById("tiempo").innerHTML = hora(video.currentTime);
+    var video = document.getElementById("videoPlayer"+id);
+    document.getElementById("tiempo"+id).innerHTML = hora(video.currentTime);
   }, true);
 
 
   //volumen
 
   barra.addEventListener("change", function(ev) {
+    var video = document.getElementById("videoPlayer"+id);
     video.volume = ev.currentTarget.value;
   }, true);
 </script>

@@ -216,19 +216,27 @@ font-weight: bold;
 
 section {
   display: flex;
-  flex: 100%;
-  max-width: 100%;
+  flex: 100vw;
+  max-width: 100vw;
   flex-direction: row;
   flex-wrap: wrap;
   padding-top: 60px; /* Relleno superior igual a la altura de la cabecera*/
 }
 
+section form{
+  display: flex;
+  flex: 100vw;
+  max-width: 100vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 section article{
   display: flex;
-  flex: 100%;
+  flex: 100vw;
   flex-flow: row;
   flex-wrap: wrap;
-  max-width: 100%;
+  max-width: 100vw;
 
   border-radius: 2px;
   margin-top: 3%;
@@ -246,7 +254,7 @@ article h3{
 
 background-color: #F2B705;
   padding: 2%;
-  width: 80%;
+  width: 80vw;
   text-align: center;
   border-radius: 10px;
 }
@@ -515,32 +523,6 @@ display: none;
     transform: translate(35%);
 }
 
-/*Imagenes de fondo*/
-
-/*Imagenes de fondo de cada uno de los articulos*/
-/*Se han subido al servidor y accedemos a ellas desde este*/
-/*Ya que no hay otra forma de ponerlas en el fondo*/
-
-#intro{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/edit.png");
-}
-
-#musica{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/musica.jpeg");
-}
-
-#diseño{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/diseño.jpg");
-}
-
-#fotografia{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/foto.jpg");
-}
-
-#ilustracion{
-  background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/ilustracion.jpg");
-}
-
 
 /*Seccion de la comunidad donde se muestran las diferentes comunidades*/
 
@@ -620,16 +602,57 @@ margin-right: 2%;
 /*Hacemos invisibles los desplegables_tablet que son los que se
 mostrarán cuando la página se visualice en modo tablet*/
 
-#desplegable{
-  display: none;
-}
-
-#orden1,#categorias_check,#ordenar_por{
-  display: none;
-}
 
 .contenido{
-  display: none;
+  background-image: url("../img_comprimidas/musica.webp");
+
+  display: flex;
+  flex: 90vw;
+  flex-flow: row;
+  font-size: 1em;
+  max-width: 90vw;
+  padding: 40px;
+  flex-wrap: wrap;
+
+
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+  transition-duration: 1s;
+}
+
+.contenido:hover{
+  background-image: url("../img/audio3.png");
+  transform: scale(1.03,1.03);
+  cursor: pointer;
+}
+
+.contenido p{
+  display: flex;
+  flex: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.contenido #linea{
+  display: flex;
+  flex: 100%;
+}
+
+.contenido button{
+  background-color: inherit;
+  color: white;
+  border: none;
+  margin: 2%;
+  margin-top: 5%;
+}
+
+.contenido button:hover{
+  cursor: pointer;
+  color: #191919;
 }
 
 #iniciar_sesion_header,#busq_2,#titulo_2{
@@ -658,6 +681,18 @@ display: none;
 
   display: none;
 }
+
+
+.btn_opc_rep{
+  background-color: white!important;
+  color: black !important;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  border-radius: 50px;
+}
+
 
 
 /*--Media para la versión de tablet--*/
@@ -693,7 +728,7 @@ display: none;
   }
 
   .contenido{
-    background-image: url("https://gabrielpayano.000webhostapp.com/Proyecto/img/musica.jpeg");
+    background-image: url("../img_comprimidas/musica.webp");
 
     display: flex;
     flex: 40%;
@@ -712,7 +747,9 @@ display: none;
   }
 
   .contenido:hover{
-    transform: scale(1.1,1.1);
+
+    background-image: url("../img/audio3.png");
+    transform: scale(1.03,1.03);
     cursor: pointer;
   }
 
@@ -979,7 +1016,7 @@ display: none;
 .subcategoria_contenido:hover{
 
   cursor: pointer;
-  transform: scale(1.1,1.1);
+  transform: scale(1.03,1.03);
 
 }
 
@@ -1010,6 +1047,10 @@ display: none;
   border-radius: 10px;
 }
 
-
+.contenido{
+  max-width: 30vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
 
 }
