@@ -58,10 +58,34 @@ if (isset($_POST['pub_user'])) {
     echo "<form action='detalle_publicacion.php' method='post' class='bloqueo_not'>";
 
         echo "<p>¿Estas seguro de que deseas eliminar esta publicación?</p>";
-        echo "<button type='submit' name='cont_delete' >Si,eliminar</button>";
+        echo "<button type='submit' name='cont_delete' value='".$_POST["delete_pub"]."' >Si,eliminar</button>";
         echo "<button type='submit'>No</button>";
 
     echo "</form>";
+}elseif (isset($_POST["cont_delete"])) {
+
+    $_SESSION["its_delete"]="";
+    
+    $delete=consumir_servicio_REST($url.'borrar_comentarios/'.$_POST["cont_delete"],"DELETE");
+    if(isset($delete->mensaje_error)){
+        die($delete->mensaje_error);
+    }else{
+        $obj=consumir_servicio_REST($url.'borrar_publicacion/'.$_POST["cont_delete"],"DELETE");
+        if(isset($delete->mensaje_error)){
+            die($delete->mensaje_error);   
+        }else{
+            echo "<form action='detalle_publicacion.php' method='post' class='bloqueo_not'>";
+                echo "<p>Se ha eliminado la publicación</p>";
+                echo "<button type='submit' name='vale'>Vale</button>";
+            echo "</form>";
+        }
+    }
+
+}elseif (isset($_POST["vale"])) {
+    unset($_SESSION["its_delete"]);
+    unset($_SESSION["id_publicacion"]);
+    header("Location: ../vistas_login/pagina_principal.php");
+    exit;
 }
 
 ?>
@@ -105,6 +129,14 @@ if (isset($_POST['pub_user'])) {
 
         <span class="linea"></span>
 
+        <?php
+        
+        if(isset($_SESSION["its_delete"])){
+            echo "<p>Esta publicación no existe</p>";
+            exit;
+        }
+        ?>
+
         <article id="noticia">
             <form action="detalle_publicacion.php" method="post">
                 <?php
@@ -115,13 +147,30 @@ if (isset($_POST['pub_user'])) {
 
                     foreach ($obj->publicacion as $key) {
 
+                        $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($key->id_usuario), 'GET');
+                        if (isset($obj3->mensaje_error)) {
+                            die($obj3->mensaje_error);
+                        }
+
+                        foreach ($obj3->usuario as $kay) {
+                            $usuario = $kay->usuario;
+                        }
+                
+                        if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]==$usuario){
+                            echo "<div class='contenedor_opc'>";
+                            
+                            echo "<button type='submit' name='edit_pub' id='btn_edit' value='".$key->id_publicacion."'><i class='far fa-edit fa-2x'></i></button>";
+                            echo "<button type='submit' name='delete_pub' id='btn_delete' value='".$key->id_publicacion."'><i class='fas fa-trash-alt fa-2x'></i></button>";
+                            
+                            echo "</div>";
+                        }
+
                         if ($key->categoria == 'musica') {
 
                             echo '<article class="contenido">';
                             echo '<p>' . $key->titulo . '</p>';
 
                             echo '<span id="linea"></span>';
-
 
                             echo '<audio id="audio" controls>';
                             echo '<source src="../uploads/audio/' . $key->archivo . '" />';
@@ -130,14 +179,6 @@ if (isset($_POST['pub_user'])) {
                             echo '</article>';
 
 
-                            $obj3 = consumir_servicio_REST($url . 'get_usuario_by_id/' . urlencode($key->id_usuario), 'GET');
-                            if (isset($obj3->mensaje_error)) {
-                                die($obj3->mensaje_error);
-                            }
-
-                            foreach ($obj3->usuario as $kay) {
-                                $usuario = $kay->usuario;
-                            }
 
                             echo "<p class='cont_btn_usu'>";
                             echo 'Publicado por: ';

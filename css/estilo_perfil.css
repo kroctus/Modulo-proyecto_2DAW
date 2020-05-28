@@ -523,6 +523,26 @@
     background-color: #F2B705;
   }
 
+  .error,.ok{
+    display: flex;
+    flex: 80vw;
+    max-width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+
+    background-color:crimson;
+    color: white;
+
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    padding: 10px;
+  }
+
+  .ok{
+    
+    background-color:#0477BF;
+  }
   
   /*Tablet*/
   @media (min-width: 800px){

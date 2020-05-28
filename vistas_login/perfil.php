@@ -10,6 +10,23 @@ if (!isset($_SESSION["usuario"])) {
   header("Location: ../vistas/inicio_sesion.php");
 }
 
+
+$obj=consumir_servicio_REST($url.'get_usuario/'.urlencode($_SESSION["usuario"]),'GET');
+if(isset($obj->mensaje_error)){
+  die($obj->mensaje_error);
+
+  echo "SOY UN ERRPR";
+}else{
+
+  foreach ($obj->usuario as $key) {
+    $nombre=$key->nombre;
+    $apellido=$key->apellido;
+    $contra=$key->password;
+    $fec=$key->fec_nacimiento;
+    $sexo=$key->sexo;
+  }
+
+
 if(isset($_POST["guardar"])){
 
 
@@ -20,16 +37,23 @@ if(isset($_POST["guardar"])){
     $datos_usuario["usuario"]=$_SESSION["usuario"];
     $datos_usuario["nombre"]=$_POST["nombre"];
     $datos_usuario["apellido"]=$_POST["apellido"];
-    $datos_usuario["contra"]=md5($_POST["clave"]);
     $datos_usuario["sexo"]=$_POST["sexo"];
     $datos_usuario["fec_nac"]=$_POST["fec_nac"];
+
+    if(md5($_POST["clave"])!=$contra){
+      $datos_usuario["contra"]=md5($_POST["clave"]);
+    }else{
+      $datos_usuario["contra"]=$contra;
+    }
 
 
   $obj2=consumir_servicio_REST($url.'actualizar_usuario/'.urlencode($_SESSION["usuario"]),'PUT',$datos_usuario);
   if(isset($obj2->mensaje_error)){
     die($obj2->mensaje_error);
   }else{
-    echo "<p>Los Cambios se han guardado correctamente</p>";
+    echo "<div class='ok'>";
+    echo "<p>Los cambios se han guardado correctamente</p>";
+    echo "</div>";
   }
 
 }
@@ -38,20 +62,6 @@ if(isset($_POST["guardar"])){
 
 <?php
 
-  $obj=consumir_servicio_REST($url.'get_usuario/'.urlencode($_SESSION["usuario"]),'GET');
-  if(isset($obj->mensaje_error)){
-    die($obj->mensaje_error);
-
-    echo "SOY UN ERRPR";
-  }else{
-
-    foreach ($obj->usuario as $key) {
-      $nombre=$key->nombre;
-      $apellido=$key->apellido;
-      $contra=$key->password;
-      $fec=$key->fec_nacimiento;
-      $sexo=$key->sexo;
-    }
 
     ?>
 
@@ -110,8 +120,8 @@ if(isset($_POST["guardar"])){
 
 
         <label for="contra">Contraseña:</label>
-        <input type="password" name="clave" value="<?php echo $obj->usuario->password?>" id="contra" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
-NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
+        <input type="password" name="clave" value="" id="contra" title="Debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+NO puede tener otros símbolos." pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$">
 
 
         <label for="nombre">Nombre:</label>
